@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\Device\Interfaces;
+namespace App\Modules\Auth\Device\Interfaces;
 
-use App\Features\Auth\Device\BusinessModels\DeviceModel;
+use App\Modules\Auth\Device\BusinessModels\DeviceModel;
 
 interface DeviceRepositoryInterface
 {

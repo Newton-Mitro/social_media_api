@@ -1,7 +1,7 @@
 <?php
 
-use App\Features\Auth\Device\Models\Device;
-use App\Features\Auth\User\Models\User;
+use App\Modules\Auth\Device\Models\Device;
+use App\Modules\Auth\User\Models\User;
 use Illuminate\Http\Response;
 
 describe('RefreshToken', function (): void {

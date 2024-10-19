@@ -1,17 +1,14 @@
 <?php
-namespace App\Features\Auth\Authentication\Controllers;
+
+namespace App\Modules\Auth\Authentication\Controllers;
 
 
-use App\Core\Bus\IQueryBus;
 use App\Core\Controllers\Controller;
-use App\Features\Auth\Privacy\UseCases\Queries\GetPrivacyQuery;
+use App\Modules\Auth\Privacy\UseCases\Queries\GetPrivacyQuery;
 
 class GetPrivacyController extends Controller
 {
-    public function __construct(
-        protected IQueryBus $queryBus,
-    ) {
-    }
+    public function __construct() {}
 
     public function __invoke()
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Features\Auth\Device\Repositories;
+namespace App\Modules\Auth\Device\Repositories;
 
-use App\Features\Auth\Device\BusinessModels\DeviceModel;
-use App\Features\Auth\Device\Interfaces\DeviceRepositoryInterface;
-use App\Features\Auth\Device\Mappers\DeviceMapper;
-use App\Features\Auth\Device\Models\Device;
+use App\Modules\Auth\Device\BusinessModels\DeviceModel;
+use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
+use App\Modules\Auth\Device\Mappers\DeviceMapper;
+use App\Modules\Auth\Device\Models\Device;
 use Exception;
 use Illuminate\Http\Response;
 

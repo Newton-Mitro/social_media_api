@@ -1,21 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Features\Auth\Authentication\Controllers\LoginController;
-use App\Features\Auth\Authentication\Controllers\LogoutController;
-use App\Features\Auth\Authentication\Controllers\AuthUserController;
-use App\Features\Auth\Authentication\Controllers\GetPrivacyController;
-use App\Features\Auth\Authentication\Controllers\RefreshTokenController;
-use App\Features\Auth\Authentication\Controllers\RegistrationController;
-use App\Features\Auth\Authentication\Controllers\ResetPasswordController;
-use App\Features\Auth\Authentication\Controllers\ForgotPasswordController;
-use App\Features\Auth\Authentication\Controllers\PasswordChangeController;
-use App\Features\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
-use App\Features\Auth\Authentication\Middlewares\JwtRefreshTokenMiddleware;
-use App\Features\Auth\Authentication\Controllers\ResendForgotPasswordController;
-use App\Features\Auth\Authentication\Controllers\VerifyForgotPasswordOTPController;
-use App\Features\Auth\Authentication\Controllers\ResendAccountVerificationOtpController;
-use App\Features\Auth\Authentication\Controllers\VerifyAccountVerificationOtpController;
+use App\Modules\Auth\Authentication\Controllers\LoginController;
+use App\Modules\Auth\Authentication\Controllers\LogoutController;
+use App\Modules\Auth\Authentication\Controllers\AuthUserController;
+use App\Modules\Auth\Authentication\Controllers\GetPrivacyController;
+use App\Modules\Auth\Authentication\Controllers\RefreshTokenController;
+use App\Modules\Auth\Authentication\Controllers\RegistrationController;
+use App\Modules\Auth\Authentication\Controllers\ResetPasswordController;
+use App\Modules\Auth\Authentication\Controllers\ForgotPasswordController;
+use App\Modules\Auth\Authentication\Controllers\PasswordChangeController;
+use App\Modules\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
+use App\Modules\Auth\Authentication\Middlewares\JwtRefreshTokenMiddleware;
+use App\Modules\Auth\Authentication\Controllers\ResendForgotPasswordController;
+use App\Modules\Auth\Authentication\Controllers\VerifyForgotPasswordOTPController;
+use App\Modules\Auth\Authentication\Controllers\ResendAccountVerificationOtpController;
+use App\Modules\Auth\Authentication\Controllers\VerifyAccountVerificationOtpController;
+
 
 Route::middleware('guest')->prefix('auth')->group(function (): void {
     Route::post('register', RegistrationController::class)->name('auth.register');

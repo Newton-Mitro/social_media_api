@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Events;
+namespace App\Modules\Auth\Authentication\Events;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserModel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

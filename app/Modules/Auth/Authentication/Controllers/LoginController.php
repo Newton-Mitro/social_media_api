@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Controllers;
+namespace App\Modules\Auth\Authentication\Controllers;
 
-use App\Core\Bus\ICommandBus;
 use App\Core\Controllers\Controller;
-use App\Features\Auth\Authentication\Requests\LoginRequest;
-use App\Features\Auth\Authentication\UseCases\Commands\Login\LoginCommand;
+use App\Modules\Auth\Authentication\Requests\LoginRequest;
+use App\Modules\Auth\Authentication\UseCases\Commands\Login\LoginCommand;
 
 class LoginController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(LoginRequest $request)
     {
@@ -29,7 +26,7 @@ class LoginController extends Controller
                 device_ip: $ip,
             ),
         );
-// dd($res);
+        // dd($res);
         return response()->json([
             'data' => $res,
             'message' => $res['user']->email_verified_at ? 'Successfully logged in' : 'Your email address is not verified.',

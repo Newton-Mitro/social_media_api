@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Mail;
+namespace App\Modules\Auth\Authentication\Mail;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserModel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

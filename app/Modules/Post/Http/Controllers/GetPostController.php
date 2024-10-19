@@ -1,20 +1,15 @@
 <?php
 
-namespace App\Features\Post\Controllers;
+namespace App\Modules\Post\Controllers;
 
-use App\Core\Bus\ICommandBus;
-use App\Core\Bus\IQueryBus;
 use App\Core\Controllers\Controller;
-use App\Features\Post\Mappers\PostMapper;
-use App\Features\Post\UseCases\Queries\GetUserPosts\GetUserPostsQuery;
+use App\Modules\Post\Mappers\PostMapper;
+use App\Modules\Post\UseCases\Queries\GetUserPosts\GetUserPostsQuery;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetPostController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus   $queryBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(int $user_id)
     {

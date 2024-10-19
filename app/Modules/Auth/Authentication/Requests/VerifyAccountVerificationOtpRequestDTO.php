@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Requests;
+namespace App\Modules\Auth\Authentication\Requests;
 
 class VerifyAccountVerificationOtpRequestDTO
 {

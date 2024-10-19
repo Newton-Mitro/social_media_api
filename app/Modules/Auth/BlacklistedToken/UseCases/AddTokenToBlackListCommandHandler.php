@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Auth\BlacklistedToken\UseCases\Commands\AddBlackListToken;
+namespace App\Modules\Auth\BlacklistedToken\UseCases\Commands\AddBlackListToken;
 
-use App\Features\Auth\BlacklistedToken\BusinessModels\BlacklistedTokenModel;
-use App\Features\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
+use App\Modules\Auth\BlacklistedToken\BusinessModels\BlacklistedTokenModel;
+use App\Modules\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
 
 class AddTokenToBlackListCommandHandler
 {

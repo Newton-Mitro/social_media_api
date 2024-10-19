@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Features\Auth\OTP\Repositories;
+namespace App\Modules\Auth\OTP\Repositories;
 
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\Model;
-use App\Features\Auth\OTP\Models\UserOtp;
-use App\Features\Auth\OTP\Mappers\UserOtpMapper;
-use App\Features\Auth\OTP\BusinessModel\UserOtpModel;
-use App\Features\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
+use App\Modules\Auth\OTP\Models\UserOtp;
+use App\Modules\Auth\OTP\Mappers\UserOtpMapper;
+use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
+use App\Modules\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
 
 class UserOtpRepositoryInterfaceImpl implements UserOTPRepositoryInterface
 {
@@ -35,7 +35,7 @@ class UserOtpRepositoryInterfaceImpl implements UserOTPRepositoryInterface
         try {
             $userOtp = UserOtp::where('user_id', $userId)->first();
             if ($userOtp) {
-                return UserOtpMapper:: toBusinessModel($userOtp);
+                return UserOtpMapper::toBusinessModel($userOtp);
             }
             return null;
         } catch (Exception $exception) {

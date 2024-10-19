@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Post\BusinessModels;
+namespace App\Modules\Post\BusinessModels;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserModel;
 use DateTimeImmutable;
 
 class AttachmentModel
@@ -15,10 +15,10 @@ class AttachmentModel
         private string            $fileURL,
         private string            $mimeType,
         private int $createdBy,
-        private ?UserModel $creator=null,
-        private int               $likeCount=0,
-        private int               $viewCount=0,
-        private int               $shareCount=0,
+        private ?UserModel $creator = null,
+        private int               $likeCount = 0,
+        private int               $viewCount = 0,
+        private int               $shareCount = 0,
         private DateTimeImmutable $createdAt = new DateTimeImmutable,
         private DateTimeImmutable $updatedAt = new DateTimeImmutable
     ) {}
@@ -165,6 +165,4 @@ class AttachmentModel
         $this->updatedAt = $updatedAt;
         return $this;
     }
-
-
 }

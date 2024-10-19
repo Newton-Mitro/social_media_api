@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\OTP\Models;
+namespace App\Modules\Auth\OTP\Models;
 
 use Database\Factories\UserOTPFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

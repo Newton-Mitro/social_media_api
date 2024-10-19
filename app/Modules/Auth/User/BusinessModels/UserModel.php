@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\User\BusinessModels;
+namespace App\Modules\Auth\User\BusinessModels;
 
 use DateTimeImmutable;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Auth\Device\UseCases\Queries\FindDeviceWithToken;
+namespace App\Modules\Auth\Device\UseCases\Queries\FindDeviceWithToken;
 
-use App\Features\Auth\Device\BusinessModels\DeviceModel;
-use App\Features\Auth\Device\Interfaces\DeviceRepositoryInterface;
+use App\Modules\Auth\Device\BusinessModels\DeviceModel;
+use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
 use Exception;
 use Illuminate\Http\Response;
 

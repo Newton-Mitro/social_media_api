@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Post\BusinessModels;
+namespace App\Modules\Post\BusinessModels;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserModel;
 use DateTimeImmutable;
 
 class PostModel
@@ -46,7 +46,7 @@ class PostModel
         $this->body = $body;
         return $this;
     }
-    
+
     public function getExistingContentUrl(): string
     {
         return $this->existing_content_url;

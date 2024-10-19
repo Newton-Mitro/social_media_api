@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\BlacklistedToken\UseCases\Queries\BlackListTokenExist;
+namespace App\Modules\Auth\BlacklistedToken\UseCases\Queries\BlackListTokenExist;
 
-use App\Features\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
+use App\Modules\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
 
 class BlacklistedTokenExistQueryHandler
 {

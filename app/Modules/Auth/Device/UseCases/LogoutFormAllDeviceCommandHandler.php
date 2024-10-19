@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\Device\UseCases\Commands\LogoutFromAllDevice;
+namespace App\Modules\Auth\Device\UseCases\Commands\LogoutFromAllDevice;
 
-use App\Features\Auth\Device\Interfaces\DeviceRepositoryInterface;
+use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
 
 class LogoutFormAllDeviceCommandHandler
 {

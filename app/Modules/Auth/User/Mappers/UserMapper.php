@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Features\Auth\User\Mappers;
+namespace App\Modules\Auth\User\Mappers;
 
 use Carbon\Carbon;
-use App\Features\Auth\User\Models\User;
-use App\Features\Auth\User\Resources\UserResource;
-use App\Features\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\Models\User;
+use App\Modules\Auth\User\Resources\UserResource;
+use App\Modules\Auth\User\BusinessModels\UserModel;
 use Illuminate\Support\Facades\Storage;
 
 class UserMapper
@@ -20,8 +20,8 @@ class UserMapper
             $user->user_name,
             $user->email,
             $user->password,
-            $user->profile_picture ,//= $profile_picture_url,
-            $user->cover_photo ,//= $cover_photo_url,
+            $user->profile_picture, //= $profile_picture_url,
+            $user->cover_photo, //= $cover_photo_url,
             $user->email_verified_at ? Carbon::parse($user->email_verified_at)->toDateTimeImmutable() : null,
             $user->otp,
             $user->otp_expires_at ? Carbon::parse($user->otp_expires_at)->toDateTimeImmutable() : null,

@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use App\Queries\FindUserByEmailQuery;
-use App\Features\Auth\User\Models\User;
+use App\Modules\Auth\User\Models\User;
 use App\Commands\SendEmailVerifyingOTPCommand;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

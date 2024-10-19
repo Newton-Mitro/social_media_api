@@ -1,23 +1,18 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Controllers;
+namespace App\Modules\Auth\Authentication\Controllers;
 
-use App\Core\Bus\ICommandBus;
-use App\Core\Bus\IQueryBus;
 use App\Core\Controllers\Controller;
-use App\Features\Auth\Authentication\Requests\UserRegistrationRequest;
-use App\Features\Auth\Authentication\UseCases\Commands\Register\RegisterUserCommand;
-use App\Features\Auth\User\Mappers\UserMapper;
-use App\Features\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
+use App\Modules\Auth\Authentication\Requests\UserRegistrationRequest;
+use App\Modules\Auth\Authentication\UseCases\Commands\Register\RegisterUserCommand;
+use App\Modules\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegistrationController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus $queryBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(UserRegistrationRequest $request)
     {

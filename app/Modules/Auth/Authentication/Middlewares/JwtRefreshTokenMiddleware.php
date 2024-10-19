@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Middlewares;
+namespace App\Modules\Auth\Authentication\Middlewares;
 
 use App\Core\Bus\IQueryBus;
-use App\Features\Auth\Authentication\Services\JwtRefreshTokenService;
-use App\Features\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
+use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
+use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

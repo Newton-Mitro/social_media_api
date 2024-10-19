@@ -1,8 +1,8 @@
 <?php
 
-use App\Features\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
-use App\Features\Auth\User\Controllers\UpdateCoverPictureController;
-use App\Features\Auth\User\Controllers\UpdateProfilePictureController;
+use App\Modules\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
+use App\Modules\Auth\User\Controllers\UpdateCoverPictureController;
+use App\Modules\Auth\User\Controllers\UpdateProfilePictureController;
 use Illuminate\Support\Facades\Route;
 
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Post\UseCases\Queries\GetUserPosts;
+namespace App\Modules\Post\UseCases\Queries\GetUserPosts;
 
-use App\Features\Post\Interfaces\PostRepositoryInterface;
+use App\Modules\Post\Interfaces\PostRepositoryInterface;
 
 class GetUserPostsQueryHandler
 {

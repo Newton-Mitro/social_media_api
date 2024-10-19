@@ -1,11 +1,13 @@
 <?php
-namespace App\Features\Auth\OTP\Mappers;
+
+namespace App\Modules\Auth\OTP\Mappers;
+
 use Carbon\Carbon;
-use App\Features\Auth\OTP\Models\UserOtp;
-use App\Features\Auth\OTP\BusinessModel\UserOtpModel;
-use App\Features\Auth\OTP\Resources\ForgotPasswordOTPResource;
-use App\Features\Auth\OTP\Resources\VeriFyForgotPasswordOTPResource;
-use App\Features\Auth\OTP\UseCases\Commands\VerifyForgotPasswordOTP\VerifyForgotPasswordOTPCommand;
+use App\Modules\Auth\OTP\Models\UserOtp;
+use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
+use App\Modules\Auth\OTP\Resources\ForgotPasswordOTPResource;
+use App\Modules\Auth\OTP\Resources\VeriFyForgotPasswordOTPResource;
+use App\Modules\Auth\OTP\UseCases\Commands\VerifyForgotPasswordOTP\VerifyForgotPasswordOTPCommand;
 
 class UserOtpMapper
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\OTP\Requests;
+namespace App\Modules\Auth\OTP\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

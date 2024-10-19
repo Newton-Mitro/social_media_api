@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP;
 
 use DateTimeImmutable;
 use App\Core\Utilities\OTPGenerator;
 use Illuminate\Support\Facades\Mail;
-use App\Features\Auth\Authentication\Mail\VerificationEmail;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Features\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
+use App\Modules\Auth\Authentication\Mail\VerificationEmail;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 
 class SendEmailVerifyingOTPCommandHandler
 {

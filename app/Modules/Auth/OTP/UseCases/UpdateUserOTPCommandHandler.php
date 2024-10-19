@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Features\Auth\OTP\UseCases\Commands\UpdateUserOTP;
+namespace App\Modules\Auth\OTP\UseCases\Commands\UpdateUserOTP;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Core\Utilities\OTPGenerator;
 use Illuminate\Support\Facades\Mail;
-use App\Features\Auth\OTP\BusinessModel\UserOtpModel;
-use App\Features\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
-use App\Features\Auth\Authentication\Mail\ForgotPasswordOtpEmail;
-use App\Features\Auth\OTP\UseCases\Queries\FindUserOtp\FindUserOTPByUserIdQuery;
+use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
+use App\Modules\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
+use App\Modules\Auth\Authentication\Mail\ForgotPasswordOtpEmail;
+use App\Modules\Auth\OTP\UseCases\Queries\FindUserOtp\FindUserOTPByUserIdQuery;
 
 class UpdateUserOTPCommandHandler
 {

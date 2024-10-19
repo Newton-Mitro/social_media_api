@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Post\Resources;
+namespace App\Modules\Post\Resources;
 
 
-use App\Features\Auth\User\Resources\UserResource;
+use App\Modules\Auth\User\Resources\UserResource;
 
 class PostResource
 {

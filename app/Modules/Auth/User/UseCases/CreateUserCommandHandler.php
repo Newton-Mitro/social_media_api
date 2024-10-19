@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Auth\User\UseCases\Commands\CreateUser;
+namespace App\Modules\Auth\User\UseCases\Commands\CreateUser;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use ErrorException;
 use Illuminate\Support\Str;
 

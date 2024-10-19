@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Hash;
-use App\Features\Auth\User\Models\User;
-use App\Features\Auth\Device\Models\Device;
+use App\Modules\Auth\User\Models\User;
+use App\Modules\Auth\Device\Models\Device;
 
 
 it('requires authentication', function () {

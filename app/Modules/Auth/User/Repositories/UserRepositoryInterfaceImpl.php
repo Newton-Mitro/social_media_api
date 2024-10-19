@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Features\Auth\User\Repositories;
+namespace App\Modules\Auth\User\Repositories;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Features\Auth\User\Mappers\UserMapper;
-use App\Features\Auth\User\Models\User;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\User\Models\User;
 use Exception;
 use Illuminate\Http\Response;
 

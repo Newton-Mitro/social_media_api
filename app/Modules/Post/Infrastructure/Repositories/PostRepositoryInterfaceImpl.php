@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Features\Post\Repositories;
+namespace App\Modules\Post\Repositories;
 
 use Exception;
 use DateTimeImmutable;
 use App\Core\Bus\IQueryBus;
 use App\Core\Bus\ICommandBus;
 use Illuminate\Http\Response;
-use App\Features\Post\Models\Post;
+use App\Modules\Post\Models\Post;
 use Illuminate\Support\Facades\DB;
-use App\Features\Post\BusinessModels\PostModel;
-use App\Features\Post\Interfaces\PostRepositoryInterface;
-use App\Features\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
-use App\Features\Post\Mappers\PostMapper;
-use App\Features\Post\UseCases\Commands\UpdatePost\UpdatePostCommand;
+use App\Modules\Post\BusinessModels\PostModel;
+use App\Modules\Post\Interfaces\PostRepositoryInterface;
+use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
+use App\Modules\Post\Mappers\PostMapper;
+use App\Modules\Post\UseCases\Commands\UpdatePost\UpdatePostCommand;
 
 class PostRepositoryInterfaceImpl implements PostRepositoryInterface
 {
@@ -73,7 +73,7 @@ class PostRepositoryInterfaceImpl implements PostRepositoryInterface
                 ];
             };
             $jsonAttachment = $attachments ? json_encode($attachments) : '';
-            $post = DB::select('CALL sp_update_user_content_posting(?,?,?,?,?,?,@Message)', [$postModel->getPostId(),$postModel->getUserId(), $postModel->getBody(), $postModel->getExistingContentUrl(), $postModel->getPrivacyId(), $jsonAttachment]);
+            $post = DB::select('CALL sp_update_user_content_posting(?,?,?,?,?,?,@Message)', [$postModel->getPostId(), $postModel->getUserId(), $postModel->getBody(), $postModel->getExistingContentUrl(), $postModel->getPrivacyId(), $jsonAttachment]);
             $results = DB::select('select @Message as message ');
             return $results[0]->message;
         } catch (Exception $exception) {

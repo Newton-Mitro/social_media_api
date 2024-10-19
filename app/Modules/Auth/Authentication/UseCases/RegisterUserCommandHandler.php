@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\Register;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\Register;
 
-use App\Features\Auth\Authentication\Events\UserRegistered;
-use App\Features\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommand;
-use App\Features\Auth\User\BusinessModels\UserModel;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Features\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
+use App\Modules\Auth\Authentication\Events\UserRegistered;
+use App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommand;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 use ErrorException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;

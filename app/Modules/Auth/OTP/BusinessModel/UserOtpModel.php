@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Features\Auth\OTP\BusinessModel;
+namespace App\Modules\Auth\OTP\BusinessModel;
 
 use DateTimeImmutable;
 
 class UserOtpModel
 {
-    public function __construct(
-        private int $id,
-        private string $otp,
-        private int $userId,
-        private DateTimeImmutable $expiresAt,
-        private bool $isVerified = false,
-        private ?string $token = null,
-        private DateTimeImmutable $createdAt = new DateTimeImmutable,
-        private DateTimeImmutable $updatedAt = new DateTimeImmutable
-    ) {}
+        public function __construct(
+                private int $id,
+                private string $otp,
+                private int $userId,
+                private DateTimeImmutable $expiresAt,
+                private bool $isVerified = false,
+                private ?string $token = null,
+                private DateTimeImmutable $createdAt = new DateTimeImmutable,
+                private DateTimeImmutable $updatedAt = new DateTimeImmutable
+        ) {}
 
         /**
          * Get the value of id
-         */ 
+         */
         public function getId()
         {
                 return $this->id;
@@ -29,7 +29,7 @@ class UserOtpModel
          * Set the value of id
          *
          * @return  self
-         */ 
+         */
         public function setId($id)
         {
                 $this->id = $id;
@@ -39,7 +39,7 @@ class UserOtpModel
 
         /**
          * Get the value of otp
-         */ 
+         */
         public function getOtp()
         {
                 return $this->otp;
@@ -49,7 +49,7 @@ class UserOtpModel
          * Set the value of otp
          *
          * @return  self
-         */ 
+         */
         public function setOtp($otp)
         {
                 $this->otp = $otp;
@@ -59,7 +59,7 @@ class UserOtpModel
 
         /**
          * Get the value of userId
-         */ 
+         */
         public function getUserId()
         {
                 return $this->userId;
@@ -69,7 +69,7 @@ class UserOtpModel
          * Set the value of userId
          *
          * @return  self
-         */ 
+         */
         public function setUserId($userId)
         {
                 $this->userId = $userId;
@@ -79,7 +79,7 @@ class UserOtpModel
 
         /**
          * Get the value of expiresAt
-         */ 
+         */
         public function getExpiresAt()
         {
                 return $this->expiresAt;
@@ -89,7 +89,7 @@ class UserOtpModel
          * Set the value of expiresAt
          *
          * @return  self
-         */ 
+         */
         public function setExpiresAt($expiresAt)
         {
                 $this->expiresAt = $expiresAt;
@@ -99,7 +99,7 @@ class UserOtpModel
 
         /**
          * Get the value of isVerified
-         */ 
+         */
         public function getIsVerified()
         {
                 return $this->isVerified;
@@ -109,7 +109,7 @@ class UserOtpModel
          * Set the value of isVerified
          *
          * @return  self
-         */ 
+         */
         public function setIsVerified($isVerified)
         {
                 $this->isVerified = $isVerified;
@@ -119,7 +119,7 @@ class UserOtpModel
 
         /**
          * Get the value of token
-         */ 
+         */
         public function getToken()
         {
                 return $this->token;
@@ -129,7 +129,7 @@ class UserOtpModel
          * Set the value of token
          *
          * @return  self
-         */ 
+         */
         public function setToken($token)
         {
                 $this->token = $token;
@@ -139,7 +139,7 @@ class UserOtpModel
 
         /**
          * Get the value of createdAt
-         */ 
+         */
         public function getCreatedAt()
         {
                 return $this->createdAt;
@@ -149,7 +149,7 @@ class UserOtpModel
          * Set the value of createdAt
          *
          * @return  self
-         */ 
+         */
         public function setCreatedAt($createdAt)
         {
                 $this->createdAt = $createdAt;
@@ -159,7 +159,7 @@ class UserOtpModel
 
         /**
          * Get the value of updatedAt
-         */ 
+         */
         public function getUpdatedAt()
         {
                 return $this->updatedAt;
@@ -169,7 +169,7 @@ class UserOtpModel
          * Set the value of updatedAt
          *
          * @return  self
-         */ 
+         */
         public function setUpdatedAt($updatedAt)
         {
                 $this->updatedAt = $updatedAt;

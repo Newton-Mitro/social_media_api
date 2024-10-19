@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Services;
+namespace App\Modules\Auth\Authentication\Services;
 
-use App\Core\Bus\ICommandBus;
-use App\Core\Bus\IQueryBus;
-use App\Features\Auth\Device\UseCases\Commands\CreateDevice\CreateDeviceCommand;
-use App\Features\Auth\Device\UseCases\Commands\UpdateDevice\UpdateDeviceCommand;
-use App\Features\Auth\Device\UseCases\Queries\FindDeviceByUserIDAndDeviceName\FindDeviceByUserIDAndDeviceNameQuery;
-use App\Features\Auth\Device\UseCases\Queries\FindDeviceWithToken\FindDeviceWithTokenQuery;
-use App\Features\Auth\User\BusinessModels\UserModel;
-use App\Features\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\Device\UseCases\Commands\CreateDevice\CreateDeviceCommand;
+use App\Modules\Auth\Device\UseCases\Commands\UpdateDevice\UpdateDeviceCommand;
+use App\Modules\Auth\Device\UseCases\Queries\FindDeviceByUserIDAndDeviceName\FindDeviceByUserIDAndDeviceNameQuery;
+use App\Modules\Auth\Device\UseCases\Queries\FindDeviceWithToken\FindDeviceWithTokenQuery;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\Mappers\UserMapper;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Validation\UnauthorizedException;
@@ -23,10 +21,8 @@ class JwtRefreshTokenService
 {
     protected $config;
 
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus $queryBus,
-    ) {
+    public function __construct()
+    {
         $this->config = Configuration::forSymmetricSigner(
             new Sha256,
             InMemory::plainText(config('app.jwt_refresh_secret'))

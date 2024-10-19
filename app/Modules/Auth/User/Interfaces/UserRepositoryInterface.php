@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\User\Interfaces;
+namespace App\Modules\Auth\User\Interfaces;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserModel;
 
 interface UserRepositoryInterface
 {

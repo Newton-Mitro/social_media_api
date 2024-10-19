@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Features\Auth\OTP\UseCases\Commands\CreateUserOTP;
+namespace App\Modules\Auth\OTP\UseCases\Commands\CreateUserOTP;
 
 use App\Core\Utilities\OTPGenerator;
 use Illuminate\Support\Facades\Mail;
-use App\Features\Auth\OTP\BusinessModel\UserOtpModel;
-use App\Features\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
-use App\Features\Auth\Authentication\Mail\ForgotPasswordOtpEmail;
-use App\Features\Auth\OTP\UseCases\Commands\CreateUserOTP\CreateUserOTPCommand;
+use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
+use App\Modules\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
+use App\Modules\Auth\Authentication\Mail\ForgotPasswordOtpEmail;
+use App\Modules\Auth\OTP\UseCases\Commands\CreateUserOTP\CreateUserOTPCommand;
 
 class CreateUserOTPCommandHandler
 {

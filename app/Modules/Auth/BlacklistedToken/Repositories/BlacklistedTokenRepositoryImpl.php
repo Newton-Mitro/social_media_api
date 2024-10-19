@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Features\Auth\BlacklistedToken\Repositories;
+namespace App\Modules\Auth\BlacklistedToken\Repositories;
 
-use App\Features\Auth\BlacklistedToken\BusinessModels\BlacklistedTokenModel;
-use App\Features\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
-use App\Features\Auth\BlacklistedToken\Models\BlacklistedToken;
+use App\Modules\Auth\BlacklistedToken\BusinessModels\BlacklistedTokenModel;
+use App\Modules\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
+use App\Modules\Auth\BlacklistedToken\Models\BlacklistedToken;
 use Exception;
 use Illuminate\Http\Response;
 

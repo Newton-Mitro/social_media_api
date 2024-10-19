@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Features\Post\UseCases\Commands\UpdatePost;
+namespace App\Modules\Post\UseCases\Commands\UpdatePost;
 
-use App\Features\Post\BusinessModels\AttachmentModel;
-use App\Features\Post\BusinessModels\PostModel;
-use App\Features\Post\Interfaces\PostRepositoryInterface;
+use App\Modules\Post\BusinessModels\AttachmentModel;
+use App\Modules\Post\BusinessModels\PostModel;
+use App\Modules\Post\Interfaces\PostRepositoryInterface;
 
 class UpdatePostCommandHandler
 {

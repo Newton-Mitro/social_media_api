@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\BlacklistedToken\Interfaces;
+namespace App\Modules\Auth\BlacklistedToken\Interfaces;
 
-use App\Features\Auth\BlacklistedToken\BusinessModels\BlacklistedTokenModel;
+use App\Modules\Auth\BlacklistedToken\BusinessModels\BlacklistedTokenModel;
 
 interface BlacklistedTokenRepositoryInterface
 {

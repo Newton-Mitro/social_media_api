@@ -1,22 +1,17 @@
 <?php
 
-namespace App\Features\Post\Controllers;
+namespace App\Modules\Post\Controllers;
 
-use App\Core\Bus\ICommandBus;
-use App\Core\Bus\IQueryBus;
 use App\Core\Controllers\Controller;
-use App\Features\Post\Models\Post;
-use App\Features\Post\Requests\UpdatePostRequest;
-use App\Features\Post\UseCases\Commands\UpdatePost\UpdatePostCommand;
+use App\Modules\Post\Models\Post;
+use App\Modules\Post\Requests\UpdatePostRequest;
+use App\Modules\Post\UseCases\Commands\UpdatePost\UpdatePostCommand;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdatePostController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus $queryBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(UpdatePostRequest $request)
     {
@@ -49,7 +44,7 @@ class UpdatePostController extends Controller
                 }
             }
         }
-        
+
 
         $post = $this->commandBus->dispatch(
             new UpdatePostCommand(
@@ -69,15 +64,15 @@ class UpdatePostController extends Controller
                 // Delete Old Photo
                 if (explode('/', $value->content_type)[0] == 'image') {
                     $basePath = 'posts/images/';
-                    Storage::disk('public')->delete($basePath.'/'. $value->content_name);
+                    Storage::disk('public')->delete($basePath . '/' . $value->content_name);
                     // @unlink($value->content_url.'/'. $value->content_name);
-                }else if (explode('/', $value->content_type)[0] == 'video') {
+                } else if (explode('/', $value->content_type)[0] == 'video') {
                     $basePath = 'posts/videos/';
-                    Storage::disk('public')->delete($basePath.'/'. $value->content_name);
+                    Storage::disk('public')->delete($basePath . '/' . $value->content_name);
                 }
             }
         }
-        
+
 
         return response()->json([
             'data' => $post,

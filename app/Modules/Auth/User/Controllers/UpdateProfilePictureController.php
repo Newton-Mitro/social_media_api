@@ -1,24 +1,18 @@
 <?php
 
-namespace App\Features\Auth\User\Controllers;
+namespace App\Modules\Auth\User\Controllers;
 
 use Exception;
-use DateTimeImmutable;
-use App\Core\Bus\IQueryBus;
-use App\Core\Bus\ICommandBus;
 use App\Core\Controllers\Controller;
-use App\Features\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\User\Mappers\UserMapper;
 use Symfony\Component\HttpFoundation\Response;
-use App\Features\Auth\User\Requests\UpdateProfilePictureRequest;
-use App\Features\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
-use App\Features\Auth\User\UseCases\Commands\UpdateUser\UpdateProfilePictureCommand;
+use App\Modules\Auth\User\Requests\UpdateProfilePictureRequest;
+use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
+use App\Modules\Auth\User\UseCases\Commands\UpdateUser\UpdateProfilePictureCommand;
 
 class UpdateProfilePictureController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus $queryBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(UpdateProfilePictureRequest $request)
     {

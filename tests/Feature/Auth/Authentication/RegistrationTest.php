@@ -1,6 +1,6 @@
 <?php
 
-use App\Features\Auth\User\Models\User;
+use App\Modules\Auth\User\Models\User;
 use Illuminate\Http\Response;
 
 describe('Registration', function (): void {

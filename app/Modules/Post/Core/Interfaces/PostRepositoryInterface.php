@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Features\Post\Interfaces;
+namespace App\Modules\Post\Interfaces;
 
-use App\Features\Post\Models\Post;
-use App\Features\Post\BusinessModels\PostModel;
-use App\Features\Post\UseCases\Commands\UpdatePost\UpdatePostCommand;
+use App\Modules\Post\Models\Post;
+use App\Modules\Post\BusinessModels\PostModel;
+use App\Modules\Post\UseCases\Commands\UpdatePost\UpdatePostCommand;
 
 interface PostRepositoryInterface
 {

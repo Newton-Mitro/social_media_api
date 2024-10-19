@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Controllers;
+namespace App\Modules\Auth\Authentication\Controllers;
 
-use App\Core\Bus\ICommandBus;
-use App\Core\Bus\IQueryBus;
 use App\Core\Controllers\Controller;
-use App\Features\Auth\Authentication\UseCases\Commands\Logout\LogoutCommand;
+use App\Modules\Auth\Authentication\UseCases\Commands\Logout\LogoutCommand;
 use Illuminate\Http\Request;
 
 class LogoutController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus $queryBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(Request $request)
     {

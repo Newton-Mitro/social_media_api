@@ -1,21 +1,15 @@
 <?php
 
-namespace App\Features\Post\Controllers;
+namespace App\Modules\Post\Controllers;
 
-use App\Core\Bus\IQueryBus;
-use App\Core\Bus\ICommandBus;
 use App\Core\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-use App\Features\Post\Requests\CreatePostRequest;
-use App\Features\Post\UseCases\Commands\CreatePost\CreatePostCommand;
+use App\Modules\Post\Requests\CreatePostRequest;
+use App\Modules\Post\UseCases\Commands\CreatePost\CreatePostCommand;
 
 class CreatePostController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus   $queryBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(CreatePostRequest $request)
     {

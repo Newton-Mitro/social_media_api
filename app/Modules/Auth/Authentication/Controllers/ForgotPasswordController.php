@@ -1,21 +1,15 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Controllers;
+namespace App\Modules\Auth\Authentication\Controllers;
 
-use App\Core\Bus\IQueryBus;
-use App\Core\Bus\ICommandBus;
 use App\Core\Controllers\Controller;
-use App\Features\Auth\OTP\Mappers\UserOtpMapper;
-use App\Features\Auth\Authentication\Requests\ForgotPasswordOTPRequest;
-use App\Features\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP\ForgotPasswordOTPCommand;
+use App\Modules\Auth\OTP\Mappers\UserOtpMapper;
+use App\Modules\Auth\Authentication\Requests\ForgotPasswordOTPRequest;
+use App\Modules\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP\ForgotPasswordOTPCommand;
 
 class ForgotPasswordController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus $queryBus,
-    ) {
-    }
+    public function __construct() {}
 
     public function __invoke(ForgotPasswordOTPRequest $request)
     {

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\PasswordChange;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\PasswordChange;
 
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Features\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Http\Response;

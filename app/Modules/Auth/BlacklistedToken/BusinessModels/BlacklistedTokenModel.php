@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\BlacklistedToken\BusinessModels;
+namespace App\Modules\Auth\BlacklistedToken\BusinessModels;
 
 use DateTimeImmutable;
 

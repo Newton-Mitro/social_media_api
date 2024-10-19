@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\Logout;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\Logout;
 
-use App\Features\Auth\BlacklistedToken\UseCases\Commands\AddBlackListToken\AddTokenToBlackListCommand;
-use App\Features\Auth\Device\Interfaces\DeviceRepositoryInterface;
-use App\Features\Auth\Device\UseCases\Queries\FindDeviceByUserIDAndDeviceName\FindDeviceByUserIDAndDeviceNameQuery;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\BlacklistedToken\UseCases\Commands\AddBlackListToken\AddTokenToBlackListCommand;
+use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
+use App\Modules\Auth\Device\UseCases\Queries\FindDeviceByUserIDAndDeviceName\FindDeviceByUserIDAndDeviceNameQuery;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 
 class LogoutCommandHandler
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Features\Auth\OTP\UseCases\Commands\VerifyForgotPasswordOTP;
+namespace App\Modules\Auth\OTP\UseCases\Commands\VerifyForgotPasswordOTP;
 
 use Exception;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
-use App\Features\Auth\OTP\BusinessModel\UserOtpModel;
-use App\Features\Auth\OTP\UseCases\Commands\UpdateUserOTP\UpdateUserOTPCommand;
-use App\Features\Auth\OTP\UseCases\Queries\FindUserOtp\FindUserOTPByUserIdQuery;
-use App\Features\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
+use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
+use App\Modules\Auth\OTP\UseCases\Commands\UpdateUserOTP\UpdateUserOTPCommand;
+use App\Modules\Auth\OTP\UseCases\Queries\FindUserOtp\FindUserOTPByUserIdQuery;
+use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 
 class VerifyForgotPasswordOTPCommandHandler
 {

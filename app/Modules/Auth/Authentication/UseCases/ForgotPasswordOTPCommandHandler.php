@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP;
 
 use Exception;
 use Illuminate\Http\Response;
-use App\Features\Auth\OTP\BusinessModel\UserOtpModel;
-use App\Features\Auth\OTP\UseCases\Commands\CreateUserOTP\CreateUserOTPCommand;
-use App\Features\Auth\OTP\UseCases\Commands\UpdateUserOTP\UpdateUserOTPCommand;
-use App\Features\Auth\OTP\UseCases\Queries\FindUserOtp\FindUserOTPByUserIdQuery;
-use App\Features\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
-use App\Features\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP\ForgotPasswordOTPCommand;
+use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
+use App\Modules\Auth\OTP\UseCases\Commands\CreateUserOTP\CreateUserOTPCommand;
+use App\Modules\Auth\OTP\UseCases\Commands\UpdateUserOTP\UpdateUserOTPCommand;
+use App\Modules\Auth\OTP\UseCases\Queries\FindUserOtp\FindUserOTPByUserIdQuery;
+use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
+use App\Modules\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP\ForgotPasswordOTPCommand;
 
 class ForgotPasswordOTPCommandHandler
 {

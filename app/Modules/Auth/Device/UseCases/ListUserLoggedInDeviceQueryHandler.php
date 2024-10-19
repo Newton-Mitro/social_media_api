@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\Device\UseCases\Queries\ListUserLoginDevice;
+namespace App\Modules\Auth\Device\UseCases\Queries\ListUserLoginDevice;
 
-use App\Features\Auth\Device\Interfaces\DeviceRepositoryInterface;
+use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
 
 class ListUserLoggedInDeviceQueryHandler
 {

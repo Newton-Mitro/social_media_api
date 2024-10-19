@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\BlacklistedToken\Models;
+namespace App\Modules\Auth\BlacklistedToken\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

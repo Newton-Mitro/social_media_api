@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\VerifyEmailVerifyingOTP;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\VerifyEmailVerifyingOTP;
 
-use App\Features\Auth\Authentication\Services\JwtAccessTokenService;
-use App\Features\Auth\Authentication\Services\JwtRefreshTokenService;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Features\Auth\User\Mappers\UserMapper;
-use App\Features\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
+use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
+use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 use Carbon\Carbon;
 use DateTimeImmutable;
 use Exception;

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Auth\Device\Mappers;
+namespace App\Modules\Auth\Device\Mappers;
 
-use App\Features\Auth\Device\BusinessModels\DeviceModel;
-use App\Features\Auth\Device\Models\Device;
+use App\Modules\Auth\Device\BusinessModels\DeviceModel;
+use App\Modules\Auth\Device\Models\Device;
 use Carbon\Carbon;
 
 class DeviceMapper

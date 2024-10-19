@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Features\Auth\Device\Controllers;
+namespace App\Modules\Auth\Device\Controllers;
 
-use App\Core\Bus\IQueryBus;
 use App\Core\Controllers\Controller;
-use App\Features\Auth\Device\Resources\DeviceCollection;
-use App\Features\Auth\Device\UseCases\Queries\ListUserLoginDevice\ListUserLoggedInDeviceQuery;
+use App\Modules\Auth\Device\Resources\DeviceCollection;
+use App\Modules\Auth\Device\UseCases\Queries\ListUserLoginDevice\ListUserLoggedInDeviceQuery;
 
 class ListUserLoggedInDevicesController extends Controller
 {
-    public function __construct(protected IQueryBus $queryBus) {}
+    public function __construct() {}
 
     public function index(string $user_id)
     {

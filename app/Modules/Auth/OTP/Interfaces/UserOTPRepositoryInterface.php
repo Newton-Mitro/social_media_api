@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\OTP\Interfaces;
+namespace App\Modules\Auth\OTP\Interfaces;
 
-use App\Features\Auth\OTP\BusinessModel\UserOtpModel;
+use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
 
 interface UserOTPRepositoryInterface
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Features\Post\Mappers;
+namespace App\Modules\Post\Mappers;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
-use App\Features\Auth\User\Mappers\UserMapper;
-use App\Features\Auth\User\Resources\UserResource;
-use App\Features\Post\BusinessModels\AttachmentModel;
-use App\Features\Post\BusinessModels\PostModel;
-use App\Features\Post\Resources\AttachmentResource;
-use App\Features\Post\Resources\PostResource;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\User\Resources\UserResource;
+use App\Modules\Post\BusinessModels\AttachmentModel;
+use App\Modules\Post\BusinessModels\PostModel;
+use App\Modules\Post\Resources\AttachmentResource;
+use App\Modules\Post\Resources\PostResource;
 use DateTimeImmutable;
 
 class PostMapper

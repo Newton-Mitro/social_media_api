@@ -1,25 +1,15 @@
 <?php
 
-namespace App\Features\Post\Controllers;
+namespace App\Modules\Post\Controllers;
 
-use Exception;
-use DateTimeImmutable;
-use Psr\Log\NullLogger;
-use App\Core\Bus\ICommandBus;
-use App\Features\Post\Models\Post;
 use App\Core\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use App\Features\Post\Requests\UpdatePostRequest;
-use App\Features\Post\Requests\UpdatePostPrivacyRequest;
-use App\Features\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
-use App\Features\Post\UseCases\Commands\UpdatePostPrivacy\UpdatePostPrivacyCommand;
+use App\Modules\Post\Requests\UpdatePostPrivacyRequest;
+use App\Modules\Post\UseCases\Commands\UpdatePostPrivacy\UpdatePostPrivacyCommand;
 
 class UpdatePostPrivacyController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus
-    ) {
-    }
+    public function __construct() {}
     public function __invoke(UpdatePostPrivacyRequest $request)
     {
         $this->commandBus->dispatch(

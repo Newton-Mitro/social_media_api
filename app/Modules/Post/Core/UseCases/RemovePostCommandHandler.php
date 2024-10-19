@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Post\UseCases\Commands\RemovePost;
+namespace App\Modules\Post\UseCases\Commands\RemovePost;
 
-use App\Features\Post\Interfaces\PostRepositoryInterface;
-use App\Features\Post\UseCases\Commands\RemovePost\RemovePostCommand;
+use App\Modules\Post\Interfaces\PostRepositoryInterface;
+use App\Modules\Post\UseCases\Commands\RemovePost\RemovePostCommand;
 use Exception;
 use Illuminate\Http\Response;
 

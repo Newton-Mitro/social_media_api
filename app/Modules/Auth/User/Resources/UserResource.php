@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\User\Resources;
+namespace App\Modules\Auth\User\Resources;
 
 
 class UserResource

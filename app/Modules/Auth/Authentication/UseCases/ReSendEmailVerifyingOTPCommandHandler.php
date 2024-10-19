@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\ReSendEmailVerifyingOTP;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\ReSendEmailVerifyingOTP;
 
-use App\Features\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommand;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Features\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
+use App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommand;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;

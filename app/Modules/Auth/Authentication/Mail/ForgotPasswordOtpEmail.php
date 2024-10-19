@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Mail;
+namespace App\Modules\Auth\Authentication\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -13,9 +13,7 @@ class ForgotPasswordOtpEmail extends Mailable
 
     public $user;
 
-    public function __construct(public string $userName, public string $otp, public string $expireWithinTime)
-    {
-    }
+    public function __construct(public string $userName, public string $otp, public string $expireWithinTime) {}
 
     public function build()
     {

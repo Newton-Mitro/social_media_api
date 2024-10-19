@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Auth\User\UseCases\Queries\FindUser;
+namespace App\Modules\Auth\User\UseCases\Queries\FindUser;
 
-use App\Features\Auth\User\BusinessModels\UserModel;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 
 class FindUserQueryHandler
 {

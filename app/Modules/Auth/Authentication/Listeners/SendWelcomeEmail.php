@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Listeners;
+namespace App\Modules\Auth\Authentication\Listeners;
 
-use App\Features\Auth\Authentication\Events\UserRegistered;
-use App\Features\Auth\Authentication\Mail\WelcomeEmail;
+use App\Modules\Auth\Authentication\Events\UserRegistered;
+use App\Modules\Auth\Authentication\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeEmail

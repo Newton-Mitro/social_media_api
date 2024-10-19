@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\ResetPassword;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\ResetPassword;
 
 use Exception;
 use DateTimeImmutable;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
-use App\Features\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Features\Auth\OTP\UseCases\Queries\FindUserOtp\FindUserOTPByUserIdQuery;
-use App\Features\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
-use App\Features\Auth\Authentication\UseCases\Commands\ResetPassword\ResetPasswordCommand;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\OTP\UseCases\Queries\FindUserOtp\FindUserOTPByUserIdQuery;
+use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
+use App\Modules\Auth\Authentication\UseCases\Commands\ResetPassword\ResetPasswordCommand;
 
 class ResetPasswordCommandHandler
 {

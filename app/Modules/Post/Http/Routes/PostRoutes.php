@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Features\Post\Controllers\GetPostController;
-use App\Features\Post\Controllers\CreatePostController;
-use App\Features\Post\Controllers\UpdatePostPrivacyController;
-use App\Features\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
-use App\Features\Post\Controllers\RemovePostController;
-use App\Features\Post\Controllers\UpdatePostController;
+use App\Modules\Post\Controllers\GetPostController;
+use App\Modules\Post\Controllers\CreatePostController;
+use App\Modules\Post\Controllers\UpdatePostPrivacyController;
+use App\Modules\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
+use App\Modules\Post\Controllers\RemovePostController;
+use App\Modules\Post\Controllers\UpdatePostController;
 
 Route::middleware(JwtAccessTokenMiddleware::class)->prefix('posts')->group(function (): void {
     Route::post('create', CreatePostController::class)->name('posts.create');
@@ -16,4 +16,4 @@ Route::middleware(JwtAccessTokenMiddleware::class)->prefix('posts')->group(funct
     Route::post('update_post_privacy', UpdatePostPrivacyController::class)->name('posts.updatePostPrivacy');
 });
 
-Route::get('posts/all/{user_id}', [GetPostController::class,'get_all_posts'])->name('posts.allPosts');
+Route::get('posts/all/{user_id}', [GetPostController::class, 'get_all_posts'])->name('posts.allPosts');

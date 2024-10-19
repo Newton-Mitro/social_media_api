@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Post\Models;
+namespace App\Modules\Post\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Features\Post\Models\PostDetails;
+use App\Modules\Post\Models\PostDetails;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
@@ -16,18 +16,18 @@ class Post extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'user_contents_post_id'
-        ,'user_id,content_type_id'
-        ,'content_header_text'
-        ,'content_post_date'
-        ,'content_expire_date'
-        ,'like_count'
-        ,'share_count'
-        ,'followers_subscribers_count'
-        ,'is_active'
-        ,'created_at'
-        ,'modified_at'
-        ,'privacy_setting_id'
+        'user_contents_post_id',
+        'user_id,content_type_id',
+        'content_header_text',
+        'content_post_date',
+        'content_expire_date',
+        'like_count',
+        'share_count',
+        'followers_subscribers_count',
+        'is_active',
+        'created_at',
+        'modified_at',
+        'privacy_setting_id'
     ];
     public function postdetails()
     {

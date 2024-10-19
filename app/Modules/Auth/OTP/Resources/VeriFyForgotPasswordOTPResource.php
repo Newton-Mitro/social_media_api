@@ -1,10 +1,10 @@
 <?php
-namespace App\Features\Auth\OTP\Resources;
+
+namespace App\Modules\Auth\OTP\Resources;
 
 class VeriFyForgotPasswordOTPResource
 {
     public function __construct(
         public string $otpValidationToken
-    ) {
-    }
+    ) {}
 }

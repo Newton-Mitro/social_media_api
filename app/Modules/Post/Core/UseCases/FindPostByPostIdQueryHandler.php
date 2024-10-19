@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Features\Post\UseCases\Queries\FindPost;
+namespace App\Modules\Post\UseCases\Queries\FindPost;
 
-use App\Features\Post\Interfaces\PostRepositoryInterface;
-use App\Features\Post\UseCases\Queries\FindPost\FindPostByPostIdQuery;
+use App\Modules\Post\Interfaces\PostRepositoryInterface;
+use App\Modules\Post\UseCases\Queries\FindPost\FindPostByPostIdQuery;
 
 class FindPostByPostIdQueryHandler
 {

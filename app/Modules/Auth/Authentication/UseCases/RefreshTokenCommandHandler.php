@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Features\Auth\Authentication\UseCases\Commands\RefreshToken;
+namespace App\Modules\Auth\Authentication\UseCases\Commands\RefreshToken;
 
-use App\Features\Auth\Authentication\Services\JwtAccessTokenService;
-use App\Features\Auth\Authentication\Services\JwtRefreshTokenService;
-use App\Features\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
+use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
+use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
+use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
 
 class RefreshTokenCommandHandler
 {

@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Controllers;
+namespace App\Modules\Auth\Authentication\Controllers;
 
-use App\Core\Bus\ICommandBus;
 use App\Core\Controllers\Controller;
-use App\Features\Auth\Authentication\UseCases\Commands\RefreshToken\RefreshTokenCommand;
+use App\Modules\Auth\Authentication\UseCases\Commands\RefreshToken\RefreshTokenCommand;
 use Illuminate\Http\Request;
 
 class RefreshTokenController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(Request $request)
     {

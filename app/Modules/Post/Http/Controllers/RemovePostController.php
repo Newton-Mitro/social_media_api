@@ -1,30 +1,23 @@
 <?php
 
-namespace App\Features\Post\Controllers;
+namespace App\Modules\Post\Controllers;
 
-use App\Core\Bus\ICommandBus;
-use App\Core\Bus\IQueryBus;
 use App\Core\Controllers\Controller;
-use App\Features\Post\Models\Post;
-use App\Features\Post\Requests\RemovePostRequest;
-use App\Features\Post\UseCases\Commands\RemovePost\RemovePostCommand;
-use App\Features\Post\UseCases\Commands\UpdatePost\UpdatePostCommand;
-use Illuminate\Support\Facades\Storage;
+use App\Modules\Post\Models\Post;
+use App\Modules\Post\Requests\RemovePostRequest;
+use App\Modules\Post\UseCases\Commands\RemovePost\RemovePostCommand;
 use Symfony\Component\HttpFoundation\Response;
 
 class RemovePostController extends Controller
 {
-    public function __construct(
-        protected ICommandBus $commandBus,
-        protected IQueryBus $queryBus,
-    ) {}
+    public function __construct() {}
 
     public function __invoke(RemovePostRequest $request)
     {
         $attachments = [];
         $existingPosts = Post::with("postdetails")->find($request->post_id);
-        
-        
+
+
 
         $post = $this->commandBus->dispatch(
             new RemovePostCommand(

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\Authentication\Services;
+namespace App\Modules\Auth\Authentication\Services;
 
-use App\Features\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\User\Mappers\UserMapper;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Validation\UnauthorizedException;

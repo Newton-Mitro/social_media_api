@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Features\Post\UseCases\Commands\UpdatePostPrivacy;
+namespace App\Modules\Post\UseCases\Commands\UpdatePostPrivacy;
 
 use Exception;
 use DateTimeImmutable;
 use Illuminate\Http\Response;
-use App\Features\Post\Models\Post;
-use App\Features\Post\UseCases\Commands\UpdatePostPrivacy\UpdatePostPrivacyCommand;
+use App\Modules\Post\Models\Post;
+use App\Modules\Post\UseCases\Commands\UpdatePostPrivacy\UpdatePostPrivacyCommand;
 
 class UpdatePostPrivacyCommandHandler
 {

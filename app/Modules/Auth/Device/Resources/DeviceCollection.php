@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Auth\Device\Resources;
+namespace App\Modules\Auth\Device\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Features\Auth\OTP\UseCases\Queries\FindUserOtp;
+namespace App\Modules\Auth\OTP\UseCases\Queries\FindUserOtp;
 
-use App\Features\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
+use App\Modules\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
 
 class FindUserOTPByUserIdQueryHandler
 {
