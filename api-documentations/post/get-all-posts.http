@@ -1,0 +1,22 @@
+# @name login
+POST http://99.237.86.169:7070/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
+
+###
+# @name getUserPosts
+GET http://99.237.86.169:7070/api/posts/all/-1?start_record=1&page_size=3
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+

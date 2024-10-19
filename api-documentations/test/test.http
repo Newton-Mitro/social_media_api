@@ -1,0 +1,79 @@
+# @name register
+POST http://99.237.86.169:7070/api/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "doe",
+    "email": "jane.doe@email.com",
+    "password": "password",
+    "password_confirmation": "password"
+}
+
+###
+# @name login
+POST http://99.237.86.169:7070/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+### SET TOKEN
+@refresh_token = {{login.response.body.data.refresh_token}}
+
+
+# @name refreshToken
+GET http://99.237.86.169:7070/api/auth/refresh
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{refresh_token}}
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
+
+###
+# @name getAuthUser
+GET http://99.237.86.169:7070/api/auth/user
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+
+###
+# @name logout
+GET http://99.237.86.169:7070/api/auth/logout
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+
+###
+# @name getAuthUser
+GET http://99.237.86.169:7070/api/auth/user
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+# @name getAuthUser
+POST http://99.237.86.169:7070/api/account/email/resend
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+
+###
+# @name getAuthUser
+POST http://99.237.86.169:7070/api/account/email/verify
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "otp": "123456"
+}
+

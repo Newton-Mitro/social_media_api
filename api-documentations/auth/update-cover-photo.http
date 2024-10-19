@@ -1,0 +1,25 @@
+# @name login
+POST http://127.0.0.1:8000/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
+###
+POST http://127.0.0.1:8000/api/user/cover/picture/update
+Accept: application/json
+Content-Type: multipart/form-data; boundary=------------------------abcdefg
+Authorization: Bearer {{auth_token}}
+
+--------------------------abcdefg
+Content-Disposition: form-data; name="coverPhoto"; filename="erd.png"
+Content-Type: image/png
+
+< ./../erd/erd.png
+--------------------------abcdefg--

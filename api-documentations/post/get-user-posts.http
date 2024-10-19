@@ -1,0 +1,22 @@
+# @name login
+POST http://127.0.0.1:8000/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
+
+###
+# @name getUserPosts
+GET http://127.0.0.1:8000/api/posts/user/1?start_record=1&page_size=3
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
