@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Auth\Authentication\UseCases\Commands\Logout;
+namespace App\Modules\Auth\Authentication\UseCases;
 
 use App\Modules\Auth\BlacklistedToken\UseCases\Commands\AddBlackListToken\AddTokenToBlackListCommand;
 use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
@@ -14,7 +14,7 @@ class LogoutCommandHandler
         protected DeviceRepositoryInterface $deviceRepository,
     ) {}
 
-    public function handle(LogoutCommand $command): void
+    public function handle(): void
     {
         $this->commandBus->dispatch(
             new AddTokenToBlackListCommand(

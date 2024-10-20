@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Modules\Auth\Authentication\Controllers\LoginController;
 use App\Modules\Auth\Authentication\Controllers\LogoutController;
 use App\Modules\Auth\Authentication\Controllers\AuthUserController;
-use App\Modules\Auth\Authentication\Controllers\GetPrivacyController;
 use App\Modules\Auth\Authentication\Controllers\RefreshTokenController;
 use App\Modules\Auth\Authentication\Controllers\RegistrationController;
 use App\Modules\Auth\Authentication\Controllers\ResetPasswordController;
@@ -26,7 +25,6 @@ Route::middleware('guest')->prefix('auth')->group(function (): void {
     Route::post('password-change', PasswordChangeController::class)->name('auth.password-change');
     Route::post('resend-forgot-password-otp', ResendForgotPasswordController::class)->name('auth.resendForgotPasswordOTP');
     Route::post('reset-password', ResetPasswordController::class)->name('auth.resentPassword');
-    Route::get('get-privacy', GetPrivacyController::class)->name('auth.getPrivacy');
 });
 
 Route::middleware(JwtRefreshTokenMiddleware::class)->prefix('auth')->group(function (): void {

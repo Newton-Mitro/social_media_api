@@ -7,7 +7,6 @@ use App\Modules\Auth\OTP\Models\UserOtp;
 use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
 use App\Modules\Auth\OTP\Resources\ForgotPasswordOTPResource;
 use App\Modules\Auth\OTP\Resources\VeriFyForgotPasswordOTPResource;
-use App\Modules\Auth\OTP\UseCases\Commands\VerifyForgotPasswordOTP\VerifyForgotPasswordOTPCommand;
 
 class UserOtpMapper
 {

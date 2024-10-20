@@ -5,18 +5,16 @@ namespace App\Modules\Auth\Authentication\Controllers;
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\OTP\Mappers\UserOtpMapper;
 use App\Modules\Auth\Authentication\Requests\ForgotPasswordOTPRequest;
-use App\Modules\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP\ForgotPasswordOTPCommand;
+use App\Modules\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP\ForgotPasswordOTPCommandHandler;
 
 class ResendForgotPasswordController extends Controller
 {
-    public function __construct() {}
+    public function __construct(protected ForgotPasswordOTPCommandHandler $forgotPasswordOTPCommandHandler) {}
 
     public function __invoke(ForgotPasswordOTPRequest $request)
     {
-        $userOtp = $this->commandBus->dispatch(
-            new ForgotPasswordOTPCommand(
-                email: $request->data()->email
-            ),
+        $userOtp = $this->forgotPasswordOTPCommandHandler->handle(
+            email: $request->data()->email
         );
 
         return response()->json([

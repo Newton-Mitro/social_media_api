@@ -2,7 +2,6 @@
 
 namespace App\Modules\Auth\OTP\Models;
 
-use Database\Factories\UserOTPFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,11 +18,13 @@ class UserOtp extends Model
         'created_at',
         'updated_at',
     ];
+
     protected $casts = [
         'is_verified' => 'boolean',
     ];
-    protected static function newFactory()
-    {
-        return new UserOTPFactory;
-    }
+
+    // protected static function newFactory()
+    // {
+    //     return new UserOTPFactory;
+    // }
 }

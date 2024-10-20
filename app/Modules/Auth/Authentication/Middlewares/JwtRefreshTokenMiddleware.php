@@ -2,18 +2,15 @@
 
 namespace App\Modules\Auth\Authentication\Middlewares;
 
-use App\Core\Bus\IQueryBus;
 use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
-use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response;
 
 class JwtRefreshTokenMiddleware
 {
-    public function __construct(protected JwtRefreshTokenService $jwtRefreshTokenService, protected IQueryBus $queryBus) {}
+    public function __construct(protected JwtRefreshTokenService $jwtRefreshTokenService) {}
 
     public function handle(Request $request, Closure $next): Response
     {

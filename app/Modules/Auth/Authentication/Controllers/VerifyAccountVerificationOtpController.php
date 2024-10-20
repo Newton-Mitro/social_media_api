@@ -4,11 +4,11 @@ namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Authentication\Requests\VerifyAccountVerificationOtpRequest;
-use App\Modules\Auth\Authentication\UseCases\Commands\VerifyEmailVerifyingOTP\VerifyEmailVerifyingOTPCommand;
+use App\Modules\Auth\Authentication\UseCases\Commands\VerifyEmailVerifyingOTP\VerifyEmailVerifyingOTPCommandHandler;
 
 class VerifyAccountVerificationOtpController extends Controller
 {
-    public function __construct() {}
+    public function __construct(protected VerifyEmailVerifyingOTPCommandHandler $verifyEmailVerifyingOTPCommandHandler) {}
 
     public function __invoke(VerifyAccountVerificationOtpRequest $request)
     {
@@ -18,13 +18,11 @@ class VerifyAccountVerificationOtpController extends Controller
         $request->method();
         $request->query();
 
-        $res = $this->commandBus->dispatch(
-            new VerifyEmailVerifyingOTPCommand(
-                device_name: $userAgent,
-                device_ip: $ip,
-                email: request()->user['email'],
-                otp: $request->data()->otp
-            ),
+        $res = $this->verifyEmailVerifyingOTPCommandHandler->handle(
+            deviceName: $userAgent,
+            deviceIP: $ip,
+            email: request()->user['email'],
+            otp: $request->data()->otp
         );
 
         return response()->json([

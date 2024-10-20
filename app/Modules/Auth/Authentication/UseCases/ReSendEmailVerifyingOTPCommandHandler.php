@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Modules\Auth\Authentication\UseCases\Commands\ReSendEmailVerifyingOTP;
+namespace App\Modules\Auth\Authentication\UseCases;
 
-use App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommand;
+use App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommandHandler;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;
@@ -13,12 +12,13 @@ class ReSendEmailVerifyingOTPCommandHandler
 {
     public function __construct(
         protected UserRepositoryInterface $repository,
+        protected SendEmailVerifyingOTPCommandHandler $sendEmailVerifyingOTPCommandHandler
     ) {}
 
-    public function handle(ReSendEmailVerifyingOTPCommand $command): void
+    public function handle(string $email): void
     {
-        $user = $this->queryBus->ask(
-            new FindUserByEmailQuery($command->getEmail())
+        $user = $this->repository->findUserByEmail(
+            $email
         );
 
         if (! $user) {
@@ -29,10 +29,8 @@ class ReSendEmailVerifyingOTPCommandHandler
             throw new Exception('OTP is still valid. Please check your email.', Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->commandBus->dispatch(
-            new SendEmailVerifyingOTPCommand(
-                email: $command->getEmail(),
-            ),
+        $this->sendEmailVerifyingOTPCommandHandler->handle(
+            email: $email,
         );
     }
 }

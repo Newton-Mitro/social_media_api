@@ -3,12 +3,12 @@
 namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\UseCases\Commands\RefreshToken\RefreshTokenCommand;
+use App\Modules\Auth\Authentication\UseCases\Commands\RefreshToken\RefreshTokenCommandHandler;
 use Illuminate\Http\Request;
 
 class RefreshTokenController extends Controller
 {
-    public function __construct() {}
+    public function __construct(protected RefreshTokenCommandHandler $refreshTokenCommandHandler) {}
 
     public function __invoke(Request $request)
     {
@@ -16,12 +16,10 @@ class RefreshTokenController extends Controller
         $ip = $request->ip();
         $userAgent = $request->userAgent();
 
-        $res = $this->commandBus->dispatch(
-            new RefreshTokenCommand(
-                user_id: $user['user_id'],
-                device_name: $userAgent,
-                device_ip: $ip
-            ),
+        $res = $this->refreshTokenCommandHandler->handle(
+            userId: $user['user_id'],
+            deviceName: $userAgent,
+            deviceIP: $ip
         );
 
         return response()->json([

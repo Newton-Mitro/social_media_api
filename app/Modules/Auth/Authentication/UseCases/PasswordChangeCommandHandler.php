@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Modules\Auth\Authentication\UseCases\Commands\PasswordChange;
+namespace App\Modules\Auth\Authentication\UseCases;
 
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Http\Response;
@@ -15,14 +14,14 @@ class PasswordChangeCommandHandler
         protected UserRepositoryInterface $repository,
     ) {}
 
-    public function handle(PasswordChangeCommand $command): string
+    public function handle(string $email, string $oldPassword, string $password): string
     {
-        $user = $this->queryBus->ask(
-            new FindUserByEmailQuery($command->getEmail())
+        $user = $this->repository->findUserByEmail(
+            $email
         );
 
-        if (Hash::check($command->getOldPassword(), $user->getPassword())) {
-            $user->setPassword($command->getPassword());
+        if (Hash::check($oldPassword, $user->getPassword())) {
+            $user->setPassword($password);
             $user->setUpdatedAt(new DateTimeImmutable);
             $this->repository->update($user->getUserId(), $user);
 

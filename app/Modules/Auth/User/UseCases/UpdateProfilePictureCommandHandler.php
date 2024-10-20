@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Auth\User\UseCases\Commands\UpdateUser;
+namespace App\Modules\Auth\User\UseCases;
 
 use Exception;
 use DateTimeImmutable;

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Modules\Auth\Authentication\UseCases\Commands\VerifyEmailVerifyingOTP;
+namespace App\Modules\Auth\Authentication\UseCases;
 
 use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\User\Mappers\UserMapper;
-use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 use Carbon\Carbon;
 use DateTimeImmutable;
 use Exception;
@@ -20,10 +19,10 @@ class VerifyEmailVerifyingOTPCommandHandler
         protected JwtRefreshTokenService $refreshTokenService,
     ) {}
 
-    public function handle(VerifyEmailVerifyingOTPCommand $command): array
+    public function handle(string $deviceName, string $deviceIP, string $email, string $otp): array
     {
-        $user = $this->queryBus->ask(
-            new FindUserByEmailQuery($command->getEmail())
+        $user = $this->repository->findUserByEmail(
+            $email
         );
 
         if (! $user) {
@@ -31,7 +30,7 @@ class VerifyEmailVerifyingOTPCommandHandler
         }
 
         // TODO: Implement UpdateUserCommand
-        if ($user->getOtp() === $command->getOtp() && $user->getOtpExpiresAt() > Carbon::now()) {
+        if ($user->getOtp() === $otp && $user->getOtpExpiresAt() > Carbon::now()) {
             $user->setOtp(null);
             $user->setOtpExpiresAt(null);
             $user->setEmailVerifiedAt(new DateTimeImmutable);
@@ -40,7 +39,7 @@ class VerifyEmailVerifyingOTPCommandHandler
 
             // Generate user token here
             $access_token = $this->accessTokenService->generateToken($updatedUserModel);
-            $refresh_token = $this->refreshTokenService->generateToken($updatedUserModel, $command->getDeviceName(), $command->getDeviceIp());
+            $refresh_token = $this->refreshTokenService->generateToken($updatedUserModel, $deviceName, $deviceIP);
 
             return ['access_token' => $access_token, 'refresh_token' => $refresh_token, 'user' => UserMapper::toUserResource($updatedUserModel)];
         }

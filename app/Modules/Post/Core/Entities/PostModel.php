@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Post\BusinessModels;
+namespace App\Modules\Post\Core\Entities;
 
 use App\Modules\Auth\User\BusinessModels\UserModel;
 use DateTimeImmutable;

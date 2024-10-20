@@ -4,7 +4,6 @@ namespace App\Modules\Auth\OTP\Repositories;
 
 use Exception;
 use Illuminate\Http\Response;
-use Illuminate\Database\Eloquent\Model;
 use App\Modules\Auth\OTP\Models\UserOtp;
 use App\Modules\Auth\OTP\Mappers\UserOtpMapper;
 use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;

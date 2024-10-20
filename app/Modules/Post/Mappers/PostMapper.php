@@ -2,14 +2,14 @@
 
 namespace App\Modules\Post\Mappers;
 
-use App\Modules\Auth\User\BusinessModels\UserModel;
-use App\Modules\Auth\User\Mappers\UserMapper;
-use App\Modules\Auth\User\Resources\UserResource;
-use App\Modules\Post\BusinessModels\AttachmentModel;
-use App\Modules\Post\BusinessModels\PostModel;
-use App\Modules\Post\Resources\AttachmentResource;
-use App\Modules\Post\Resources\PostResource;
+
 use DateTimeImmutable;
+use App\Modules\Auth\User\Mappers\UserMapper;
+use App\Modules\Post\Core\Entities\PostModel;
+use App\Modules\Post\Http\Resources\PostResource;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Post\Core\Entities\AttachmentModel;
+use App\Modules\Post\Http\Resources\AttachmentResource;
 
 class PostMapper
 {

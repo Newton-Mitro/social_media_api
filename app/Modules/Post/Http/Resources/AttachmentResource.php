@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Post\Resources;
+namespace App\Modules\Post\Http\Resources;
 
 use App\Modules\Auth\User\Resources\UserResource;
 

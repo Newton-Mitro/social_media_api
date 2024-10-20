@@ -2,13 +2,10 @@
 
 namespace App\Modules\Auth\Authentication\Middlewares;
 
-use App\Core\Bus\IQueryBus;
 use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
-use App\Modules\Auth\BlacklistedToken\UseCases\Queries\BlackListTokenExist\BlacklistedTokenExistQuery;
-use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
+use App\Modules\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +13,7 @@ class JwtAccessTokenMiddleware
 {
     public function __construct(
         protected JwtAccessTokenService $jwtAccessTokenService,
-        protected IQueryBus $queryBus
+        private readonly BlacklistedTokenRepositoryInterface $blacklistedTokenRepositoryInterface
     ) {}
 
     public function handle(Request $request, Closure $next): Response
@@ -27,8 +24,8 @@ class JwtAccessTokenMiddleware
             throw new UnauthorizedException('JWT access token required', Response::HTTP_UNAUTHORIZED);
         }
 
-        $tokenExist = $this->queryBus->ask(
-            new BlacklistedTokenExistQuery($tokenString)
+        $tokenExist = $this->blacklistedTokenRepositoryInterface->blacklistedTokenExist(
+            $tokenString
         );
 
         if ($tokenExist) {

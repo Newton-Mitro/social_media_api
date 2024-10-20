@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP;
+namespace App\Modules\Auth\Authentication\UseCases;
 
 use DateTimeImmutable;
 use App\Core\Utilities\OTPGenerator;
 use Illuminate\Support\Facades\Mail;
 use App\Modules\Auth\Authentication\Mail\VerificationEmail;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\User\UseCases\Queries\FindUserByEmail\FindUserByEmailQuery;
 
 class SendEmailVerifyingOTPCommandHandler
 {
@@ -15,16 +14,14 @@ class SendEmailVerifyingOTPCommandHandler
         protected UserRepositoryInterface $repository,
     ) {}
 
-    public function handle(SendEmailVerifyingOTPCommand $command): void
+    public function handle(string $email): void
     {
         $otpValidTime = OTPGenerator::getValidateTime();
         $otp = OTPGenerator::generateOTP();
         $expiresAt = OTPGenerator::generateExpireTime();
 
         // Find the user by email
-        $user = $this->queryBus->ask(
-            new FindUserByEmailQuery($command->getEmail())
-        );
+        $user = $this->repository->findUserByEmail($email);
 
         // TODO: Implement UpdateUserCommand
         $user->setOtp($otp);

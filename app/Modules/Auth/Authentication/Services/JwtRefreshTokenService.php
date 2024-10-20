@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Services;
 
+use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Device\UseCases\Commands\CreateDevice\CreateDeviceCommand;
 use App\Modules\Auth\Device\UseCases\Commands\UpdateDevice\UpdateDeviceCommand;
 use App\Modules\Auth\Device\UseCases\Queries\FindDeviceByUserIDAndDeviceName\FindDeviceByUserIDAndDeviceNameQuery;
@@ -21,7 +22,7 @@ class JwtRefreshTokenService
 {
     protected $config;
 
-    public function __construct()
+    public function __construct(protected readonly DeviceRepositoryInterface $deviceRepositoryInterface)
     {
         $this->config = Configuration::forSymmetricSigner(
             new Sha256,

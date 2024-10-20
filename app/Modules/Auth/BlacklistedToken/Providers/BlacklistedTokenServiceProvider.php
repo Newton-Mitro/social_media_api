@@ -16,9 +16,7 @@ class BlacklistedTokenServiceProvider extends ServiceProvider
     {
         $singletons = [
             BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepositoryImpl::class,
-
             BlacklistedTokenExistQueryHandler::class => BlacklistedTokenExistQueryHandler::class,
-
             AddTokenToBlackListCommandHandler::class => AddTokenToBlackListCommandHandler::class,
         ];
 

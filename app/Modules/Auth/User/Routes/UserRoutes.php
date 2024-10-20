@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Modules\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
 use App\Modules\Auth\User\Controllers\UpdateCoverPictureController;
 use App\Modules\Auth\User\Controllers\UpdateProfilePictureController;
