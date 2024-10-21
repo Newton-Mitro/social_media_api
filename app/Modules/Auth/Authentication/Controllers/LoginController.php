@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Authentication\Requests\LoginRequest;
-use App\Modules\Auth\Authentication\UseCases\Commands\Login\LoginCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\LoginCommandHandler;
 
 class LoginController extends Controller
 {

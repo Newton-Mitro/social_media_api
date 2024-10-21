@@ -15,7 +15,7 @@ class UserMapper
         // $profile_picture_url = config('app.USER_PROFILE_IMAGE_URL').$user->profile_picture;
         // $cover_photo_url = config('app.USER_COVER_IMAGE_URL').$user->cover_photo;
         return new UserModel(
-            $user->user_id,
+            $user->id,
             $user->name,
             $user->user_name,
             $user->email,

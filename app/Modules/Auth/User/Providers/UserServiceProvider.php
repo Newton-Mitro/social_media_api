@@ -2,13 +2,13 @@
 
 namespace App\Modules\Auth\User\Providers;
 
-use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
-use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
-use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\User\Repositories\UserRepositoryInterfaceImpl;
-use App\Modules\Auth\User\UseCases\Commands\UpdateUser\UpdateCoverPictureCommandHandler;
-use App\Modules\Auth\User\UseCases\Commands\UpdateUser\UpdateProfilePictureCommandHandler;
 use Illuminate\Support\ServiceProvider;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
+use App\Modules\Auth\User\Repositories\UserRepositoryInterfaceImpl;
+use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
+use App\Modules\Auth\User\UseCases\UpdateCoverPictureCommandHandler;
+use App\Modules\Auth\User\UseCases\UpdateProfilePictureCommandHandler;
 
 class UserServiceProvider extends ServiceProvider
 {

@@ -6,18 +6,19 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use App\Modules\Auth\Authentication\Events\UserRegistered;
 use App\Modules\Auth\Authentication\Listeners\SendWelcomeEmail;
+use App\Modules\Auth\Authentication\UseCases\LoginCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\LogoutCommandHandler;
 use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
-use App\Modules\Auth\Authentication\UseCases\Commands\Login\LoginCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\Logout\LogoutCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\Register\RegisterUserCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\RefreshToken\RefreshTokenCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\ResetPassword\ResetPasswordCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\PasswordChange\PasswordChangeCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP\ForgotPasswordOTPCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\ReSendEmailVerifyingOTP\ReSendEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\Commands\VerifyEmailVerifyingOTP\VerifyEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\RefreshTokenCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\RegisterUserCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\ResetPasswordCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\PasswordChangeCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\ForgotPasswordOTPCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\SendEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\ReSendEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\VerifyEmailVerifyingOTPCommandHandler;
+
 
 class AuthServiceProvider extends ServiceProvider
 {

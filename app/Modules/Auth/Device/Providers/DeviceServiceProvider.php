@@ -2,9 +2,9 @@
 
 namespace App\Modules\Auth\Device\Providers;
 
-use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
-use App\Modules\Auth\Device\Repositories\DeviceRepositoryImpl;
 use Illuminate\Support\ServiceProvider;
+use App\Modules\Auth\Device\Repositories\DeviceRepositoryImpl;
+use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
 
 class DeviceServiceProvider extends ServiceProvider
 {

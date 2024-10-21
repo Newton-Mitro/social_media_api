@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Services;
 
+use App\Modules\Auth\Device\BusinessModels\DeviceModel;
 use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Device\UseCases\Commands\CreateDevice\CreateDeviceCommand;
 use App\Modules\Auth\Device\UseCases\Commands\UpdateDevice\UpdateDeviceCommand;
@@ -47,34 +48,39 @@ class JwtRefreshTokenService
             ->withClaim('uid', $user->getUserId()) // Configures a new claim, called "uid"
             ->getToken($this->config->signer(), $this->config->signingKey()); // Retrieves the generated token
 
-        $deviceModel = $this->queryBus->ask(
-            new FindDeviceByUserIDAndDeviceNameQuery($user->getUserId(), $device_name),
+        $deviceModel = $this->deviceRepositoryInterface->findDeviceByUserIdAndDeviceName(
+            $user->getUserId(),
+            $device_name
         );
 
         if ($deviceModel) {
-            $res = $this->commandBus->dispatch(
-                new UpdateDeviceCommand(
-                    $deviceModel->getDeviceId(),
-                    $deviceModel->getUserId(),
-                    $deviceModel->getDeviceName(),
-                    $deviceModel->getDeviceIp(),
-                    $token->toString(),
-                    '',
-                    $deviceModel->getCreatedAt(),
-                    new DateTimeImmutable
-                )
+            $device = new DeviceModel(
+                $deviceModel->getDeviceId(),
+                $deviceModel->getUserId(),
+                $deviceModel->getDeviceName(),
+                $deviceModel->getDeviceIp(),
+                $token->toString(),
+                '',
+                $deviceModel->getCreatedAt(),
+                new DateTimeImmutable
+            );
+
+
+            $res = $this->deviceRepositoryInterface->update(
+                $deviceModel->getDeviceId(),
+                $device
             );
         } else {
-            $res = $this->commandBus->dispatch(
-                new CreateDeviceCommand(
-                    $user->getUserId(),
-                    $device_name,
-                    $device_ip,
-                    $token->toString(),
-                    '',
-                    new DateTimeImmutable,
-                    new DateTimeImmutable
-                ),
+            $device = new DeviceModel(
+                0,
+                $user->getUserId(),
+                $device_name,
+                $device_ip,
+                $token->toString(),
+                ''
+            );
+            $res = $this->deviceRepositoryInterface->create(
+                $device
             );
         }
 
@@ -110,7 +116,7 @@ class JwtRefreshTokenService
                 throw new UnauthorizedException('Token has been expired or revoked.', Response::HTTP_UNAUTHORIZED);
             }
 
-            $deviceModel = $this->queryBus->ask(new FindDeviceWithTokenQuery($token));
+            $deviceModel = $this->deviceRepositoryInterface->findDeviceWithToken($token);
 
             if ($deviceModel === null) {
                 throw new UnauthorizedException('Invalid token', Response::HTTP_UNAUTHORIZED);

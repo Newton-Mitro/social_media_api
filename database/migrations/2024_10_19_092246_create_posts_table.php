@@ -9,7 +9,7 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id('post_id');
+            $table->id('id');
             $table->text('body');
             $table->unsignedInteger('likes')->default(0);
             $table->unsignedInteger('shares')->default(0);

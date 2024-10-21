@@ -3,11 +3,11 @@
 namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\Requests\UserRegistrationRequest;
-use App\Modules\Auth\Authentication\UseCases\Commands\Register\RegisterUserCommandHandler;
-use App\Modules\Auth\User\Mappers\UserMapper;
 use Illuminate\Support\Facades\Hash;
+use App\Modules\Auth\User\Mappers\UserMapper;
 use Symfony\Component\HttpFoundation\Response;
+use App\Modules\Auth\Authentication\Requests\UserRegistrationRequest;
+use App\Modules\Auth\Authentication\UseCases\RegisterUserCommandHandler;
 
 class RegistrationController extends Controller
 {

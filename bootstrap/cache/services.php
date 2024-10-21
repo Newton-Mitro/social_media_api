@@ -31,6 +31,12 @@
     27 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     28 => 'Termwind\\Laravel\\TermwindServiceProvider',
     29 => 'Pest\\Laravel\\PestServiceProvider',
+    30 => 'App\\Modules\\Auth\\Authentication\\Providers\\AuthServiceProvider',
+    31 => 'App\\Modules\\Auth\\User\\Providers\\UserServiceProvider',
+    32 => 'App\\Modules\\Post\\Providers\\PostServiceProvider',
+    33 => 'App\\Modules\\Auth\\Device\\Providers\\DeviceServiceProvider',
+    34 => 'App\\Modules\\Auth\\BlacklistedToken\\Providers\\BlacklistedTokenServiceProvider',
+    35 => 'App\\Modules\\Auth\\OTP\\Providers\\OtpServiceProvider',
   ),
   'eager' => 
   array (
@@ -49,6 +55,12 @@
     12 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     13 => 'Termwind\\Laravel\\TermwindServiceProvider',
     14 => 'Pest\\Laravel\\PestServiceProvider',
+    15 => 'App\\Modules\\Auth\\Authentication\\Providers\\AuthServiceProvider',
+    16 => 'App\\Modules\\Auth\\User\\Providers\\UserServiceProvider',
+    17 => 'App\\Modules\\Post\\Providers\\PostServiceProvider',
+    18 => 'App\\Modules\\Auth\\Device\\Providers\\DeviceServiceProvider',
+    19 => 'App\\Modules\\Auth\\BlacklistedToken\\Providers\\BlacklistedTokenServiceProvider',
+    20 => 'App\\Modules\\Auth\\OTP\\Providers\\OtpServiceProvider',
   ),
   'deferred' => 
   array (

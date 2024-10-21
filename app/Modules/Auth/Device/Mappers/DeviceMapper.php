@@ -11,7 +11,7 @@ class DeviceMapper
     public static function toBusinessModel(Device $device): DeviceModel
     {
         return new DeviceModel(
-            $device->device_id,
+            $device->id,
             $device->user_id,
             $device->device_name,
             $device->device_ip,

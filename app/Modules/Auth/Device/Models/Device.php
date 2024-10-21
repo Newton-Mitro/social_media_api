@@ -9,9 +9,6 @@ class Device extends Model
 {
     use HasFactory;
 
-    protected $table = 'device_info';
-
-    protected $primaryKey = 'device_id';
 
     protected $fillable = ['user_id', 'device_token', 'device_name', 'device_ip', 'device_identifier'];
 }

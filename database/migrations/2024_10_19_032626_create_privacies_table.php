@@ -9,7 +9,7 @@ class CreatePrivaciesTable extends Migration
     public function up()
     {
         Schema::create('privacies', function (Blueprint $table) {
-            $table->id('privacy_id');
+            $table->id('id');
             $table->string('privacy_name');
             $table->timestamps();
         });

@@ -2,14 +2,14 @@
 
 namespace App\Modules\Auth\Authentication\UseCases;
 
-use App\Modules\Auth\Authentication\Events\UserRegistered;
-use App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\User\BusinessModels\UserModel;
-use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use ErrorException;
+use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Str;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\Authentication\Events\UserRegistered;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\UseCases\SendEmailVerifyingOTPCommandHandler;
 
 class RegisterUserCommandHandler
 {
