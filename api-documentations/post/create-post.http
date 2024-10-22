@@ -1,10 +1,10 @@
-# @name createPost
+# @name createPostWithNewAttachments
 POST http://127.0.0.1:8000/api/posts
 Content-Type: application/json
 Accept: application/json
 
 {
-    "body": "This is the content of the post.",
+    "body": "Content of the new post.",
     "location": "Location details",
     "privacy_id": 1,
     "attachments": [
@@ -12,7 +12,14 @@ Accept: application/json
             "type": "image",
             "url": "http://example.com/image.jpg",
             "thumbnail_url": "http://example.com/image_thumb.jpg",
-            "description": "An image description",
+            "description": "Image description",
+            "duration": null
+        },
+        {
+            "type": "document",
+            "url": "http://example.com/document.pdf",
+            "thumbnail_url": null,
+            "description": "Document description",
             "duration": null
         }
     ]

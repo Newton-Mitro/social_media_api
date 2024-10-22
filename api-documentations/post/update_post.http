@@ -1,4 +1,4 @@
-# @name updatePost
+# @name updatePostWithExistingAttachments
 PUT http://127.0.0.1:8000/api/posts/{id}
 Content-Type: application/json
 Accept: application/json
@@ -15,6 +15,14 @@ Accept: application/json
             "thumbnail_url": "http://example.com/updated_image_thumb.jpg",
             "description": "Updated image description",
             "duration": null
+        },
+        {
+            "type": "video",
+            "url": "http://example.com/new_video.mp4",
+            "thumbnail_url": "http://example.com/new_video_thumb.jpg",
+            "description": "New video description",
+            "duration": 120
         }
-    ]
+    ],
+    "deleted_attachments": [2]  // Optional: IDs of attachments to be deleted
 }
