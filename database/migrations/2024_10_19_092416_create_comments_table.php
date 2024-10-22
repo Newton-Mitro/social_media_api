@@ -9,11 +9,10 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id('id');
-            $table->foreignId('post_id')->constrained('posts');
-            $table->foreignId('user_id')->constrained('users');
+            $table->id();
+            $table->morphs('commentable'); // Creates commentable_id and commentable_type columns
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('comment_text');
-            $table->timestamp('timestamp');
             $table->timestamps();
         });
     }

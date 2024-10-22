@@ -17,7 +17,6 @@ class CreateAttachmentsTable extends Migration
             $table->text('description')->nullable();
             $table->integer('duration')->nullable();
             $table->unsignedInteger('likes')->default(0);
-            $table->unsignedInteger('shares')->default(0);
             $table->timestamps();
         });
     }

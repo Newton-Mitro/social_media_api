@@ -1,0 +1,20 @@
+# @name updatePost
+PUT http://127.0.0.1:8000/api/posts/{id}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "body": "Updated content of the post.",
+    "location": "Updated location details",
+    "privacy_id": 2,
+    "attachments": [
+        {
+            "id": 1,
+            "type": "image",
+            "url": "http://example.com/updated_image.jpg",
+            "thumbnail_url": "http://example.com/updated_image_thumb.jpg",
+            "description": "Updated image description",
+            "duration": null
+        }
+    ]
+}

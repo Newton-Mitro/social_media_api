@@ -1,41 +1,19 @@
-# @name login
-POST http://127.0.0.1:8000/api/auth/login
+# @name createPost
+POST http://127.0.0.1:8000/api/posts
 Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "john.doe@email.com",
-    "password": "password"
+    "body": "This is the content of the post.",
+    "location": "Location details",
+    "privacy_id": 1,
+    "attachments": [
+        {
+            "type": "image",
+            "url": "http://example.com/image.jpg",
+            "thumbnail_url": "http://example.com/image_thumb.jpg",
+            "description": "An image description",
+            "duration": null
+        }
+    ]
 }
-
-
-### SET TOKEN
-@auth_token = {{login.response.body.data.access_token}}
-
-
-###
-# @name createPost
-POST http://127.0.0.1:8000/api/posts/create
-Accept: application/json
-Authorization: Bearer {{auth_token}}
-Content-Type: multipart/form-data; boundary=--boundary123
-
-----boundary123
-Content-Disposition: form-data; name="body"
-
-Your post body
-----boundary123
-Content-Disposition: form-data; name="privacy_id"
-
-1
-----boundary123
-Content-Disposition: form-data; name="attachments[0]"; filename="okd.png"
-Content-Type: image/png
-
-< ./../erd/old.png
-----boundary123
-Content-Disposition: form-data; name="attachments[1]"; filename="radish.jpg"
-Content-Type: image/jpg
-
-< ./../erd/radish.jpg
-----boundary123--
