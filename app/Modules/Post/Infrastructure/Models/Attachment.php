@@ -2,18 +2,16 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
-use Database\Factories\PostFactory;
-use Illuminate\Database\Eloquent\Model;
+use Database\Factories\AttachmentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Attachment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-
     protected static function newFactory()
     {
-        return new PostFactory();
+        return new AttachmentFactory();
     }
 }
