@@ -13,7 +13,7 @@ class Attachment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['post_id', 'type', 'url', 'thumbnail_url', 'description', 'duration', 'likes', 'shares'];
+    protected $fillable = ['post_id', 'type', 'url', 'thumbnail_url', 'description', 'duration', 'likes'];
 
     public function post()
     {

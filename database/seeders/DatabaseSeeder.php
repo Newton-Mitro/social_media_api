@@ -11,27 +11,23 @@ use App\Modules\Post\Infrastructure\Models\Comment;
 use App\Modules\Post\Infrastructure\Models\Privacy;
 use App\Modules\Post\Infrastructure\Models\Attachment;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-
+        // User emails to create
         $userEmails = [
             'test@email.com',
             'john.doe@email.com',
             'jenny.smith@email.com',
         ];
 
-        foreach ($userEmails as $value) {
-            User::factory()->create([
-                'email' => $value,
-            ]);
+        // Create users
+        foreach ($userEmails as $email) {
+            User::factory()->create(['email' => $email]);
         }
 
-
-
+        // Privacy values to insert
         $privacyValues = [
             'Public',
             'Friends',
@@ -39,9 +35,9 @@ class DatabaseSeeder extends Seeder
             'Friends of Friend',
         ];
 
-        // Insert fixed privacy values if not already present
-        foreach ($privacyValues as $value) {
-            Privacy::firstOrCreate(['privacy_name' => $value]);
+        // Insert privacy values if not already present
+        foreach ($privacyValues as $privacyName) {
+            Privacy::firstOrCreate(['privacy_name' => $privacyName]);
         }
 
         // Retrieve all privacy records
@@ -49,13 +45,15 @@ class DatabaseSeeder extends Seeder
 
         // Create posts and related data for each privacy
         $privacies->each(function ($privacy) {
-            $posts = Post::factory()->count(5)->create(['privacy_id' => $privacy->id]);
+            // Create posts for each privacy
+            $posts = Post::factory()->count(5)->create(['privacy_id' => $privacy->id, 'user_id' => User::inRandomOrder()->first()->id]);
 
+            // For each post, create comments, attachments, likes, and shares
             foreach ($posts as $post) {
-                Comment::factory()->count(3)->create(['post_id' => $post->id]);
+                Comment::factory()->count(3)->create(['commentable_id' => $post->id, 'commentable_type' => Post::class, 'user_id' => User::inRandomOrder()->first()->id]);
                 Attachment::factory()->count(2)->create(['post_id' => $post->id]);
-                Like::factory()->count(2)->create(['post_id' => $post->id]);
-                Share::factory()->count(1)->create(['post_id' => $post->id]);
+                Like::factory()->count(2)->create(['likable_id' => $post->id, 'likable_type' => Post::class, 'user_id' => User::inRandomOrder()->first()->id]);
+                Share::factory()->count(1)->create(['post_id' => $post->id, 'user_id' => User::inRandomOrder()->first()->id]);
             }
         });
     }

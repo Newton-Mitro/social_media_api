@@ -14,10 +14,10 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'post_id' => Post::inRandomOrder()->first()->id,
+            'commentable_id' => Post::inRandomOrder()->first()->id,
+            'commentable_type' => Post::class,
             'user_id' => User::inRandomOrder()->first()->id,
             'comment_text' => $this->faker->sentence,
-            'timestamp' => $this->faker->dateTime,
         ];
     }
 }

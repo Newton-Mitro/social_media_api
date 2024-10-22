@@ -11,15 +11,16 @@ Accept: application/json
 ### SET TOKEN
 @auth_token = {{login.response.body.data.access_token}}
 
+
 ###
-POST http://127.0.0.1:8000/api/user/profile/picture/update
-Accept: application/json
+# @name uploadFile
+POST http://127.0.0.1:8000/api/upload
 Content-Type: multipart/form-data; boundary=------------------------abcdefg
 Authorization: Bearer {{auth_token}}
 
 --------------------------abcdefg
-Content-Disposition: form-data; name="profilePhoto"; filename="erd.png"
-Content-Type: image/png
+Content-Disposition: form-data; name="uploadFile"; filename="radish.jpg"
+Content-Type: image/jpg
 
-< ./../erd/erd.png
+< ./../uplod_files/radish.jpg
 --------------------------abcdefg--

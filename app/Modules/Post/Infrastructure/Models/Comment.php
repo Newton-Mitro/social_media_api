@@ -12,11 +12,11 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['post_id', 'user_id', 'comment_text', 'timestamp'];
+    protected $fillable = ['user_id', 'comment_text'];
 
-    public function post()
+    public function commentable()
     {
-        return $this->belongsTo(Post::class);
+        return $this->morphTo();
     }
 
     public function user()

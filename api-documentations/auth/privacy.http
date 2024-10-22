@@ -1,4 +1,0 @@
-# @name getPrivacy
-GET http://127.0.0.1:8000/api/auth/get-privacy
-Content-Type: application/json
-Accept: application/json
