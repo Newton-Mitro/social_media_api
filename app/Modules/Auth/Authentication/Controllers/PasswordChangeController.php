@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Authentication\Requests\PasswordChangeRequest;
-use App\Modules\Auth\Authentication\UseCases\Commands\PasswordChange\PasswordChangeCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\PasswordChangeCommandHandler;
 use Illuminate\Support\Facades\Hash;
 
 class PasswordChangeController extends Controller

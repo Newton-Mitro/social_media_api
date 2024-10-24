@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Authentication\Controllers;
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\OTP\Mappers\UserOtpMapper;
 use App\Modules\Auth\OTP\Requests\VerifyForgotPasswordOTPRequest;
-use App\Modules\Auth\OTP\UseCases\Commands\VerifyForgotPasswordOTP\VerifyForgotPasswordOTPCommandHandler;
+use App\Modules\Auth\OTP\UseCases\VerifyForgotPasswordOTPCommandHandler;
 
 class VerifyForgotPasswordOTPController extends Controller
 {

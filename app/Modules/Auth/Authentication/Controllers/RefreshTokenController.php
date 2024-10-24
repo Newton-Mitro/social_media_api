@@ -3,7 +3,7 @@
 namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\UseCases\Commands\RefreshToken\RefreshTokenCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\RefreshTokenCommandHandler;
 use Illuminate\Http\Request;
 
 class RefreshTokenController extends Controller

@@ -4,10 +4,6 @@ namespace App\Modules\Auth\Authentication\Services;
 
 use App\Modules\Auth\Device\BusinessModels\DeviceModel;
 use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
-use App\Modules\Auth\Device\UseCases\Commands\CreateDevice\CreateDeviceCommand;
-use App\Modules\Auth\Device\UseCases\Commands\UpdateDevice\UpdateDeviceCommand;
-use App\Modules\Auth\Device\UseCases\Queries\FindDeviceByUserIDAndDeviceName\FindDeviceByUserIDAndDeviceNameQuery;
-use App\Modules\Auth\Device\UseCases\Queries\FindDeviceWithToken\FindDeviceWithTokenQuery;
 use App\Modules\Auth\User\BusinessModels\UserModel;
 use App\Modules\Auth\User\Mappers\UserMapper;
 use DateTimeImmutable;

@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Authentication\Requests\ResetPasswordRequest;
-use App\Modules\Auth\Authentication\UseCases\Commands\ResetPassword\ResetPasswordCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\ResetPasswordCommandHandler;
 
 class ResetPasswordController extends Controller
 {

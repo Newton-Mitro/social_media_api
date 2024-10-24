@@ -2,6 +2,8 @@
 
 namespace App\Modules\Auth\Authentication\UseCases;
 
+use App\Modules\Auth\BlacklistedToken\BusinessModels\BlacklistedTokenModel;
+use App\Modules\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
 use App\Modules\Auth\BlacklistedToken\UseCases\Commands\AddBlackListToken\AddTokenToBlackListCommand;
 use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Device\UseCases\Queries\FindDeviceByUserIDAndDeviceName\FindDeviceByUserIDAndDeviceNameQuery;
@@ -10,25 +12,28 @@ use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 class LogoutCommandHandler
 {
     public function __construct(
-        protected UserRepositoryInterface $repository,
+        protected UserRepositoryInterface $userRepository,
         protected DeviceRepositoryInterface $deviceRepository,
+        protected BlacklistedTokenRepositoryInterface $blacklistedTokenRepository
     ) {}
 
-    public function handle(): void
+    public function handle(int $userId, string $deviceName, string $token): void
     {
-        $this->commandBus->dispatch(
-            new AddTokenToBlackListCommand(
-                token: $command->getAccessToken(),
-            ),
+        $addBlackListToken = new BlacklistedTokenModel(
+            id: 0,
+            token: $token
         );
 
-        $device = $this->queryBus->ask(
-            new FindDeviceByUserIDAndDeviceNameQuery($command->getUserId(), $command->getDeviceName())
+        $this->blacklistedTokenRepository->addTokenToBlackList($addBlackListToken);
+
+
+        $device = $this->deviceRepository->findDeviceByUserIdAndDeviceName(
+            $userId,
+            $deviceName
         );
 
         if ($device) {
-            // TODO:
-            $this->deviceRepository->logoutFromAllDevices($command->getUserId());
+            $this->deviceRepository->logoutFromAllDevices($userId);
         }
     }
 }

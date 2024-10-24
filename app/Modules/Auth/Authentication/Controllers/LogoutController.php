@@ -3,11 +3,12 @@
 namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
+use App\Modules\Auth\Authentication\UseCases\LogoutCommandHandler;
 use Illuminate\Http\Request;
 
 class LogoutController extends Controller
 {
-    public function __construct() {}
+    public function __construct(protected readonly LogoutCommandHandler $logoutCommandHandler) {}
 
     public function __invoke(Request $request)
     {
@@ -16,9 +17,11 @@ class LogoutController extends Controller
         $ip = $request->ip();
         $userAgent = $request->userAgent();
 
-        // $this->commandBus->dispatch(
-        //     new LogoutCommand($userId, $access_token, $userAgent, $ip)
-        // );
+        $this->logoutCommandHandler->handle(
+            $userId,
+            $userAgent,
+            $access_token,
+        );
 
         return response()->json([
             'data' => null,

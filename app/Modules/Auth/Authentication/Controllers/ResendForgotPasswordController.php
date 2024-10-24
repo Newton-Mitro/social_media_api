@@ -3,9 +3,9 @@
 namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\OTP\Mappers\UserOtpMapper;
 use App\Modules\Auth\Authentication\Requests\ForgotPasswordOTPRequest;
-use App\Modules\Auth\Authentication\UseCases\Commands\ForgotPasswordOTP\ForgotPasswordOTPCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\ForgotPasswordOTPCommandHandler;
+use App\Modules\Auth\OTP\Mappers\UserOtpMapper;
 
 class ResendForgotPasswordController extends Controller
 {

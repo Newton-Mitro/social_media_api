@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Authentication\Requests\VerifyAccountVerificationOtpRequest;
-use App\Modules\Auth\Authentication\UseCases\Commands\VerifyEmailVerifyingOTP\VerifyEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\VerifyEmailVerifyingOTPCommandHandler;
 
 class VerifyAccountVerificationOtpController extends Controller
 {

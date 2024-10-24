@@ -3,7 +3,7 @@
 namespace App\Modules\Auth\Authentication\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\UseCases\Commands\ReSendEmailVerifyingOTP\ReSendEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\ReSendEmailVerifyingOTPCommandHandler;
 use Illuminate\Http\Request;
 
 class ResendAccountVerificationOtpController extends Controller

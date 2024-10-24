@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\UseCases;
 
-use App\Modules\Auth\Authentication\UseCases\Commands\SendEmailVerifyingOTP\SendEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\Authentication\UseCases\SendEmailVerifyingOTPCommandHandler;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use Exception;

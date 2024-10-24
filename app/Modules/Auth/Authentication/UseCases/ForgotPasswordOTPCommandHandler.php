@@ -48,7 +48,7 @@ class ForgotPasswordOTPCommandHandler
                 otp: $otp,
                 userId: $user->getUserId(),
                 expiresAt: $expiresAt->toDateTimeImmutable(),
-                isVerified: false,
+                isVerified: true,
             );
             // Persist user in database
             $returnResult = $this->otpRepository->create($userOtpModel);
@@ -66,7 +66,7 @@ class ForgotPasswordOTPCommandHandler
             );
             $userOTP->setId($userOTP->getId());
             $userOTP->setUserId($userOTP->getUserId());
-            $userOTP->setIsVerified($command->getVerificationStatus());
+            $userOTP->setIsVerified(true);
             // verification status changed then no data will be changed
             if ($command->getVerificationStatus() === true) {
                 $userOTP->setOtp($userOTP->getOtp());
