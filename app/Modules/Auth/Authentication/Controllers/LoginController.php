@@ -5,6 +5,7 @@ namespace App\Modules\Auth\Authentication\Controllers;
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Authentication\Requests\LoginRequest;
 use App\Modules\Auth\Authentication\UseCases\LoginCommandHandler;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
@@ -27,8 +28,8 @@ class LoginController extends Controller
 
         return response()->json([
             'data' => $res,
-            'message' => $res['user']->email_verified_at ? 'Successfully logged in' : 'Your email address is not verified.',
+            'message' => 'Successfully logged in',
             'errors' => null,
-        ]);
+        ], Response::HTTP_OK);
     }
 }

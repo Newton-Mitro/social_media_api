@@ -55,11 +55,13 @@ class PostController extends Controller
             'attachments.*.duration' => 'nullable|integer',
         ]);
 
+        $user = request()->get('user');
+
         $post = Post::create([
             'body' => $request->body,
             'location' => $request->location,
             'privacy_id' => $request->privacy_id,
-            'user_id' => Auth::id(),
+            'user_id' =>  $user['user_id'],
         ]);
 
         // Handle attachments

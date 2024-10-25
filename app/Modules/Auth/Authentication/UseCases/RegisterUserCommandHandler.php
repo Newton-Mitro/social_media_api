@@ -2,26 +2,32 @@
 
 namespace App\Modules\Auth\Authentication\UseCases;
 
+use App\Modules\Auth\Authentication\Events\UserRegistered;
+use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
+use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
+use App\Modules\Auth\Authentication\UseCases\SendEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\User\Mappers\UserMapper;
+use Carbon\Carbon;
 use ErrorException;
-use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use App\Modules\Auth\User\BusinessModels\UserModel;
-use App\Modules\Auth\Authentication\Events\UserRegistered;
-use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Authentication\UseCases\SendEmailVerifyingOTPCommandHandler;
+use Illuminate\Support\Str;
 
 class RegisterUserCommandHandler
 {
     public function __construct(
-        protected UserRepositoryInterface $repository,
+        protected JwtAccessTokenService $accessTokenService,
+        protected JwtRefreshTokenService $refreshTokenService,
+        protected UserRepositoryInterface $userRepository,
         protected SendEmailVerifyingOTPCommandHandler $sendEmailVerifyingOTPCommandHandler
     ) {}
 
-    public function handle(string $name, string $email, string $password): UserModel
+    public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): ?array
     {
         // Check if user already exist
-        $existingUser = $this->repository->findUserByEmail($email);
+        $existingUser = $this->userRepository->findUserByEmail($email);
 
         if ($existingUser) {
             throw new ErrorException('User already exist', Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -36,7 +42,7 @@ class RegisterUserCommandHandler
         );
 
         // Persist user in database
-        $user = $this->repository->create(
+        $user = $this->userRepository->create(
             $userModel
         );
 
@@ -45,6 +51,16 @@ class RegisterUserCommandHandler
             $this->sendEmailVerifyingOTPCommandHandler->handle($email);
         }
 
-        return $user;
+        // Update User Last Logged in date
+        $user->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
+        $updatedUser = $this->userRepository->update($user->getUserId(), $user);
+
+        $mappedUser = UserMapper::toUserResource($updatedUser);
+
+        // Generate user token here
+        $access_token = $this->accessTokenService->generateToken($updatedUser);
+        $refresh_token = $this->refreshTokenService->generateToken($updatedUser, $deviceName, $deviceIP);
+
+        return ['access_token' => $access_token, 'refresh_token' => $refresh_token, 'user' => $mappedUser];
     }
 }

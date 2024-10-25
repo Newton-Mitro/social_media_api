@@ -1,7 +1,22 @@
-# @name updatePostWithExistingAttachments
-PUT http://127.0.0.1:8000/api/posts/{id}
+# @name login
+POST http://127.0.0.1:8000/api/auth/login
 Content-Type: application/json
 Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
+# @name updatePostWithExistingAttachments
+PUT http://127.0.0.1:8000/api/posts/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
 
 {
     "body": "Updated content of the post.",
@@ -9,7 +24,6 @@ Accept: application/json
     "privacy_id": 2,
     "attachments": [
         {
-            "id": 1,
             "type": "image",
             "url": "http://example.com/updated_image.jpg",
             "thumbnail_url": "http://example.com/updated_image_thumb.jpg",
