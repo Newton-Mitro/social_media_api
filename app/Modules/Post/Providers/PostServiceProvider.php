@@ -2,9 +2,9 @@
 
 namespace App\Modules\Post\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Modules\Post\Core\Interfaces\PostRepositoryInterface;
-use App\Modules\Post\Infrastructure\Repositories\PostRepositoryInterfaceImpl;
+use App\Modules\Post\Infrastructure\Repositories\PostRepository;
+use Illuminate\Support\ServiceProvider;
 
 
 class PostServiceProvider extends ServiceProvider
@@ -12,7 +12,7 @@ class PostServiceProvider extends ServiceProvider
     public function register(): void
     {
         $singletons = [
-            PostRepositoryInterface::class => PostRepositoryInterfaceImpl::class,
+            PostRepositoryInterface::class => PostRepository::class,
         ];
 
         foreach ($singletons as $abstract => $concrete) {

@@ -2,7 +2,6 @@
 
 
 use App\Modules\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
-use App\Modules\Post\Http\Controllers\FileUploadController;
 use App\Modules\Post\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +17,3 @@ Route::middleware(JwtAccessTokenMiddleware::class)->group(function (): void {
     Route::delete('/posts/{id}/like', [PostController::class, 'unlike']);
     Route::post('/posts/{id}/share', [PostController::class, 'share']);
 });
-
-Route::post('/upload', [FileUploadController::class, 'upload']);

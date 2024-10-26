@@ -37,6 +37,7 @@
     33 => 'App\\Modules\\Auth\\Device\\Providers\\DeviceServiceProvider',
     34 => 'App\\Modules\\Auth\\BlacklistedToken\\Providers\\BlacklistedTokenServiceProvider',
     35 => 'App\\Modules\\Auth\\OTP\\Providers\\OtpServiceProvider',
+    36 => 'App\\Modules\\StorageFile\\Providers\\StorageFileServiceProvider',
   ),
   'eager' => 
   array (
@@ -61,6 +62,7 @@
     18 => 'App\\Modules\\Auth\\Device\\Providers\\DeviceServiceProvider',
     19 => 'App\\Modules\\Auth\\BlacklistedToken\\Providers\\BlacklistedTokenServiceProvider',
     20 => 'App\\Modules\\Auth\\OTP\\Providers\\OtpServiceProvider',
+    21 => 'App\\Modules\\StorageFile\\Providers\\StorageFileServiceProvider',
   ),
   'deferred' => 
   array (

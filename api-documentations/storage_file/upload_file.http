@@ -15,12 +15,13 @@ Accept: application/json
 ###
 # @name uploadFile
 POST http://127.0.0.1:8000/api/upload
-Content-Type: multipart/form-data; boundary=------------------------abcdefg
+Accept: application/json
 Authorization: Bearer {{auth_token}}
+Content-Type: multipart/form-data; boundary=------------------------abcdefg
 
 --------------------------abcdefg
-Content-Disposition: form-data; name="uploadFile"; filename="radish.jpg"
+Content-Disposition: form-data; name="file"; filename="radish.jpg"
 Content-Type: image/jpg
 
-< ./../uplod_files/radish.jpg
+< ./../upload_files/radish.jpg
 --------------------------abcdefg--
