@@ -11,8 +11,10 @@ class CreateAttachmentsTable extends Migration
         Schema::create('attachments', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('post_id')->constrained('posts');
-            $table->enum('type', ['image', 'video', 'link', 'document']);
+            $table->string('type'); // ['image', 'video', 'link', 'document']
             $table->string('url');
+            $table->string('path');
+            $table->string('file_name');
             $table->string('thumbnail_url')->nullable();
             $table->text('description')->nullable();
             $table->integer('duration')->nullable();

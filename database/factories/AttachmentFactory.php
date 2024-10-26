@@ -41,6 +41,8 @@ class AttachmentFactory extends Factory
             'post_id' => Post::inRandomOrder()->first()->id,
             'type' => $type,
             'url' => $url,
+            'path' => $this->faker->filePath(), // Random file path
+            'file_name' => $this->faker->word . '.' . $this->faker->fileExtension, // Random file name
             'thumbnail_url' => $thumbnail_url,
             'description' => $this->faker->optional()->sentence,
             'duration' => $type === 'video' ? $this->faker->optional()->numberBetween(1, 120) : null,
