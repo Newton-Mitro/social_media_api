@@ -21,7 +21,7 @@ class AttachmentFactory extends Factory
                 $thumbnail_url = $this->faker->imageUrl(150, 150); // Thumbnail for image
                 break;
             case 'video':
-                $url = $this->faker->url; // URL for video
+                $url = "https://firebasestorage.googleapis.com/v0/b/christosangeet-afa3a.appspot.com/o/videos%2FElephantsDream.mp4?alt=media&token=8f62ea2b-ce3d-4df0-b510-55c4b8e8f2c3"; // URL for video
                 $thumbnail_url = $this->faker->imageUrl(150, 150); // Thumbnail for video
                 break;
             case 'link':
