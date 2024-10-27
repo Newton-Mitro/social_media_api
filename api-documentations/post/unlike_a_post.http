@@ -13,6 +13,6 @@ Accept: application/json
 @auth_token = {{login.response.body.data.access_token}}
 
 # @name unlikePost
-DELETE http://127.0.0.1:8000/api/posts/{id}/like
+DELETE http://127.0.0.1:8000/api/posts/1/like
 Accept: application/json
 Authorization: Bearer {{auth_token}}

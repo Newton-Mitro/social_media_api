@@ -33,7 +33,10 @@ class PostRepository implements PostRepositoryInterface
     public function update($id, array $data)
     {
         $post = Post::findOrFail($id);
-        $post->update($data);
+        $post->body = $data['body'];
+        $post->location = $data['location'];
+        $post->privacy_id = $data['privacy_id'];
+        $post->save();
 
         if (isset($data['attachments'])) {
             foreach ($data['attachments'] as $attachmentData) {
