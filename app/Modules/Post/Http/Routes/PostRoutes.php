@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/posts', [PostController::class, 'index']);
+Route::get('/privacies', [PostController::class, 'privacies']);
 
 Route::middleware(JwtAccessTokenMiddleware::class)->group(function (): void {
     Route::get('/posts/{id}', [PostController::class, 'show']);

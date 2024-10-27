@@ -3,7 +3,9 @@
 namespace App\Modules\Post\Providers;
 
 use App\Modules\Post\Core\Interfaces\PostRepositoryInterface;
+use App\Modules\Post\Core\Interfaces\PrivacyRepositoryInterface;
 use App\Modules\Post\Infrastructure\Repositories\PostRepository;
+use App\Modules\Post\Infrastructure\Repositories\PrivacyRepository;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -13,6 +15,7 @@ class PostServiceProvider extends ServiceProvider
     {
         $singletons = [
             PostRepositoryInterface::class => PostRepository::class,
+            PrivacyRepositoryInterface::class => PrivacyRepository::class,
         ];
 
         foreach ($singletons as $abstract => $concrete) {

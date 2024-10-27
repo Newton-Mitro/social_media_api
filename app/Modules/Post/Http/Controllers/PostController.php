@@ -6,6 +6,7 @@ use App\Core\Controllers\Controller;
 use App\Modules\Post\Application\UseCases\PostService;
 use App\Modules\Post\Http\Requests\StorePostRequest;
 use App\Modules\Post\Http\Requests\UpdatePostRequest;
+use App\Modules\Post\Infrastructure\Models\Privacy;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -77,5 +78,11 @@ class PostController extends Controller
     {
         $share = $this->postService->sharePost($id);
         return response()->json(['data' => $share, 'message' => 'Post shared successfully.'], 201);
+    }
+
+    public function privacies()
+    {
+        $privacies = $this->postService->getPrivacies();
+        return response()->json(['data' => $privacies, 'message' => 'Privacies retrieved successfully.'], 200);
     }
 }

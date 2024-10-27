@@ -3,15 +3,18 @@
 namespace App\Modules\Post\Application\UseCases;
 
 use App\Modules\Post\Core\Interfaces\PostRepositoryInterface;
+use App\Modules\Post\Core\Interfaces\PrivacyRepositoryInterface;
 
 
 class PostService
 {
     protected $postRepository;
+    protected $privacyRepository;
 
-    public function __construct(PostRepositoryInterface $postRepository)
+    public function __construct(PostRepositoryInterface $postRepository, PrivacyRepositoryInterface $privacyRepository)
     {
         $this->postRepository = $postRepository;
+        $this->privacyRepository = $privacyRepository;
     }
 
     public function getAllPosts($perPage)
@@ -57,5 +60,10 @@ class PostService
     {
         $user = request()->get('user');
         return $this->postRepository->share($id, $user['user_id']);
+    }
+
+    public function getPrivacies()
+    {
+        return $this->privacyRepository->getPrivacies();
     }
 }
