@@ -9,9 +9,9 @@ interface UserRepositoryInterface
     //    public function all(): array;
     public function create(UserModel $userUserModel): UserModel;
 
-    public function findById(int $userUserId): ?UserModel;
+    public function findById(string $userUserId): ?UserModel;
 
     public function findUserByEmail(string $email): ?UserModel;
 
-    public function update(int $userId, UserModel $userModel): UserModel;
+    public function update(string $userId, UserModel $userModel): UserModel;
 }

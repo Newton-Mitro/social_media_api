@@ -2,16 +2,18 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
-use App\Modules\Post\Infrastructure\Models\Comment;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+use Database\Factories\AttachmentFactory;
 use App\Modules\Post\Infrastructure\Models\Like;
 use App\Modules\Post\Infrastructure\Models\Post;
-use Database\Factories\AttachmentFactory;
+use App\Modules\Post\Infrastructure\Models\Comment;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Attachment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'post_id',
@@ -24,6 +26,15 @@ class Attachment extends Model
         'duration',
         'likes',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($attachment) {
+            $attachment->id = (string) Str::uuid(); // Generate UUID when creating a new post
+        });
+    }
 
     public function post()
     {

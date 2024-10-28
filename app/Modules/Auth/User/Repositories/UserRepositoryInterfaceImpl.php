@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 
 class UserRepositoryInterfaceImpl implements UserRepositoryInterface
 {
-    public function findById(int $userId): ?UserModel
+    public function findById(string $userId): ?UserModel
     {
         $user = User::find($userId);
         if ($user) {
@@ -56,7 +56,7 @@ class UserRepositoryInterfaceImpl implements UserRepositoryInterface
         }
     }
 
-    public function update(int $userId, UserModel $userModel): UserModel
+    public function update(string $userId, UserModel $userModel): UserModel
     {
         try {
             $user = User::find($userId);

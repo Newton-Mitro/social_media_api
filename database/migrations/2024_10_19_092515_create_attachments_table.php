@@ -9,8 +9,8 @@ class CreateAttachmentsTable extends Migration
     public function up()
     {
         Schema::create('attachments', function (Blueprint $table) {
-            $table->id('id');
-            $table->foreignId('post_id')->constrained('posts');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('post_id')->constrained('posts');
             $table->string('type'); // ['image', 'video', 'link', 'document']
             $table->string('url');
             $table->string('path');

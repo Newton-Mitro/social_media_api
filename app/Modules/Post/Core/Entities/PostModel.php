@@ -8,8 +8,8 @@ use DateTimeImmutable;
 class PostModel
 {
     public function __construct(
-        private int               $postId,
-        private int            $userId,
+        private string               $postId,
+        private string            $userId,
         private string            $body,
         private string            $existing_content_url,
         private int            $privacyId,
@@ -25,12 +25,12 @@ class PostModel
         private ?DateTimeImmutable $expireDate = null
     ) {}
 
-    public function getUserId(): int
+    public function getUserId(): string
     {
         return $this->userId;
     }
 
-    public function setUserId(int $userId): PostModel
+    public function setUserId(string $userId): PostModel
     {
         $this->userId = $userId;
         return $this;
@@ -102,12 +102,12 @@ class PostModel
         return $this;
     }
 
-    public function getPostId(): int
+    public function getPostId(): string
     {
         return $this->postId;
     }
 
-    public function setPostId(int $postId): PostModel
+    public function setPostId(string $postId): PostModel
     {
         $this->postId = $postId;
         return $this;

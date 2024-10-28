@@ -14,7 +14,7 @@ class RefreshTokenCommandHandler
         protected UserRepositoryInterface $userRepositoryInterface
     ) {}
 
-    public function handle(int $userId, string $deviceName, string $deviceIP): ?array
+    public function handle(string $userId, string $deviceName, string $deviceIP): ?array
     {
         $user = $this->userRepositoryInterface->findById(
             $userId

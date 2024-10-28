@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->id('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->boolean('is_active')->default(true);

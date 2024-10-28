@@ -1,4 +1,4 @@
 # @name getPosts
-GET http://10.77.77.22:8000/api/posts?page=6&per_page=5
+GET http://127.0.0.1:8000/api/posts?page=1&per_page=5
 Accept: application/json
 

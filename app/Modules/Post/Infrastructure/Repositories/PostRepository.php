@@ -9,16 +9,28 @@ use App\Modules\Post\Infrastructure\Models\Post;
 
 class PostRepository implements PostRepositoryInterface
 {
-    public function getPostsWithRelations($perPage)
+    public function getPostsWithRelations($perPage, $userId = null)
     {
-        return Post::with(['user', 'comments', 'attachments'])
+        return Post::with(['user', 'privacy', 'attachments'])
+            ->where(function ($query) use ($userId) {
+                $query->where('privacy_id', 1);
+                if ($userId) {
+                    $query->orWhereHas('user', function ($query) use ($userId) {
+                        $query->whereIn('id', function ($subQuery) use ($userId) {
+                            $subQuery->select('friend_id')
+                                ->from('friends')
+                                ->where('user_id', $userId);
+                        });
+                    });
+                }
+            })
             ->latest()
             ->paginate($perPage);
     }
 
     public function findByIdWithRelations($id)
     {
-        return Post::with(['user', 'comments', 'attachments'])->findOrFail($id);
+        return Post::with(['user', 'privacy', 'attachments'])->findOrFail($id);
     }
 
     public function create(array $data)
@@ -27,6 +39,10 @@ class PostRepository implements PostRepositoryInterface
         if (isset($data['attachments'])) {
             $post->attachments()->createMany($data['attachments']);
         }
+
+        // Load user, privacy, and attachments relationships
+        $post->load(['user', 'privacy', 'attachments']);
+
         return $post;
     }
 
@@ -48,6 +64,9 @@ class PostRepository implements PostRepositoryInterface
                 }
             }
         }
+
+        // Load user, privacy, and attachments relationships
+        $post->load(['user', 'privacy', 'attachments']);
 
         return $post;
     }

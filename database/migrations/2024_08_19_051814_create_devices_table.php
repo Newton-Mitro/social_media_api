@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id('id')->primary();
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignUuid('user_id')->references('id')->on('users');
             $table->string('device_name');
             $table->string('device_ip')->nullable();
             $table->string('device_identifier')->nullable();

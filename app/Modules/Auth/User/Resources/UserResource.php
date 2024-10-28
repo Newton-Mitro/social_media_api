@@ -6,7 +6,7 @@ namespace App\Modules\Auth\User\Resources;
 class UserResource
 {
     public function __construct(
-        public int $user_id,
+        public string $user_id,
         public string $name,
         public string $user_name,
         public string $email,

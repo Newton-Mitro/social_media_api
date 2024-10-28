@@ -7,7 +7,7 @@ use DateTimeImmutable;
 class UserModel
 {
     public function __construct(
-        private int $userId,
+        private string $userId,
         private string $name,
         private string $userName,
         private string $email,
@@ -23,12 +23,12 @@ class UserModel
         private DateTimeImmutable $updatedAt = new DateTimeImmutable
     ) {}
 
-    public function getUserId(): int
+    public function getUserId(): string
     {
         return $this->userId;
     }
 
-    public function setUserId(int $userId): void
+    public function setUserId(string $userId): void
     {
         $this->userId = $userId;
     }

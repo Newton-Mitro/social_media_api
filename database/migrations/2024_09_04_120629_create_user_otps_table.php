@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('otp');
             $table->timestamp('expires_at');
             $table->boolean('is_verified')->default(false);
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignUuid('user_id')->references('id')->on('users');
             $table->string('token')->nullable();
             $table->timestamps();
         });

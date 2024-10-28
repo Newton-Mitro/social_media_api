@@ -4,15 +4,25 @@ namespace App\Modules\Post\Infrastructure\Models;
 
 use App\Modules\Auth\User\Models\User;
 use Database\Factories\CommentFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Modules\Post\Infrastructure\Models\Post;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = ['user_id', 'comment_text'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($comment) {
+            $comment->id = (string) Str::uuid(); // Generate UUID when creating a new post
+        });
+    }
 
     public function commentable()
     {

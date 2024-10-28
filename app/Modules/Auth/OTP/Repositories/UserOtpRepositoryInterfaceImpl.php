@@ -29,7 +29,7 @@ class UserOtpRepositoryInterfaceImpl implements UserOTPRepositoryInterface
         }
     }
 
-    public function findUserOTPByUserId(int $userId): ?UserOtpModel
+    public function findUserOTPByUserId(string $userId): ?UserOtpModel
     {
         try {
             $userOtp = UserOtp::where('user_id', $userId)->first();

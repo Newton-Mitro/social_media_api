@@ -9,13 +9,14 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id('id');
+            $table->uuid('id')->primary();
             $table->text('body');
             $table->unsignedInteger('likes')->default(0);
             $table->unsignedInteger('shares')->default(0);
+            $table->unsignedInteger('comments')->default(0);
             $table->string('location');
             $table->foreignId('privacy_id')->constrained('privacies');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignUuid('user_id')->constrained('users');
             $table->timestamps();
         });
     }

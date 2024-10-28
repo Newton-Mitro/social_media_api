@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->morphs('likable'); // Creates likable_id and likable_type columns
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->uuidMorphs('likable'); // Creates likable_id and likable_type columns
+            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

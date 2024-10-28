@@ -2,21 +2,32 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
-use Database\Factories\PostFactory;
 use App\Modules\Auth\User\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use App\Modules\Post\Infrastructure\Models\Like;
-use App\Modules\Post\Infrastructure\Models\Share;
-use App\Modules\Post\Infrastructure\Models\Comment;
-use App\Modules\Post\Infrastructure\Models\Privacy;
 use App\Modules\Post\Infrastructure\Models\Attachment;
+use App\Modules\Post\Infrastructure\Models\Comment;
+use App\Modules\Post\Infrastructure\Models\Like;
+use App\Modules\Post\Infrastructure\Models\Privacy;
+use App\Modules\Post\Infrastructure\Models\Share;
+use Database\Factories\PostFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = ['body', 'likes', 'shares', 'location', 'privacy_id', 'user_id'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($post) {
+            $post->id = (string) Str::uuid(); // Generate UUID when creating a new post
+        });
+    }
 
     public function privacy()
     {

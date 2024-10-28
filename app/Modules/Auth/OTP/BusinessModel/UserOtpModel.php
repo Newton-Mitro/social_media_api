@@ -9,7 +9,7 @@ class UserOtpModel
         public function __construct(
                 private int $id,
                 private string $otp,
-                private int $userId,
+                private string $userId,
                 private DateTimeImmutable $expiresAt,
                 private bool $isVerified = false,
                 private ?string $token = null,

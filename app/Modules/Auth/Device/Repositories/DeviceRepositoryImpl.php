@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 
 class DeviceRepositoryImpl implements DeviceRepositoryInterface
 {
-    public function findDeviceByUserIdAndDeviceName(int $user_id, string $device_name): ?DeviceModel
+    public function findDeviceByUserIdAndDeviceName(string $user_id, string $device_name): ?DeviceModel
     {
         $device = Device::where('user_id', $user_id)->where('device_name', $device_name)->first();
         if ($device) {
@@ -69,7 +69,7 @@ class DeviceRepositoryImpl implements DeviceRepositoryInterface
         }
     }
 
-    public function logoutFromAllDevices(int $user_id): void
+    public function logoutFromAllDevices(string $user_id): void
     {
         try {
             Device::where('user_id', $user_id)->delete();
@@ -78,7 +78,7 @@ class DeviceRepositoryImpl implements DeviceRepositoryInterface
         }
     }
 
-    public function findUserDevices(int $user_id): array
+    public function findUserDevices(string $user_id): array
     {
         return Device::where('user_id', $user_id)->get();
     }

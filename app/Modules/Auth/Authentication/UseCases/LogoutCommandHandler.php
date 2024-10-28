@@ -17,7 +17,7 @@ class LogoutCommandHandler
         protected BlacklistedTokenRepositoryInterface $blacklistedTokenRepository
     ) {}
 
-    public function handle(int $userId, string $deviceName, string $token): void
+    public function handle(string $userId, string $deviceName, string $token): void
     {
         $addBlackListToken = new BlacklistedTokenModel(
             id: 0,
