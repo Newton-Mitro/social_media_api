@@ -17,20 +17,18 @@ class PostService
         $this->privacyRepository = $privacyRepository;
     }
 
-    public function getAllPosts($perPage)
+    public function getAllPosts(int $perPage, string $userId)
     {
-        return $this->postRepository->getPostsWithRelations($perPage);
+        return $this->postRepository->getPostsWithRelations($perPage, $userId);
     }
 
-    public function getPostById($id)
+    public function getPostById(string $postId, string $userId)
     {
-        return $this->postRepository->findByIdWithRelations($id);
+        return $this->postRepository->findByIdWithRelations($postId, $userId);
     }
 
-    public function createPost($data)
+    public function createPost($data, string $userId)
     {
-        $user = request()->get('user');
-        $data['user_id'] = $user['user_id'];
         return $this->postRepository->create($data);
     }
 
@@ -44,22 +42,19 @@ class PostService
         return $this->postRepository->delete($id);
     }
 
-    public function likePost($id)
+    public function likePost(string $postId, string $userId)
     {
-        $user = request()->get('user');
-        return $this->postRepository->like($id, $user['user_id']);
+        return $this->postRepository->like($postId, $userId);
     }
 
-    public function unlikePost($id)
+    public function unlikePost(string $postId, string $userId)
     {
-        $user = request()->get('user');
-        return $this->postRepository->unlike($id, $user['user_id']);
+        return $this->postRepository->unlike($postId, $userId);
     }
 
-    public function sharePost($id)
+    public function sharePost(string $postId, string $userId)
     {
-        $user = request()->get('user');
-        return $this->postRepository->share($id, $user['user_id']);
+        return $this->postRepository->share($postId, $userId);
     }
 
     public function getPrivacies()

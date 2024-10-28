@@ -30,6 +30,7 @@ class PostRepository implements PostRepositoryInterface
             ->paginate($perPage)
             ->through(function ($post) use ($userId) {
                 // Determine if the post is liked by the user
+                $likes = $post->likes();
                 $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
                 return $post;
             });

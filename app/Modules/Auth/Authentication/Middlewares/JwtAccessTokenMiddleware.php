@@ -70,7 +70,6 @@ class JwtAccessTokenMiddleware
             }
         }
 
-        // dd(Response::HTTP_UNAUTHORIZED);
         return response()->json(['message' => 'Invalid token.'], Response::HTTP_UNAUTHORIZED);
     }
 }

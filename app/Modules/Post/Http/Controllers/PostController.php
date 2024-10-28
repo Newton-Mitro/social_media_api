@@ -19,22 +19,25 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
+        $authId = request()->get('uid');
         $perPage = $request->input('per_page', 10);
-        $posts = $this->postService->getAllPosts($perPage);
+        $posts = $this->postService->getAllPosts($perPage, $authId);
 
         return response()->json(['data' => $posts, 'message' => 'Posts retrieved successfully.'], 200);
     }
 
     public function show($id)
     {
-        $post = $this->postService->getPostById($id);
+        $authId = request()->get('uid');
+        $post = $this->postService->getPostById($id, $authId);
         return response()->json(['data' => $post, 'message' => 'Post retrieved successfully.'], 200);
     }
 
     public function store(StorePostRequest $request)
     {
+        $authId = request()->get('uid');
         $data = $request->validated();
-        $post = $this->postService->createPost($data);
+        $post = $this->postService->createPost($data, $authId);
 
         return response()->json([
             'data' => $post,
@@ -45,6 +48,7 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, $id)
     {
+        $authId = request()->get('uid');
         $data = $request->validated();
         $post = $this->postService->updatePost($id, $data);
 
@@ -57,25 +61,29 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        $this->postService->deletePost($id);
+        $authId = request()->get('uid');
+        $this->postService->deletePost($id, $authId);
         return response()->json(['message' => 'Post deleted successfully.'], 204);
     }
 
     public function like($id)
     {
-        $like = $this->postService->likePost($id);
+        $authId = request()->get('uid');
+        $like = $this->postService->likePost($id, $authId);
         return response()->json(['data' => $like, 'message' => 'Post liked successfully.'], 201);
     }
 
     public function unlike($id)
     {
-        $this->postService->unlikePost($id);
+        $authId = request()->get('uid');
+        $this->postService->unlikePost($id, $authId);
         return response()->json(['message' => 'Post unliked successfully.'], 204);
     }
 
     public function share($id)
     {
-        $share = $this->postService->sharePost($id);
+        $authId = request()->get('uid');
+        $share = $this->postService->sharePost($id, $authId);
         return response()->json(['data' => $share, 'message' => 'Post shared successfully.'], 201);
     }
 

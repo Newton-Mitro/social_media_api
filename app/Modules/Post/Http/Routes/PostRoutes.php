@@ -2,12 +2,17 @@
 
 
 use App\Modules\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
+use App\Modules\Auth\Authentication\Middlewares\RequestUserMiddleware;
 use App\Modules\Post\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/posts', [PostController::class, 'index']);
+
 Route::get('/privacies', [PostController::class, 'privacies']);
+
+Route::middleware(RequestUserMiddleware::class)->group(function (): void {
+    Route::get('/posts', [PostController::class, 'index']);
+});
 
 Route::middleware(JwtAccessTokenMiddleware::class)->group(function (): void {
     Route::get('/posts/{id}', [PostController::class, 'show']);
