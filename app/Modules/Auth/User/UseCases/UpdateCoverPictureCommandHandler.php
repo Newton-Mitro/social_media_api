@@ -22,16 +22,19 @@ class UpdateCoverPictureCommandHandler
             $userId
         );
 
+        // Check if the user has an existing cover photo
+        if ($user->getCoverPhoto()) {
+            // Get the existing photo path
+            $existingPhotoPath = parse_url($user->getCoverPhoto(), PHP_URL_PATH);
+            // Delete the existing photo
+            Storage::disk('public')->delete(ltrim($existingPhotoPath, '/'));
+        }
 
+        // Store the new cover photo
         $path = $coverPhoto->store('users', 'public');
 
-        // Delete Old Photo
-        // if ($user->getCoverPhoto()) {
-        //     @unlink(public_path('app/public/' . $basePath) . $user->getCoverPhoto());
-        // }
-
         $user->setUpdatedAt(new DateTimeImmutable());
-        $user->setCoverPhoto(asset(Storage::url($path)));
+        $user->setCoverPhoto($path);
 
         if ($this->userRepository->update($userId, $user)) {
             return $user;

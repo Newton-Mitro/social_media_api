@@ -18,20 +18,21 @@ class UpdateProfilePictureCommandHandler
 
     public function handle(string $userId, UploadedFile $profilePhoto): ?UserModel
     {
-        $user = $this->userRepository->findById(
-            $userId
-        );
-
-
-        $path = $profilePhoto->store('users', 'public');
+        $user = $this->userRepository->findById($userId);
 
         // Delete Old Photo
-        // if ($user->getCoverPhoto()) {
-        //     @unlink(public_path('app/public/' . $basePath) . $user->getCoverPhoto());
-        // }
+        if ($user->getProfilePicture()) {
+            // Get the existing photo path
+            $existingPhotoPath = parse_url($user->getProfilePicture(), PHP_URL_PATH);
+            // Delete the existing photo
+            Storage::disk('public')->delete(ltrim($existingPhotoPath, '/'));
+        }
+
+        // Store the new profile photo
+        $path = $profilePhoto->store('users', 'public');
 
         $user->setUpdatedAt(new DateTimeImmutable());
-        $user->setProfilePicture(asset(Storage::url($path)));
+        $user->setProfilePicture($path);
 
         if ($this->userRepository->update($userId, $user)) {
             return $user;

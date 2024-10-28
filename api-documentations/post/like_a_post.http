@@ -14,6 +14,6 @@ Accept: application/json
 
 
 # @name likePost
-POST http://127.0.0.1:8000/api/posts/1/like
+POST http://127.0.0.1:8000/api/posts/44f99ab3-7b1c-4faf-ba5a-124450441ea8/like
 Accept: application/json
 Authorization: Bearer {{auth_token}}

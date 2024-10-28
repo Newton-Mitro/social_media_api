@@ -6,7 +6,6 @@ use App\Core\Controllers\Controller;
 use App\Modules\Post\Application\UseCases\PostService;
 use App\Modules\Post\Http\Requests\StorePostRequest;
 use App\Modules\Post\Http\Requests\UpdatePostRequest;
-use App\Modules\Post\Infrastructure\Models\Privacy;
 use Illuminate\Http\Request;
 
 class PostController extends Controller

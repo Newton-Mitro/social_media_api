@@ -40,8 +40,8 @@ class UserMapper
             $userModel->getName(),
             $userModel->getUserName(),
             $userModel->getEmail(),
-            $userModel->getProfilePicture(),
-            $userModel->getCoverPhoto(),
+            $userModel->getProfilePicture() ? asset(Storage::url($userModel->getProfilePicture())) : null,
+            $userModel->getCoverPhoto() ? asset(Storage::url($userModel->getCoverPhoto())) : null,
             $userModel->getEmailVerifiedAt() ? $userModel->getEmailVerifiedAt()->format('Y-m-d H:i:s') : null
         );
     }
