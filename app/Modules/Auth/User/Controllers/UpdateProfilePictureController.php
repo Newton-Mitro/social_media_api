@@ -2,40 +2,26 @@
 
 namespace App\Modules\Auth\User\Controllers;
 
-use Exception;
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\User\Mappers\UserMapper;
-use Symfony\Component\HttpFoundation\Response;
 use App\Modules\Auth\User\Requests\UpdateProfilePictureRequest;
-use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
-use App\Modules\Auth\User\UseCases\Commands\UpdateUser\UpdateProfilePictureCommand;
+use App\Modules\Auth\User\UseCases\UpdateProfilePictureCommandHandler;
+use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateProfilePictureController extends Controller
 {
-    public function __construct() {}
+    public function __construct(protected readonly UpdateProfilePictureCommandHandler $updateProfilePictureCommandHandler) {}
 
     public function __invoke(UpdateProfilePictureRequest $request)
     {
         // dd($request);
         if ($request->hasFile('profilePhoto')) {
 
-            $user = $this->queryBus->ask(
-                new FindUserQuery($request->user['user_id'])
-            );
-
-            $basePath = 'users/profile/';
-            // Delete Old Photo
-            if ($user->getProfilePicture()) {
-                @unlink(public_path('app/public/' . $basePath) . $user->getProfilePicture());
-            }
-
             $image = $request->file('profilePhoto');
-            $storagePath = $image->store($basePath, 'public');
-            $user = $this->commandBus->dispatch(
-                new UpdateProfilePictureCommand(
-                    userId: $request->user['user_id'],
-                    profilePicture: $basePath . basename($storagePath),
-                )
+            $user = $this->updateProfilePictureCommandHandler->handle(
+                userId: $request->user['user_id'],
+                profilePhoto: $image,
             );
 
             return response()->json([

@@ -7,36 +7,19 @@ use App\Core\Controllers\Controller;
 use App\Modules\Auth\User\Mappers\UserMapper;
 use Symfony\Component\HttpFoundation\Response;
 use App\Modules\Auth\User\Requests\UpdateCoverPictureRequest;
-use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
-use App\Modules\Auth\User\UseCases\Commands\UpdateUser\UpdateCoverPictureCommand;
+use App\Modules\Auth\User\UseCases\UpdateCoverPictureCommandHandler;
 
 class UpdateCoverPictureController extends Controller
 {
-    public function __construct() {}
+    public function __construct(protected readonly UpdateCoverPictureCommandHandler $logoutCommandHandler) {}
 
     public function __invoke(UpdateCoverPictureRequest $request)
     {
-        // dd($request);
         if ($request->hasFile('coverPhoto')) {
-
-            $user = $this->queryBus->ask(
-                new FindUserQuery($request->user['user_id'])
-            );
-
-            $basePath = 'users/cover/';
-            // Delete Old Photo
-            if ($user->getCoverPhoto()) {
-                @unlink(public_path('app/public/' . $basePath) . $user->getCoverPhoto());
-            }
-
             $image = $request->file('coverPhoto');
-            $storagePath = $image->store($basePath, 'public');
-
-            $user = $this->commandBus->dispatch(
-                new UpdateCoverPictureCommand(
-                    userId: $request->user['user_id'],
-                    coverPhoto: $basePath . basename($storagePath),
-                ),
+            $user = $this->logoutCommandHandler->handle(
+                userId: $request->user['user_id'],
+                coverPhoto: $image,
             );
 
             return response()->json([

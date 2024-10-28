@@ -2,29 +2,38 @@
 
 namespace App\Modules\Auth\User\UseCases;
 
-use Exception;
-use DateTimeImmutable;
-use Illuminate\Http\Response;
 use App\Modules\Auth\User\BusinessModels\UserModel;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\User\UseCases\Queries\FindUser\FindUserQuery;
+use DateTimeImmutable;
+use Exception;
+use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateCoverPictureCommandHandler
 {
     public function __construct(
-        protected UserRepositoryInterface $repository,
+        protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(UpdateCoverPictureCommand $command): ?UserModel
+    public function handle(string $userId, UploadedFile $coverPhoto): ?UserModel
     {
-
-        $user = $this->queryBus->ask(
-            new FindUserQuery($command->getUserId())
+        $user = $this->userRepository->findById(
+            $userId
         );
-        $user->setUpdatedAt(new DateTimeImmutable());
-        $user->setCoverPhoto($command->getCoverPhoto());
 
-        if ($this->repository->update($command->getUserId(), $user)) {
+
+        $path = $coverPhoto->store('users', 'public');
+
+        // Delete Old Photo
+        // if ($user->getCoverPhoto()) {
+        //     @unlink(public_path('app/public/' . $basePath) . $user->getCoverPhoto());
+        // }
+
+        $user->setUpdatedAt(new DateTimeImmutable());
+        $user->setCoverPhoto(asset(Storage::url($path)));
+
+        if ($this->userRepository->update($userId, $user)) {
             return $user;
         }
 
