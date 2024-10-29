@@ -113,7 +113,14 @@ class PostRepository implements PostRepositoryInterface
         $post = Post::findOrFail($id);
         $like = $post->likes()->create(['user_id' => $userId]);
         $post->increment('likes');
-        return $like;
+
+        // Load user, privacy, and attachments relationships after update
+        $post->load(['user', 'privacy', 'attachments']);
+
+        // Determine if the post is liked by the user
+        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
+
+        return $post;
     }
 
     public function unlike($id, $userId)
@@ -124,6 +131,14 @@ class PostRepository implements PostRepositoryInterface
             $like->delete();
             $post->decrement('likes');
         }
+
+        // Load user, privacy, and attachments relationships after update
+        $post->load(['user', 'privacy', 'attachments']);
+
+        // Determine if the post is liked by the user
+        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
+
+        return $post;
     }
 
     public function share($id, $userId)
@@ -131,6 +146,13 @@ class PostRepository implements PostRepositoryInterface
         $post = Post::findOrFail($id);
         $share = $post->shares()->create(['user_id' => $userId]);
         $post->increment('shares');
-        return $share;
+
+        // Load user, privacy, and attachments relationships after update
+        $post->load(['user', 'privacy', 'attachments']);
+
+        // Determine if the post is liked by the user
+        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
+
+        return $post;
     }
 }

@@ -23,3 +23,9 @@ Route::middleware(JwtAccessTokenMiddleware::class)->group(function (): void {
     Route::delete('/posts/{id}/like', [PostController::class, 'unlike']);
     Route::post('/posts/{id}/share', [PostController::class, 'share']);
 });
+
+Route::middleware(JwtAccessTokenMiddleware::class)->prefix('v2')->group(function () {
+    Route::post('/posts', [PostController::class, 'store_v2']);
+    Route::put('/posts/{id}', [PostController::class, 'update_v2']);
+    Route::delete('/posts/{id}', [PostController::class, 'destroy_v2']);
+});
