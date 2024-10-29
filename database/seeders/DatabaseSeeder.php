@@ -50,10 +50,10 @@ class DatabaseSeeder extends Seeder
 
             // For each post, create comments, attachments, likes, and shares
             foreach ($posts as $post) {
-                Comment::factory()->count(3)->create(['commentable_id' => $post->id, 'commentable_type' => Post::class, 'user_id' => User::first()->id]);
+                Comment::factory()->count(3)->create(['commentable_id' => $post->id, 'commentable_type' => Post::class, 'user_id' => User::inRandomOrder()->first()->id]);
                 Attachment::factory()->count(2)->create(['post_id' => $post->id]);
-                Like::factory()->count(2)->create(['likable_id' => $post->id, 'likable_type' => Post::class, 'user_id' => User::first()->id]);
-                Share::factory()->count(1)->create(['post_id' => $post->id, 'user_id' => User::first()->id]);
+                Like::factory()->count(2)->create(['likable_id' => $post->id, 'likable_type' => Post::class, 'user_id' => User::inRandomOrder()->first()->id]);
+                Share::factory()->count(1)->create(['post_id' => $post->id, 'user_id' => User::inRandomOrder()->first()->id]);
             }
         });
     }

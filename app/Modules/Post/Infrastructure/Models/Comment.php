@@ -2,12 +2,14 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
+use Illuminate\Support\Str;
 use App\Modules\Auth\User\Models\User;
 use Database\Factories\CommentFactory;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use App\Modules\Post\Infrastructure\Models\Like;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
@@ -27,6 +29,11 @@ class Comment extends Model
     public function commentable()
     {
         return $this->morphTo();
+    }
+
+    public function likes(): MorphMany
+    {
+        return $this->morphMany(Like::class, 'likable');
     }
 
     public function user()
