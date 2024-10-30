@@ -13,9 +13,10 @@ class CreateAttachmentsTable extends Migration
             $table->foreignUuid('post_id')->constrained('posts');
             $table->string('type'); // ['image', 'video', 'link', 'document']
             $table->string('url');
-            $table->string('path');
-            $table->string('file_name');
+            $table->string('path')->nullable();
+            $table->string('file_name')->nullable();
             $table->string('thumbnail_url')->nullable();
+            $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->integer('duration')->nullable();
             $table->unsignedInteger('likes')->default(0);

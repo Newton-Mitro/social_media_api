@@ -13,6 +13,8 @@ use App\Modules\Post\Infrastructure\Models\Post;
 use App\Modules\Post\Infrastructure\Models\Share;
 use App\Modules\Post\Infrastructure\Models\Comment;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Modules\Follow\Infrastructure\Models\Follow;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -68,5 +70,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function newFactory()
     {
         return new UserFactory;
+    }
+
+    public function followers(): HasMany
+    {
+        return $this->hasMany(Follow::class, 'following_id');
+    }
+
+    public function following(): HasMany
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
     }
 }

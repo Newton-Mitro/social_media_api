@@ -1,0 +1,18 @@
+# @name login
+POST http://127.0.0.1:8000/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
+
+# Unfollow a User
+DELETE http://127.0.0.1:8000/api/unfollow/36916b27-4853-4596-8485-427356d0ecae
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
