@@ -3,6 +3,7 @@
 namespace App\Modules\Auth\User\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Modules\Auth\User\UseCases\FetchUserProfileUseCase;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
 use App\Modules\Auth\User\Repositories\UserRepositoryInterfaceImpl;
@@ -21,6 +22,7 @@ class UserServiceProvider extends ServiceProvider
 
             UpdateCoverPictureCommandHandler::class => UpdateCoverPictureCommandHandler::class,
             UpdateProfilePictureCommandHandler::class => UpdateProfilePictureCommandHandler::class,
+            FetchUserProfileUseCase::class => FetchUserProfileUseCase::class,
         ];
 
         foreach ($singletons as $abstract => $concrete) {
