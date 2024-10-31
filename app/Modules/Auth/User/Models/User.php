@@ -57,6 +57,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class);
     }
 
+    public function postLikes()
+    {
+        return $this->hasManyThrough(Like::class, Post::class);
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);
@@ -80,5 +85,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function following(): HasMany
     {
         return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    public function userFollowers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+
+    public function userFollowing()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
     }
 }

@@ -17,7 +17,7 @@ class PostService
         $this->privacyRepository = $privacyRepository;
     }
 
-    public function getAllPosts(int $perPage, string $userId)
+    public function getAllPosts(int $perPage, $userId)
     {
         return $this->postRepository->getPostsWithRelations($perPage, $userId);
     }

@@ -18,9 +18,9 @@ class PostRepository implements PostRepositoryInterface
                 if ($userId) {
                     $query->orWhereHas('user', function ($subQuery) use ($userId) {
                         $subQuery->whereIn('id', function ($friendQuery) use ($userId) {
-                            $friendQuery->select('friend_id')
-                                ->from('friends')
-                                ->where('user_id', $userId);
+                            $friendQuery->select('following_id')
+                                ->from('follows')
+                                ->where('follower_id', $userId);
                         });
                     });
                 }
