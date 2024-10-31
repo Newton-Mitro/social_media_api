@@ -39,10 +39,10 @@ Content-Disposition: form-data; name="privacy_id"
 Content-Disposition: form-data; name="attachments[]"; filename="radish.jpg"
 Content-Type: image/jpeg
 
-< ./../../files/radish.jpg
+< ./../../assets/radish.jpg
 --------------------------abcdefg
 Content-Disposition: form-data; name="attachments[]"; filename="old.png"
 Content-Type: image/png
 
-< ./../../files/old.png
+< ./../../assets/old.png
 --------------------------abcdefg--

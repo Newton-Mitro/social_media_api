@@ -21,5 +21,5 @@ Authorization: Bearer {{auth_token}}
 Content-Disposition: form-data; name="coverPhoto"; filename="erd.png"
 Content-Type: image/png
 
-< ./../files/erd.png
+< ./../assets/erd.png
 --------------------------abcdefg--

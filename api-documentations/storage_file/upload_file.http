@@ -23,5 +23,5 @@ Content-Type: multipart/form-data; boundary=------------------------abcdefg
 Content-Disposition: form-data; name="file"; filename="radish.jpg"
 Content-Type: image/jpg
 
-< ./../files/radish.jpg
+< ./../assets/radish.jpg
 --------------------------abcdefg--
