@@ -15,12 +15,21 @@ class FetchUserProfileController extends Controller
 
     public function __invoke($userId)
     {
-        // $user = $this->fetchUserProfileUseCase->handle($userId);
-
+        // Fetch user profile with necessary relationships and counts
         $user = User::where('id', $userId)
-            ->with(['userFollowers', 'userFollowing'])
-            ->withCount(['userFollowers as followers_count', 'userFollowing as following_count'])
+            ->with([
+                'userFollowers',          // Followers
+                'userFollowing',          // Following
+                'friends',                // Friends list
+                'sentFriendRequests',     // Sent friend requests (pending)
+                'pendingFriendRequests',  // Received friend requests (pending)
+            ])
             ->withCount([
+                'userFollowers as followers_count',
+                'userFollowing as following_count',
+                'friends as friends_count', // Count of friends
+                'sentFriendRequests as sent_friend_requests_count', // Count of sent friend requests
+                'pendingFriendRequests as pending_friend_requests_count', // Count of pending friend requests
                 'posts as total_post_likes' => function ($query) {
                     $query->select(DB::raw('SUM(likes)'));
                 },
@@ -29,11 +38,11 @@ class FetchUserProfileController extends Controller
 
         $user->total_post_likes = (int) $user->total_post_likes;
 
-        return $user;
-        // return response()->json([
-        //     'data' => UserMapper::toUserResource($user),
-        //     'message' => 'User Profile Fetched Successfully.',
-        //     'errors' => null,
-        // ], Response::HTTP_CREATED);
+        // Format the response
+        return response()->json([
+            'data' => $user,
+            'message' => 'User Profile Fetched Successfully.',
+            'errors' => null,
+        ], Response::HTTP_OK);
     }
 }
