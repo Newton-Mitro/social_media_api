@@ -230,6 +230,7 @@ class PostController extends Controller
         $post->attachments()->create([
             'file_name' => basename($path),
             'url' => asset(Storage::url($path)),
+            'thumbnail_url' => asset(Storage::url($path)),
             'type' => $file->getMimeType(),
             'path' => $path,
         ]);

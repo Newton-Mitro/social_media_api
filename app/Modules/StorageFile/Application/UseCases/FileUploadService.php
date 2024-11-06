@@ -17,6 +17,7 @@ class FileUploadService implements FileUploadServiceInterface
             'file_name' => basename($path),
             'file_type' => $file->getMimeType(),
             'url' => asset(Storage::url($path)),
+            'thumbnail_url' => asset(Storage::url($path)),
             'path' => $path,
         ];
     }
