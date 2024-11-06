@@ -2,22 +2,23 @@
 
 namespace App\Modules\Auth\Authentication\Providers;
 
+use App\Modules\Auth\Authentication\Application\Events\UserRegistered;
+use App\Modules\Auth\Authentication\Application\Listeners\SendWelcomeEmail;
+use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
+use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
+use App\Modules\Auth\Authentication\Application\UseCases\ForgotPasswordOTPCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\LoginCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\LogoutCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\PasswordChangeCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\RefreshTokenCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\RegisterUserCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\ReSendEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\ResetPasswordCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\SendEmailVerifyingOTPCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\VerifyEmailVerifyingOTPCommandHandler;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use App\Modules\Auth\Authentication\Events\UserRegistered;
-use App\Modules\Auth\Authentication\Listeners\SendWelcomeEmail;
-use App\Modules\Auth\Authentication\UseCases\LoginCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\LogoutCommandHandler;
-use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
-use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
-use App\Modules\Auth\Authentication\UseCases\RefreshTokenCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\RegisterUserCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\ResetPasswordCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\PasswordChangeCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\ForgotPasswordOTPCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\SendEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\ReSendEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\Authentication\UseCases\VerifyEmailVerifyingOTPCommandHandler;
+
 
 
 class AuthServiceProvider extends ServiceProvider
