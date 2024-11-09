@@ -7,7 +7,7 @@ use DateTimeImmutable;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 
 class UpdateProfilePictureCommandHandler
@@ -16,7 +16,7 @@ class UpdateProfilePictureCommandHandler
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId, UploadedFile $profilePhoto): ?UserModel
+    public function handle(string $userId, UploadedFile $profilePhoto): ?UserEntity
     {
         $user = $this->userRepository->findById($userId);
 

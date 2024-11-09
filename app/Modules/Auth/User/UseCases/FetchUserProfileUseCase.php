@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\User\UseCases;
 
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\Response;
@@ -13,7 +13,7 @@ class FetchUserProfileUseCase
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId): ?UserModel
+    public function handle(string $userId): ?UserEntity
     {
         $user = $this->userRepository->findById(
             $userId

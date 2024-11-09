@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Services;
 
 use App\Modules\Auth\Device\BusinessModels\DeviceModel;
 use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use App\Modules\Auth\User\Mappers\UserMapper;
 use DateTimeImmutable;
 use Exception;
@@ -27,7 +27,7 @@ class JwtRefreshTokenService
         );
     }
 
-    public function generateToken(UserModel $user, string $device_name, string $device_ip)
+    public function generateToken(UserEntity $user, string $device_name, string $device_ip)
     {
         $now = new DateTimeImmutable;
         $token = $this->config->builder()

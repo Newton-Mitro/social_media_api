@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Auth\User\BusinessModels;
+namespace App\Modules\Auth\User\Domain\Entities;
 
 use DateTimeImmutable;
 
-class UserModel
+class UserEntity
 {
     public function __construct(
         private string $userId,

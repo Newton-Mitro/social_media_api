@@ -2,157 +2,89 @@
 
 namespace App\Modules\Post\Infrastructure\Repositories;
 
-use App\Modules\Post\Core\Interfaces\PostRepositoryInterface;
+use App\Modules\Post\Domain\Entities\CommentEntity;
+use App\Modules\Post\Domain\Entities\PostAggregate;
 use App\Modules\Post\Infrastructure\Models\Post;
+use App\Modules\Post\Infrastructure\Repositories\CommentRepository;
+use Illuminate\Support\Facades\DB;
 
 
 
-class PostRepository implements PostRepositoryInterface
+class PostRepository
 {
-    public function getPostsWithRelations($perPage, $userId = null)
+    protected CommentRepository $commentRepository;
+
+    public function __construct(CommentRepository $commentRepository)
     {
-        $query = Post::with(['user', 'privacy', 'attachments'])
-            ->where(function ($query) use ($userId) {
-                $query->where('privacy_id', 1);
-
-                if ($userId) {
-                    $query->orWhereHas('user', function ($subQuery) use ($userId) {
-                        $subQuery->whereIn('id', function ($friendQuery) use ($userId) {
-                            $friendQuery->select('following_id')
-                                ->from('follows')
-                                ->where('follower_id', $userId);
-                        });
-                    });
-                }
-            });
-
-        return $query->latest()
-            ->paginate($perPage)
-            ->through(function ($post) use ($userId) {
-                // Determine if the post is liked by the user
-                $likes = $post->likes();
-                $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
-                return $post;
-            });
+        $this->commentRepository = $commentRepository;
     }
 
-
-    public function findByIdWithRelations($id, $userId = null)
+    public function save(PostAggregate $post): void
     {
-        $post = Post::with(['user', 'privacy', 'attachments'])->findOrFail($id);
-
-        // Determine if the post is liked by the user
-        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
-
-        return $post;
+        DB::transaction(function () use ($post) {
+            $eloquentPost = Post::find($post->getId()) ?? new Post();
+            $eloquentPost->content = $post->getContent();
+            $eloquentPost->save();
+        });
     }
 
-    public function create(array $data, $userId = null)
+    public function findById(string $postId): ?PostAggregate
     {
-        // Create the post with the provided data
-        $post = Post::create($data);
+        $eloquentPost = Post::with('comments')->find($postId);
+        if (!$eloquentPost) return null;
 
-        // Check if there are attachments and associate them with the post
-        if (isset($data['attachments'])) {
-            $post->attachments()->createMany($data['attachments']);
+        $post = new PostAggregate($eloquentPost->id, $eloquentPost->title, $eloquentPost->content);
+        foreach ($eloquentPost->comments as $eloquentComment) {
+            $comment = new CommentEntity($eloquentComment->id, $eloquentComment->author_id, $eloquentComment->content);
+            $post->addComment($comment);
         }
 
-        // Load user, privacy, and attachments relationships
-        $post->load(['user', 'privacy', 'attachments']);
-
-        // Determine if the post is liked by the user
-        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
-
         return $post;
     }
 
-    public function update($id, array $data, $userId = null)
+    public function deleteById(string $postId): void
     {
-        // Find the post by ID or fail
-        $post = Post::findOrFail($id);
+        DB::transaction(function () use ($postId) {
+            // delete post comments
+            // delete post likes
+            // delete post shares
+            // delete post views
+            // delete post attachments
+            Post::destroy($postId);
+        });
+    }
 
-        // Update the post's attributes
-        $post->update([
-            'body' => $data['body'],
-            'location' => $data['location'],
-            'privacy_id' => $data['privacy_id'],
-        ]);
 
-        // Handle attachments
-        if (isset($data['attachments'])) {
-            foreach ($data['attachments'] as $attachmentData) {
-                if (isset($attachmentData['id'])) {
-                    // Update existing attachment
-                    $attachment = $post->attachments()->findOrFail($attachmentData['id']);
-                    $attachment->update($attachmentData);
-                } else {
-                    // Create new attachment
-                    $post->attachments()->create($attachmentData);
-                }
+    public function addComment(PostAggregate $post, CommentEntity $comment): void
+    {
+        DB::transaction(function () use ($post, $comment) {
+            $eloquentPost = Post::find($post->getId());
+
+            if ($eloquentPost) {
+                $this->commentRepository->addComment($eloquentPost, $comment);
             }
-        }
-
-        // Load user, privacy, and attachments relationships after update
-        $post->load(['user', 'privacy', 'attachments']);
-
-        // Determine if the post is liked by the user
-        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
-
-        return $post;
+        });
     }
 
-    public function delete($id)
+    public function removeComment(PostAggregate $post, CommentEntity $comment): void
     {
-        $post = Post::findOrFail($id);
-        $post->attachments()->delete();
-        $post->delete();
+        DB::transaction(function () use ($post, $comment) {
+            $eloquentPost = Post::find($post->getId());
+
+            if ($eloquentPost) {
+                $this->commentRepository->removeComment($eloquentPost, $comment);
+            }
+        });
     }
 
-    public function like($id, $userId)
+    public function updateComment(PostAggregate $post, CommentEntity $comment): void
     {
-        $post = Post::findOrFail($id);
-        $like = $post->likes()->create(['user_id' => $userId]);
-        $post->increment('likes');
+        DB::transaction(function () use ($post, $comment) {
+            $eloquentPost = Post::find($post->getId());
 
-        // Load user, privacy, and attachments relationships after update
-        $post->load(['user', 'privacy', 'attachments']);
-
-        // Determine if the post is liked by the user
-        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
-
-        return $post;
-    }
-
-    public function unlike($id, $userId)
-    {
-        $post = Post::findOrFail($id);
-        $like = $post->likes()->where('user_id', $userId)->first();
-        if ($like) {
-            $like->delete();
-            $post->decrement('likes');
-        }
-
-        // Load user, privacy, and attachments relationships after update
-        $post->load(['user', 'privacy', 'attachments']);
-
-        // Determine if the post is liked by the user
-        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
-
-        return $post;
-    }
-
-    public function share($id, $userId)
-    {
-        $post = Post::findOrFail($id);
-        $share = $post->shares()->create(['user_id' => $userId]);
-        $post->increment('shares');
-
-        // Load user, privacy, and attachments relationships after update
-        $post->load(['user', 'privacy', 'attachments']);
-
-        // Determine if the post is liked by the user
-        $post->isLiked = $userId ? $post->likes()->where('user_id', $userId)->exists() : false;
-
-        return $post;
+            if ($eloquentPost) {
+                $this->commentRepository->updateComment($eloquentPost, $comment);
+            }
+        });
     }
 }

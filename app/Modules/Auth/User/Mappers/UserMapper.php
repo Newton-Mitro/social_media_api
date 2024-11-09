@@ -5,16 +5,16 @@ namespace App\Modules\Auth\User\Mappers;
 use Carbon\Carbon;
 use App\Modules\Auth\User\Models\User;
 use App\Modules\Auth\User\Resources\UserResource;
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use Illuminate\Support\Facades\Storage;
 
 class UserMapper
 {
-    public static function toBusinessModel(User $user): UserModel
+    public static function toBusinessModel(User $user): UserEntity
     {
         // $profile_picture_url = config('app.USER_PROFILE_IMAGE_URL').$user->profile_picture;
         // $cover_photo_url = config('app.USER_COVER_IMAGE_URL').$user->cover_photo;
-        return new UserModel(
+        return new UserEntity(
             $user->id,
             $user->name,
             $user->user_name,
@@ -33,7 +33,7 @@ class UserMapper
     }
 
 
-    public static function toUserResource(UserModel $userModel): UserResource
+    public static function toUserResource(UserEntity $userModel): UserResource
     {
         return new UserResource(
             $userModel->getUserId(),

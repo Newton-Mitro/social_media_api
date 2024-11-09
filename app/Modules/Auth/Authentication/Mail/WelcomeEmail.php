@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Mail;
 
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -14,7 +14,7 @@ class WelcomeEmail extends Mailable
 
     public $user;
 
-    public function __construct(UserModel $user)
+    public function __construct(UserEntity $user)
     {
         $this->user = $user;
     }

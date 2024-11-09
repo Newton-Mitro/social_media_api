@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\User\Repositories;
 
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\User\Mappers\UserMapper;
 use App\Modules\Auth\User\Models\User;
@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 
 class UserRepositoryInterfaceImpl implements UserRepositoryInterface
 {
-    public function findById(string $userId): ?UserModel
+    public function findById(string $userId): ?UserEntity
     {
         $user = User::find($userId);
         if ($user) {
@@ -21,7 +21,7 @@ class UserRepositoryInterfaceImpl implements UserRepositoryInterface
         return null;
     }
 
-    public function findUserByEmail(string $email): ?UserModel
+    public function findUserByEmail(string $email): ?UserEntity
     {
         $user = User::where('email', $email)->first();
         if ($user) {
@@ -31,7 +31,7 @@ class UserRepositoryInterfaceImpl implements UserRepositoryInterface
         return null;
     }
 
-    public function create(UserModel $userModel): UserModel
+    public function create(UserEntity $userModel): UserEntity
     {
         try {
             $user = new User;
@@ -56,7 +56,7 @@ class UserRepositoryInterfaceImpl implements UserRepositoryInterface
         }
     }
 
-    public function update(string $userId, UserModel $userModel): UserModel
+    public function update(string $userId, UserEntity $userModel): UserEntity
     {
         try {
             $user = User::find($userId);

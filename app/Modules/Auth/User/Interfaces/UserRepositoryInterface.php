@@ -2,16 +2,16 @@
 
 namespace App\Modules\Auth\User\Interfaces;
 
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 
 interface UserRepositoryInterface
 {
     //    public function all(): array;
-    public function create(UserModel $userUserModel): UserModel;
+    public function create(UserEntity $userUserModel): UserEntity;
 
-    public function findById(string $userUserId): ?UserModel;
+    public function findById(string $userUserId): ?UserEntity;
 
-    public function findUserByEmail(string $email): ?UserModel;
+    public function findUserByEmail(string $email): ?UserEntity;
 
-    public function update(string $userId, UserModel $userModel): UserModel;
+    public function update(string $userId, UserEntity $userModel): UserEntity;
 }

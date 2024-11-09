@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\User\UseCases;
 
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use DateTimeImmutable;
 use Exception;
@@ -16,7 +16,7 @@ class UpdateCoverPictureCommandHandler
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId, UploadedFile $coverPhoto): ?UserModel
+    public function handle(string $userId, UploadedFile $coverPhoto): ?UserEntity
     {
         $user = $this->userRepository->findById(
             $userId

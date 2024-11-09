@@ -7,7 +7,7 @@ use DateTimeImmutable;
 use App\Modules\Auth\User\Mappers\UserMapper;
 use App\Modules\Post\Core\Entities\PostModel;
 use App\Modules\Post\Http\Resources\PostResource;
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use App\Modules\Post\Core\Entities\AttachmentModel;
 use App\Modules\Post\Http\Resources\AttachmentResource;
 
@@ -27,7 +27,7 @@ class PostMapper
                     '',
                     $row->privacy_setting_id,
                     $row->user_id,
-                    new UserModel($row->user_id, $row->name, $row->user_name, $row->email),
+                    new UserEntity($row->user_id, $row->name, $row->user_name, $row->email),
                     [],
                     $row->like_count,
                     0,

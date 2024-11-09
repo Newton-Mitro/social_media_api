@@ -6,7 +6,7 @@ use App\Modules\Auth\Authentication\Events\UserRegistered;
 use App\Modules\Auth\Authentication\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\UseCases\SendEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\User\BusinessModels\UserModel;
+use App\Modules\Auth\User\BusinessModels\UserEntity;
 use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\User\Mappers\UserMapper;
 use Carbon\Carbon;
@@ -33,7 +33,7 @@ class RegisterUserCommandHandler
             throw new ErrorException('User already exist', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $userModel = new UserModel(
+        $userModel = new UserEntity(
             userId: 0,
             name: $name,
             userName: Str::slug($name, '_'),
