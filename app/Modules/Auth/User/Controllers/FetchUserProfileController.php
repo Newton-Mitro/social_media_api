@@ -3,7 +3,6 @@
 namespace App\Modules\Auth\User\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\User\Mappers\UserMapper;
 use App\Modules\Auth\User\Models\User;
 use App\Modules\Auth\User\UseCases\FetchUserProfileUseCase;
 use Illuminate\Support\Facades\DB;
