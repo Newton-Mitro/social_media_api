@@ -2,7 +2,7 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
-use App\Modules\Auth\User\Models\User;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use Database\Factories\LikeFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

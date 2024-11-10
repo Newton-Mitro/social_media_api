@@ -1,10 +1,13 @@
 <?php
 
 
-use App\Modules\Auth\Authentication\Middlewares\JwtAccessTokenMiddleware;
-use App\Modules\Auth\Authentication\Middlewares\RequestUserMiddleware;
-use App\Modules\Post\Http\Controllers\PostController;
+use App\Modules\Auth\Authentication\Presentation\Middlewares\JwtAccessTokenMiddleware;
+use App\Modules\Auth\Authentication\Presentation\Middlewares\RequestUserMiddleware;
+use App\Modules\Post\Presentation\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+
+
+
 
 
 

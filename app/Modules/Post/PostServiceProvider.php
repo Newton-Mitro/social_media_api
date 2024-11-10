@@ -2,11 +2,11 @@
 
 namespace App\Modules\Post\Providers;
 
-use App\Modules\Post\Core\Interfaces\PostRepositoryInterface;
-use App\Modules\Post\Core\Interfaces\PrivacyRepositoryInterface;
-use App\Modules\Post\Infrastructure\Repositories\PostRepository;
-use App\Modules\Post\Infrastructure\Repositories\PrivacyRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Modules\Post\Domain\Interfaces\PostRepositoryInterface;
+use App\Modules\Post\Infrastructure\Repositories\PostRepository;
+use App\Modules\Post\Domain\Interfaces\PrivacyRepositoryInterface;
+use App\Modules\Post\Infrastructure\Repositories\PrivacyRepository;
 
 
 class PostServiceProvider extends ServiceProvider

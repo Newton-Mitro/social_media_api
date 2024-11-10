@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Post\Core\Interfaces;
+namespace App\Modules\Post\Domain\Interfaces;
 
 use App\Modules\Post\Domain\Entities\CommentEntity;
 use App\Modules\Post\Domain\Entities\PostAggregate;

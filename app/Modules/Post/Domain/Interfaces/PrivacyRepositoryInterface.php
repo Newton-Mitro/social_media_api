@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Post\Core\Interfaces;
+namespace App\Modules\Post\Domain\Interfaces;
 
 
 interface PrivacyRepositoryInterface

@@ -6,6 +6,7 @@ use App\Modules\Post\Domain\Entities\CommentEntity;
 use App\Modules\Post\Domain\Entities\PostAggregate;
 use App\Modules\Post\Infrastructure\Models\Post;
 use App\Modules\Post\Infrastructure\Repositories\CommentRepository;
+use DateTimeImmutable;
 use Illuminate\Support\Facades\DB;
 
 
@@ -30,12 +31,25 @@ class PostRepository
 
     public function findById(string $postId): ?PostAggregate
     {
-        $eloquentPost = Post::with('comments')->find($postId);
+        $eloquentPost = Post::with('comments, attachments, reactions, views, shares')->find($postId);
         if (!$eloquentPost) return null;
 
-        $post = new PostAggregate($eloquentPost->id, $eloquentPost->title, $eloquentPost->content);
+        $post = new PostAggregate(
+            id: $eloquentPost->id,
+            content: $eloquentPost->content,
+            privacyId: $eloquentPost->privacyId,
+            createdBy: $eloquentPost->createdBy,
+            active: $eloquentPost->active,
+            createdAt: $eloquentPost->createdAt,
+            updatedAt: $eloquentPost->updatedAt,
+        );
         foreach ($eloquentPost->comments as $eloquentComment) {
-            $comment = new CommentEntity($eloquentComment->id, $eloquentComment->author_id, $eloquentComment->content);
+            $comment = new CommentEntity(
+                id: $eloquentComment->id,
+                postId: $eloquentComment->postId,
+                authorId: $eloquentComment->authorId,
+                content: $eloquentComment->content
+            );
             $post->addComment($comment);
         }
 
@@ -46,7 +60,7 @@ class PostRepository
     {
         DB::transaction(function () use ($postId) {
             // delete post comments
-            // delete post likes
+            // delete post reactions
             // delete post shares
             // delete post views
             // delete post attachments

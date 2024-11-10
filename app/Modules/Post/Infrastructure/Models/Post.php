@@ -2,7 +2,7 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
-use App\Modules\Auth\User\Models\User;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use App\Modules\Post\Infrastructure\Models\Attachment;
 use App\Modules\Post\Infrastructure\Models\Comment;
 use App\Modules\Post\Infrastructure\Models\Like;

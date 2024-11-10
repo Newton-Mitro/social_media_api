@@ -3,10 +3,10 @@
 namespace App\Modules\Post\Infrastructure\Models;
 
 use Database\Factories\ShareFactory;
-use App\Modules\Auth\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 
 class Share extends Model
 {

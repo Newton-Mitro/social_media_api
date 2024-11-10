@@ -2,7 +2,8 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
-use App\Modules\Auth\User\Domain\Entities\UserEntity;
+use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
+
 
 class ViewEntity
 {

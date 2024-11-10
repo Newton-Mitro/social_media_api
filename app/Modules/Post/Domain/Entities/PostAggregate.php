@@ -2,11 +2,11 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
-use App\Modules\Auth\User\Domain\Entities\UserEntity;
-use App\Modules\Post\Domain\Entities\ReactionEntity;
+use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use App\Modules\Post\Domain\Entities\AttachmentEntity;
-use App\Modules\Post\Domain\Entities\ViewEntity;
+use App\Modules\Post\Domain\Entities\ReactionEntity;
 use App\Modules\Post\Domain\Entities\ShareEntity;
+use App\Modules\Post\Domain\Entities\ViewEntity;
 use Illuminate\Support\Collection;
 
 class PostAggregate

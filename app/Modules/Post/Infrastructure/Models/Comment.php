@@ -2,14 +2,14 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
-use Illuminate\Support\Str;
-use App\Modules\Auth\User\Models\User;
-use Database\Factories\CommentFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use App\Modules\Post\Infrastructure\Models\Like;
+use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Str;
 
 class Comment extends Model
 {

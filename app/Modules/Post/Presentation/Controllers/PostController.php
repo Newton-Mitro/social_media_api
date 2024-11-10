@@ -3,7 +3,6 @@
 namespace App\Modules\Post\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Post\Application\UseCases\PostService;
 use App\Modules\Post\Infrastructure\Models\Attachment;
 use App\Modules\Post\Infrastructure\Models\Post;
 use App\Modules\Post\Presentation\Requests\StorePostRequest;
@@ -13,18 +12,14 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    protected $postService;
 
-    public function __construct(PostService $postService)
-    {
-        $this->postService = $postService;
-    }
+    public function __construct() {}
 
     public function index(Request $request)
     {
         $authId = request()->get('uid');
         $perPage = $request->input('per_page', 10);
-        $posts = $this->postService->getAllPosts($perPage, $authId);
+        $posts = 'usecase';
 
         return response()->json(['data' => $posts, 'message' => 'Posts retrieved successfully.'], 200);
     }
@@ -32,7 +27,7 @@ class PostController extends Controller
     public function show($id)
     {
         $authId = request()->get('uid');
-        $post = $this->postService->getPostById($id, $authId);
+        $post = 'usecase';
         return response()->json(['data' => $post, 'message' => 'Post retrieved successfully.'], 200);
     }
 
@@ -40,7 +35,7 @@ class PostController extends Controller
     {
         $authId = request()->get('uid');
         $data = $request->validated();
-        $post = $this->postService->createPost($data, $authId);
+        $post = 'usecase';
 
         return response()->json([
             'data' => $post,
@@ -240,7 +235,7 @@ class PostController extends Controller
     {
         $authId = request()->get('uid');
         $data = $request->validated();
-        $post = $this->postService->updatePost($id, $data);
+        $post = 'usecase';
 
         return response()->json([
             'data' => $post,
@@ -252,34 +247,28 @@ class PostController extends Controller
     public function destroy($id)
     {
         $authId = request()->get('uid');
-        $this->postService->deletePost($id, $authId);
+
         return response()->json(['message' => 'Post deleted successfully.'], 204);
     }
 
     public function like($id)
     {
         $authId = request()->get('uid');
-        $post = $this->postService->likePost($id, $authId);
+        $post = 'usecase';
         return response()->json(['data' => $post, 'message' => 'Post liked successfully.'], 201);
     }
 
     public function unlike($id)
     {
         $authId = request()->get('uid');
-        $post = $this->postService->unlikePost($id, $authId);
+        $post = 'usecase';
         return response()->json(['data' => $post, 'message' => 'Post unliked successfully.'], 204);
     }
 
     public function share($id)
     {
         $authId = request()->get('uid');
-        $post = $this->postService->sharePost($id, $authId);
+        $post = 'usecase';
         return response()->json(['data' => $post, 'message' => 'Post shared successfully.'], 201);
-    }
-
-    public function privacies()
-    {
-        $privacies = $this->postService->getPrivacies();
-        return response()->json(['data' => $privacies, 'message' => 'Privacies retrieved successfully.'], 200);
     }
 }
