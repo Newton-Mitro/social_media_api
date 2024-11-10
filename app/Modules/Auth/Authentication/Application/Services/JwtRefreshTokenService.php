@@ -2,10 +2,10 @@
 
 namespace App\Modules\Auth\Authentication\Application\Services;
 
-use App\Modules\Auth\Device\BusinessModels\DeviceModel;
-use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
-use App\Modules\Auth\User\BusinessModels\UserEntity;
-use App\Modules\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\Authentication\Domain\Entities\DeviceModel;
+use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
+use App\Modules\Auth\Authentication\Domain\Interfaces\DeviceRepositoryInterface;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Validation\UnauthorizedException;

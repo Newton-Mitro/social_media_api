@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Application\Mail;
 
-use App\Modules\Auth\User\BusinessModels\UserEntity;
+use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

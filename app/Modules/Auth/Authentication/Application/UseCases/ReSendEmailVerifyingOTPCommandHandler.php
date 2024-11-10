@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
-use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;

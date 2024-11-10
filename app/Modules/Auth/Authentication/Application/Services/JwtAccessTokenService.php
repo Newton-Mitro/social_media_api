@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Application\Services;
 
-use App\Modules\Auth\User\Mappers\UserMapper;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Validation\UnauthorizedException;

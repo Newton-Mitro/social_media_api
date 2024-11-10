@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Application\UseCases;
 
 use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
-use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 
 class RefreshTokenCommandHandler
 {

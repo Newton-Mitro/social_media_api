@@ -2,10 +2,11 @@
 
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
-use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Device\Interfaces\DeviceRepositoryInterface;
-use App\Modules\Auth\BlacklistedToken\BusinessModels\BlacklistedTokenModel;
-use App\Modules\Auth\BlacklistedToken\Interfaces\BlacklistedTokenRepositoryInterface;
+use App\Modules\Auth\Authentication\Domain\Entities\BlacklistedTokenModel;
+use App\Modules\Auth\Authentication\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
+use App\Modules\Auth\Authentication\Domain\Interfaces\DeviceRepositoryInterface;
+use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
+
 
 class LogoutCommandHandler
 {

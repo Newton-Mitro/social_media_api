@@ -2,7 +2,7 @@
 
 namespace App\Modules\Follow\Infrastructure\Models;
 
-use App\Modules\Auth\User\Models\User;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

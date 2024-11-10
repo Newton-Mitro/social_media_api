@@ -2,8 +2,8 @@
 
 namespace App\Modules\Auth\Authentication\Application\Listeners;
 
-use App\Modules\Auth\Authentication\Events\UserRegistered;
-use App\Modules\Auth\Authentication\Mail\WelcomeEmail;
+use App\Modules\Auth\Authentication\Application\Events\UserRegistered;
+use App\Modules\Auth\Authentication\Application\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeEmail

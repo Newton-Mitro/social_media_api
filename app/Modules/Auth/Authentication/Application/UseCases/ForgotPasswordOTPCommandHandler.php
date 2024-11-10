@@ -4,9 +4,9 @@ namespace App\Modules\Auth\Authentication\Application\UseCases;
 
 use App\Core\Utilities\OTPGenerator;
 use App\Modules\Auth\Authentication\Application\Mail\ForgotPasswordOtpEmail;
-use App\Modules\Auth\OTP\BusinessModel\UserOtpModel;
-use App\Modules\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
-use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\Domain\Entities\UserOtpModel;
+use App\Modules\Auth\Authentication\Domain\Interfaces\UserOTPRepositoryInterface;
+use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;

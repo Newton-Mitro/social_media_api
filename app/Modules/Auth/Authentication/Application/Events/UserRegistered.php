@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Application\Events;
 
-use App\Modules\Auth\User\BusinessModels\UserEntity;
+use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

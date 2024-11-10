@@ -2,12 +2,12 @@
 
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
-use App\Modules\Auth\OTP\Interfaces\UserOTPRepositoryInterface;
-use Exception;
+use App\Modules\Auth\Authentication\Domain\Interfaces\UserOTPRepositoryInterface;
+use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 use DateTimeImmutable;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
-use App\Modules\Auth\User\Interfaces\UserRepositoryInterface;
 
 class ResetPasswordCommandHandler
 {
