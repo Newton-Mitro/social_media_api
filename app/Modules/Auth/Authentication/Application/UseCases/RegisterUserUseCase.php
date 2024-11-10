@@ -14,7 +14,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 
-class RegisterUserCommandHandler
+class RegisterUserUseCase
 {
     public function __construct(
         protected JwtAccessTokenService $accessTokenService,

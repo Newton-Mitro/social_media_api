@@ -3,13 +3,13 @@
 namespace App\Modules\Auth\Authentication\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\Application\UseCases\LoginCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\UserLoginUseCase;
 use App\Modules\Auth\Authentication\Presentation\Requests\LoginRequest;
 use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
-    public function __construct(protected LoginCommandHandler $loginCommandHandler) {}
+    public function __construct(protected UserLoginUseCase $loginUserUseCase) {}
 
     public function __invoke(LoginRequest $request)
     {
@@ -19,7 +19,7 @@ class LoginController extends Controller
         $request->method();
         $request->query();
 
-        $res = $this->loginCommandHandler->handle(
+        $res = $this->loginUserUseCase->handle(
             $request->data()->email,
             $request->data()->password,
             $userAgent,

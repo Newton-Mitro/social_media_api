@@ -9,11 +9,11 @@ use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\Application\UseCases\BlacklistedTokenExistQueryHandler;
 use App\Modules\Auth\Authentication\Application\UseCases\FetchUserProfileUseCase;
 use App\Modules\Auth\Authentication\Application\UseCases\ForgotPasswordOTPCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\LoginCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\LogoutCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\UserLoginUseCase;
+use App\Modules\Auth\Authentication\Application\UseCases\LogoutUserUseCase;
 use App\Modules\Auth\Authentication\Application\UseCases\PasswordChangeCommandHandler;
 use App\Modules\Auth\Authentication\Application\UseCases\RefreshTokenCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\RegisterUserCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\RegisterUserUseCase;
 use App\Modules\Auth\Authentication\Application\UseCases\ReSendEmailVerifyingOTPCommandHandler;
 use App\Modules\Auth\Authentication\Application\UseCases\ResetPasswordCommandHandler;
 use App\Modules\Auth\Authentication\Application\UseCases\SendEmailVerifyingOTPCommandHandler;
@@ -50,11 +50,11 @@ class AuthServiceProvider extends ServiceProvider
             JwtAccessTokenService::class => JwtAccessTokenService::class,
             JwtRefreshTokenService::class => JwtRefreshTokenService::class,
 
-            LoginCommandHandler::class => LoginCommandHandler::class,
-            RegisterUserCommandHandler::class => RegisterUserCommandHandler::class,
+            UserLoginUseCase::class => UserLoginUseCase::class,
+            RegisterUserUseCase::class => RegisterUserUseCase::class,
             PasswordChangeCommandHandler::class => PasswordChangeCommandHandler::class,
             RefreshTokenCommandHandler::class => RefreshTokenCommandHandler::class,
-            LogoutCommandHandler::class => LogoutCommandHandler::class,
+            LogoutUserUseCase::class => LogoutUserUseCase::class,
             ReSendEmailVerifyingOTPCommandHandler::class => ReSendEmailVerifyingOTPCommandHandler::class,
             SendEmailVerifyingOTPCommandHandler::class => SendEmailVerifyingOTPCommandHandler::class,
             VerifyEmailVerifyingOTPCommandHandler::class => VerifyEmailVerifyingOTPCommandHandler::class,

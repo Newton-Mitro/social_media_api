@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Modules\Search\Http\Controllers;
+namespace App\Modules\Search\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\User\Models\User;
-use App\Modules\Auth\User\UseCases\FetchUserProfileUseCase;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserAndGroupSearchController extends Controller
 {
-    public function __construct(protected readonly FetchUserProfileUseCase $fetchUserProfileUseCase) {}
+    public function __construct() {}
 
     public function __invoke(Request $request)
     {

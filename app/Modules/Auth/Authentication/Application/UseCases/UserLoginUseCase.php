@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
 
-class LoginCommandHandler
+class UserLoginUseCase
 {
     public function __construct(
         protected JwtAccessTokenService $accessTokenService,

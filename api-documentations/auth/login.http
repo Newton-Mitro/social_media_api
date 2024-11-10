@@ -8,4 +8,3 @@ Accept: application/json
     "password": "password"
 }
 
-# > {% client.global.set("auth_token", response.body.data.access_token); %}

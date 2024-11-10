@@ -1,6 +1,8 @@
 <?php
 
-use App\Modules\Auth\User\Models\User;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+
+
 
 return [
 

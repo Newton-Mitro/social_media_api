@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Post\Providers;
+namespace App\Modules\Post;
 
 use Illuminate\Support\ServiceProvider;
 use App\Modules\Post\Domain\Interfaces\PostRepositoryInterface;

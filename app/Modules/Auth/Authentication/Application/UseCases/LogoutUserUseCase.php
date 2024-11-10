@@ -8,7 +8,7 @@ use App\Modules\Auth\Authentication\Domain\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 
 
-class LogoutCommandHandler
+class LogoutUserUseCase
 {
     public function __construct(
         protected UserRepositoryInterface $userRepository,

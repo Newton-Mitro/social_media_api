@@ -1,10 +1,8 @@
 <?php
 
-use App\Modules\Search\Http\Controllers\GlobalSearchController;
-use App\Modules\Search\Http\Controllers\UserAndGroupSearchController;
+use App\Modules\Search\Presentation\Controllers\GlobalSearchController;
+use App\Modules\Search\Presentation\Controllers\UserAndGroupSearchController;
 use Illuminate\Support\Facades\Route;
-
-
 
 
 
