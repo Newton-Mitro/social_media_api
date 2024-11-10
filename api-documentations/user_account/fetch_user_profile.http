@@ -1,4 +1,4 @@
 # @name fetchUserProfile
-GET http://127.0.0.1:8000/api/user/profile/4c4b2429-280c-49c9-8465-df98edf7438b
+GET http://127.0.0.1:8000/api/user/profile/776f46db-927e-4573-8d90-b197e1d1fe8c
 Content-Type: application/json
 Accept: application/json

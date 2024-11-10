@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Modules\Auth\User\Models\User;
-use App\Modules\Post\Infrastructure\Models\Post;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use App\Modules\Post\Infrastructure\Models\Comment;
+use App\Modules\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory

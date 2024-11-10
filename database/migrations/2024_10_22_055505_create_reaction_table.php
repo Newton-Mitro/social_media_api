@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('reactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuidMorphs('likable'); // Creates likable_id and likable_type columns
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
@@ -18,6 +18,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('reactions');
     }
 };

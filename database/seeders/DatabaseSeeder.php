@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Modules\Auth\User\Models\User;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Post\Infrastructure\Models\Attachment;
+use App\Modules\Post\Infrastructure\Models\Comment;
 use App\Modules\Post\Infrastructure\Models\Like;
 use App\Modules\Post\Infrastructure\Models\Post;
-use App\Modules\Post\Infrastructure\Models\Share;
-use App\Modules\Post\Infrastructure\Models\Comment;
 use App\Modules\Post\Infrastructure\Models\Privacy;
-use App\Modules\Post\Infrastructure\Models\Attachment;
+use App\Modules\Post\Infrastructure\Models\Share;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {

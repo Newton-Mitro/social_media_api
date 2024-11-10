@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Modules\Post\Infrastructure\Models\Privacy;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PrivacySeeder extends Seeder
 {

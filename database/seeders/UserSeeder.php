@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use Illuminate\Database\Seeder;
-use App\Modules\Auth\User\Models\User;
 
 class UserSeeder extends Seeder
 {
