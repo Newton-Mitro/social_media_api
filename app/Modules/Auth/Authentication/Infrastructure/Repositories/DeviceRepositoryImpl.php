@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Infrastructure\Repositories;
 
-use App\Modules\Auth\Authentication\Domain\Entities\DeviceModel;
+use App\Modules\Auth\Authentication\Domain\Entities\DeviceEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Authentication\Infrastructure\Mappers\DeviceMapper;
 use App\Modules\Auth\Authentication\Infrastructure\Models\Device;
@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 
 class DeviceRepositoryImpl implements DeviceRepositoryInterface
 {
-    public function findDeviceByUserIdAndDeviceName(string $user_id, string $device_name): ?DeviceModel
+    public function findDeviceByUserIdAndDeviceName(string $user_id, string $device_name): ?DeviceEntity
     {
         $device = Device::where('user_id', $user_id)->where('device_name', $device_name)->first();
         if ($device) {
@@ -21,7 +21,7 @@ class DeviceRepositoryImpl implements DeviceRepositoryInterface
         return null;
     }
 
-    public function findDeviceWithToken(string $device_token): ?DeviceModel
+    public function findDeviceWithToken(string $device_token): ?DeviceEntity
     {
         $device = Device::where('device_token', $device_token)->first();
         if ($device) {
@@ -31,7 +31,7 @@ class DeviceRepositoryImpl implements DeviceRepositoryInterface
         return null;
     }
 
-    public function create(DeviceModel $model): DeviceModel
+    public function create(DeviceEntity $model): DeviceEntity
     {
         try {
             $device = new Device;
@@ -50,7 +50,7 @@ class DeviceRepositoryImpl implements DeviceRepositoryInterface
         }
     }
 
-    public function update(int $deviceId, DeviceModel $model): DeviceModel
+    public function update(int $deviceId, DeviceEntity $model): DeviceEntity
     {
         try {
             $device = Device::find($deviceId);

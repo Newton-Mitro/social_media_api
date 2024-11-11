@@ -3,7 +3,7 @@
 namespace App\Modules\Auth\Authentication\Application\Listeners;
 
 use App\Modules\Auth\Authentication\Application\Events\UserRegistered;
-use App\Modules\Auth\Authentication\Application\Mail\WelcomeEmail;
+use App\Modules\Auth\Authentication\Infrastructure\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeEmail

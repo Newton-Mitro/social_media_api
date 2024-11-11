@@ -3,12 +3,12 @@
 namespace App\Modules\Auth\Authentication\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\Application\UseCases\RefreshTokenCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\FetchRefreshTokenUseCase;
 use Illuminate\Http\Request;
 
-class RefreshTokenController extends Controller
+class FetchRefreshTokenController extends Controller
 {
-    public function __construct(protected RefreshTokenCommandHandler $refreshTokenCommandHandler) {}
+    public function __construct(protected FetchRefreshTokenUseCase $fetchRefreshTokenUseCase) {}
 
     public function __invoke(Request $request)
     {
@@ -16,7 +16,7 @@ class RefreshTokenController extends Controller
         $ip = $request->ip();
         $userAgent = $request->userAgent();
 
-        $res = $this->refreshTokenCommandHandler->handle(
+        $res = $this->fetchRefreshTokenUseCase->handle(
             userId: $user['user_id'],
             deviceName: $userAgent,
             deviceIP: $ip

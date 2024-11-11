@@ -3,21 +3,21 @@
 namespace App\Modules\Auth\Authentication\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\Application\UseCases\UpdateCoverPictureCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\ChangeCoverPhotoUseCase;
 use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
-use App\Modules\Auth\Authentication\Presentation\Requests\UpdateCoverPictureRequest;
+use App\Modules\Auth\Authentication\Presentation\Requests\ChangeCoverPhotoRequest;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateCoverPictureController extends Controller
+class ChangeCoverPhotoController extends Controller
 {
-    public function __construct(protected readonly UpdateCoverPictureCommandHandler $logoutCommandHandler) {}
+    public function __construct(protected readonly ChangeCoverPhotoUseCase $changeCoverPhotoUseCase) {}
 
-    public function __invoke(UpdateCoverPictureRequest $request)
+    public function __invoke(ChangeCoverPhotoRequest $request)
     {
         if ($request->hasFile('coverPhoto')) {
             $image = $request->file('coverPhoto');
-            $user = $this->logoutCommandHandler->handle(
+            $user = $this->changeCoverPhotoUseCase->handle(
                 userId: $request->user['user_id'],
                 coverPhoto: $image,
             );

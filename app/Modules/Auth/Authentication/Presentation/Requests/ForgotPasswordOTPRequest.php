@@ -17,9 +17,4 @@ class ForgotPasswordOTPRequest extends FormRequest
             'email' => 'required|email',
         ];
     }
-
-    public function data()
-    {
-        return new ForgotPasswordOTPRequestDTO($this);
-    }
 }

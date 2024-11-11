@@ -13,7 +13,7 @@ class JwtAccessTokenMiddleware
 {
     public function __construct(
         protected JwtAccessTokenService $jwtAccessTokenService,
-        private readonly BlacklistedTokenRepositoryInterface $blacklistedTokenRepositoryInterface
+        private readonly BlacklistedTokenRepositoryInterface $blacklistedTokenRepository
     ) {}
 
     public function handle(Request $request, Closure $next): Response
@@ -24,7 +24,7 @@ class JwtAccessTokenMiddleware
             throw new UnauthorizedException('JWT access token required', Response::HTTP_UNAUTHORIZED);
         }
 
-        $tokenExist = $this->blacklistedTokenRepositoryInterface->blacklistedTokenExist(
+        $tokenExist = $this->blacklistedTokenRepository->blacklistedTokenExist(
             $tokenString
         );
 

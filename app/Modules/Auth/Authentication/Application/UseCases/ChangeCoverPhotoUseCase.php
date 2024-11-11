@@ -10,29 +10,31 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class UpdateProfilePictureCommandHandler
+class ChangeCoverPhotoUseCase
 {
     public function __construct(
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId, UploadedFile $profilePhoto): ?UserEntity
+    public function handle(string $userId, UploadedFile $coverPhoto): ?UserEntity
     {
-        $user = $this->userRepository->findById($userId);
+        $user = $this->userRepository->findById(
+            $userId
+        );
 
-        // Delete Old Photo
-        if ($user->getProfilePicture()) {
+        // Check if the user has an existing cover photo
+        if ($user->getCoverPhoto()) {
             // Get the existing photo path
-            $existingPhotoPath = parse_url($user->getProfilePicture(), PHP_URL_PATH);
+            $existingPhotoPath = parse_url($user->getCoverPhoto(), PHP_URL_PATH);
             // Delete the existing photo
             Storage::disk('public')->delete(ltrim($existingPhotoPath, '/'));
         }
 
-        // Store the new profile photo
-        $path = $profilePhoto->store('users', 'public');
+        // Store the new cover photo
+        $path = $coverPhoto->store('users', 'public');
 
         $user->setUpdatedAt(new DateTimeImmutable());
-        $user->setProfilePicture($path);
+        $user->setCoverPhoto($path);
 
         if ($this->userRepository->update($userId, $user)) {
             return $user;

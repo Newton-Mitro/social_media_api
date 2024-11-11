@@ -8,22 +8,22 @@ use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
-class PasswordChangeCommandHandler
+class ChangePasswordUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $repository,
+        protected UserRepositoryInterface $userRepository,
     ) {}
 
     public function handle(string $email, string $oldPassword, string $password): string
     {
-        $user = $this->repository->findUserByEmail(
+        $user = $this->userRepository->findUserByEmail(
             $email
         );
 
         if (Hash::check($oldPassword, $user->getPassword())) {
             $user->setPassword($password);
             $user->setUpdatedAt(new DateTimeImmutable);
-            $this->repository->update($user->getUserId(), $user);
+            $this->userRepository->update($user->getUserId(), $user);
 
             return 'Your password has been updated!';
         }

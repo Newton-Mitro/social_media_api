@@ -19,9 +19,4 @@ class UserRegistrationRequest extends FormRequest
             'password' => 'required|min:6|confirmed',
         ];
     }
-
-    public function data()
-    {
-        return new UserRegistrationRequestDTO($this);
-    }
 }

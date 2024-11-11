@@ -11,17 +11,17 @@ use DateTimeImmutable;
 use Exception;
 use Illuminate\Http\Response;
 
-class VerifyEmailVerifyingOTPCommandHandler
+class AccountOtpVerifyUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $repository,
+        protected UserRepositoryInterface $userRepository,
         protected JwtAccessTokenService $accessTokenService,
         protected JwtRefreshTokenService $refreshTokenService,
     ) {}
 
     public function handle(string $deviceName, string $deviceIP, string $email, string $otp): array
     {
-        $user = $this->repository->findUserByEmail(
+        $user = $this->userRepository->findUserByEmail(
             $email
         );
 
@@ -35,7 +35,7 @@ class VerifyEmailVerifyingOTPCommandHandler
             $user->setOtpExpiresAt(null);
             $user->setEmailVerifiedAt(new DateTimeImmutable);
             $user->setOtpVerified(true);
-            $updatedUserModel = $this->repository->update($user->getUserId(), $user);
+            $updatedUserModel = $this->userRepository->update($user->getUserId(), $user);
 
             // Generate user token here
             $access_token = $this->accessTokenService->generateToken($updatedUserModel);

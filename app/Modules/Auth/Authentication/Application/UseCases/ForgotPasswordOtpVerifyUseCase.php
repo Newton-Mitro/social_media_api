@@ -3,24 +3,24 @@
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
 use App\Core\Utilities\OTPGenerator;
-use App\Modules\Auth\Authentication\Application\Mail\ForgotPasswordOtpEmail;
-use App\Modules\Auth\Authentication\Domain\Entities\UserOtpModel;
+use App\Modules\Auth\Authentication\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\Infrastructure\Mail\ForgotPasswordOtpEmail;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class VerifyForgotPasswordOTPCommandHandler
+class ForgotPasswordOtpVerifyUseCase
 {
     public function __construct(
         protected UserRepositoryInterface $userRepositoryInterface,
         protected UserOTPRepositoryInterface $userOTPRepositoryInterface
     ) {}
 
-    public function handle(string $email, string $otp): ?UserOtpModel
+    public function handle(string $email, string $otp): ?UserOtpEntity
     {
         // if user email don't exists, through exception
         // if user email exists, get OTP information by user id

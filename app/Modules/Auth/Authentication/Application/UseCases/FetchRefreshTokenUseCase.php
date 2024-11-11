@@ -6,17 +6,17 @@ use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 
-class RefreshTokenCommandHandler
+class FetchRefreshTokenUseCase
 {
     public function __construct(
         protected JwtAccessTokenService $accessTokenService,
         protected JwtRefreshTokenService $jwtRefreshTokenService,
-        protected UserRepositoryInterface $userRepositoryInterface
+        protected UserRepositoryInterface $userRepository
     ) {}
 
     public function handle(string $userId, string $deviceName, string $deviceIP): ?array
     {
-        $user = $this->userRepositoryInterface->findById(
+        $user = $this->userRepository->findById(
             $userId
         );
 

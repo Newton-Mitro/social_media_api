@@ -7,7 +7,6 @@ use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 
 interface UserRepositoryInterface
 {
-    //    public function all(): array;
     public function create(UserEntity $userUserModel): UserEntity;
 
     public function findById(string $userUserId): ?UserEntity;

@@ -7,11 +7,11 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;
 
-class ReSendEmailVerifyingOTPCommandHandler
+class ReSendEmailVerifyingOTPUseCase
 {
     public function __construct(
         protected UserRepositoryInterface $repository,
-        protected SendEmailVerifyingOTPCommandHandler $sendEmailVerifyingOTPCommandHandler
+        protected SendEmailVerifyingOTPUseCase $sendEmailVerifyingOTPCommandHandler
     ) {}
 
     public function handle(string $email): void

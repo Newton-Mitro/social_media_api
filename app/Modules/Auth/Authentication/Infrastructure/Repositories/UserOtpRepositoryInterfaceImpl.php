@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Infrastructure\Repositories;
 
-use App\Modules\Auth\Authentication\Domain\Entities\UserOtpModel;
+use App\Modules\Auth\Authentication\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserOtpMapper;
 use App\Modules\Auth\Authentication\Infrastructure\Models\UserOtp;
@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 
 class UserOtpRepositoryInterfaceImpl implements UserOTPRepositoryInterface
 {
-    public function create(UserOtpModel $userOtpModel): ?UserOtpModel
+    public function create(UserOtpEntity $userOtpModel): ?UserOtpEntity
     {
         try {
             $userOtp = new UserOtp;
@@ -29,7 +29,7 @@ class UserOtpRepositoryInterfaceImpl implements UserOTPRepositoryInterface
         }
     }
 
-    public function findUserOTPByUserId(string $userId): ?UserOtpModel
+    public function findUserOTPByUserId(string $userId): ?UserOtpEntity
     {
         try {
             $userOtp = UserOtp::where('user_id', $userId)->first();
@@ -41,7 +41,7 @@ class UserOtpRepositoryInterfaceImpl implements UserOTPRepositoryInterface
             throw new Exception($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR, $exception);
         }
     }
-    public function update(UserOtpModel $userOtpModel): ?UserOtpModel
+    public function update(UserOtpEntity $userOtpModel): ?UserOtpEntity
     {
         try {
             $userOtp = UserOtp::find($userOtpModel->getId());

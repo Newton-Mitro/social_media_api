@@ -14,14 +14,8 @@ class PasswordChangeRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'email' => 'required',
             'password' => 'required|min:6|confirmed',
             'old_password' => 'required|min:6|confirmed',
         ];
-    }
-
-    public function data()
-    {
-        return new PasswordChangeRequestDTO($this);
     }
 }

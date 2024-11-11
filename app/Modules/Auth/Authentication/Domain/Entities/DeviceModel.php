@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Domain\Entities;
 
 use DateTimeImmutable;
 
-class DeviceModel
+class DeviceEntity
 {
     public function __construct(
         private int $deviceId,

@@ -20,7 +20,7 @@ class RegisterUserUseCase
         protected JwtAccessTokenService $accessTokenService,
         protected JwtRefreshTokenService $refreshTokenService,
         protected UserRepositoryInterface $userRepository,
-        protected SendEmailVerifyingOTPCommandHandler $sendEmailVerifyingOTPCommandHandler
+        protected SendEmailVerifyingOTPUseCase $sendEmailVerifyingOTPUseCase
     ) {}
 
     public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): ?array
@@ -47,7 +47,7 @@ class RegisterUserUseCase
 
         if ($user) {
             Event::dispatch(new UserRegistered($user));
-            $this->sendEmailVerifyingOTPCommandHandler->handle($email);
+            $this->sendEmailVerifyingOTPUseCase->handle($email);
         }
 
         // Update User Last Logged in date

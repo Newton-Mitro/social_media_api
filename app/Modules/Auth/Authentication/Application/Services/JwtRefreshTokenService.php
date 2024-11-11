@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Application\Services;
 
-use App\Modules\Auth\Authentication\Domain\Entities\DeviceModel;
+use App\Modules\Auth\Authentication\Domain\Entities\DeviceEntity;
 use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
@@ -19,7 +19,7 @@ class JwtRefreshTokenService
 {
     protected $config;
 
-    public function __construct(protected readonly DeviceRepositoryInterface $deviceRepositoryInterface)
+    public function __construct(protected readonly DeviceRepositoryInterface $deviceRepository)
     {
         $this->config = Configuration::forSymmetricSigner(
             new Sha256,
@@ -44,13 +44,13 @@ class JwtRefreshTokenService
             ->withClaim('uid', $user->getUserId()) // Configures a new claim, called "uid"
             ->getToken($this->config->signer(), $this->config->signingKey()); // Retrieves the generated token
 
-        $deviceModel = $this->deviceRepositoryInterface->findDeviceByUserIdAndDeviceName(
+        $deviceModel = $this->deviceRepository->findDeviceByUserIdAndDeviceName(
             $user->getUserId(),
             $device_name
         );
 
         if ($deviceModel) {
-            $device = new DeviceModel(
+            $device = new DeviceEntity(
                 $deviceModel->getDeviceId(),
                 $deviceModel->getUserId(),
                 $deviceModel->getDeviceName(),
@@ -62,12 +62,12 @@ class JwtRefreshTokenService
             );
 
 
-            $res = $this->deviceRepositoryInterface->update(
+            $res = $this->deviceRepository->update(
                 $deviceModel->getDeviceId(),
                 $device
             );
         } else {
-            $device = new DeviceModel(
+            $device = new DeviceEntity(
                 0,
                 $user->getUserId(),
                 $device_name,
@@ -75,7 +75,7 @@ class JwtRefreshTokenService
                 $token->toString(),
                 ''
             );
-            $res = $this->deviceRepositoryInterface->create(
+            $res = $this->deviceRepository->create(
                 $device
             );
         }
@@ -112,7 +112,7 @@ class JwtRefreshTokenService
                 throw new UnauthorizedException('Token has been expired or revoked.', Response::HTTP_UNAUTHORIZED);
             }
 
-            $deviceModel = $this->deviceRepositoryInterface->findDeviceWithToken($token);
+            $deviceModel = $this->deviceRepository->findDeviceWithToken($token);
 
             if ($deviceModel === null) {
                 throw new UnauthorizedException('Invalid token', Response::HTTP_UNAUTHORIZED);

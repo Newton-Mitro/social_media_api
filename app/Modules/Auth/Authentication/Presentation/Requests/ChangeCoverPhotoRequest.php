@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Presentation\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerifyAccountVerificationOtpRequest extends FormRequest
+class ChangeCoverPhotoRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,12 +14,7 @@ class VerifyAccountVerificationOtpRequest extends FormRequest
     public function rules()
     {
         return [
-            'otp' => 'required|string',
+            'coverPhoto' => 'required|file|mimes:jpeg,jpg,png|max:2048',
         ];
-    }
-
-    public function data()
-    {
-        return new VerifyAccountVerificationOtpRequestDTO($this);
     }
 }

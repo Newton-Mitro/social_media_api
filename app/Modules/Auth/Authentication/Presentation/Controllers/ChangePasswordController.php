@@ -3,17 +3,17 @@
 namespace App\Modules\Auth\Authentication\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\Application\UseCases\PasswordChangeCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\ChangePasswordUseCase;
 use App\Modules\Auth\Authentication\Presentation\Requests\PasswordChangeRequest;
 use Illuminate\Support\Facades\Hash;
 
-class PasswordChangeController extends Controller
+class ChangePasswordController extends Controller
 {
-    public function __construct(protected PasswordChangeCommandHandler $passwordChangeCommandHandler) {}
+    public function __construct(protected ChangePasswordUseCase $changePasswordUseCase) {}
 
     public function __invoke(PasswordChangeRequest $request)
     {
-        $res = $this->passwordChangeCommandHandler->handle(
+        $res = $this->changePasswordUseCase->handle(
             email: $request->user['email'],
             password: Hash::make($request->data()->password),
             oldPassword: $request->data()->old_password

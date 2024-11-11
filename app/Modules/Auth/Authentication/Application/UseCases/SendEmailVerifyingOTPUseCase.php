@@ -8,10 +8,10 @@ use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 use DateTimeImmutable;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmailVerifyingOTPCommandHandler
+class SendEmailVerifyingOTPUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $repository,
+        protected UserRepositoryInterface $userRepository,
     ) {}
 
     public function handle(string $email): void
@@ -21,7 +21,7 @@ class SendEmailVerifyingOTPCommandHandler
         $expiresAt = OTPGenerator::generateExpireTime();
 
         // Find the user by email
-        $user = $this->repository->findUserByEmail($email);
+        $user = $this->userRepository->findUserByEmail($email);
 
         // TODO: Implement UpdateUserCommand
         $user->setOtp($otp);
@@ -29,7 +29,7 @@ class SendEmailVerifyingOTPCommandHandler
         $user->setUpdatedAt(new DateTimeImmutable);
         $user->setOtpVerified(false);
         // Persist user to db
-        $this->repository->update($user->getUserId(), $user);
+        $this->userRepository->update($user->getUserId(), $user);
 
         // Send OTP to user email
         Mail::to($user->getEmail())->send(new VerificationEmail($user, $otp, $otpValidTime));

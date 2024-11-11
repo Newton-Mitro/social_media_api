@@ -19,9 +19,4 @@ class ResetPasswordRequest extends FormRequest
             'token' => 'required|string'
         ];
     }
-
-    public function data()
-    {
-        return new ResetPasswordRequestDTO($this);
-    }
 }

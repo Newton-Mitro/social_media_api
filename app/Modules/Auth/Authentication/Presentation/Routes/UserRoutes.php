@@ -1,15 +1,15 @@
 <?php
 
 use App\Modules\Auth\Authentication\Presentation\Controllers\FetchUserProfileController;
-use App\Modules\Auth\Authentication\Presentation\Controllers\UpdateCoverPictureController;
+use App\Modules\Auth\Authentication\Presentation\Controllers\ChangeCoverPhotoController;
 use App\Modules\Auth\Authentication\Presentation\Controllers\UpdateProfilePictureController;
 use App\Modules\Auth\Authentication\Presentation\Middlewares\JwtAccessTokenMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(JwtAccessTokenMiddleware::class)->prefix('user')->group(function (): void {
-    Route::post('profile/picture/update', UpdateProfilePictureController::class)->name('user.profile-picture-update');
-    Route::post('cover/picture/update', UpdateCoverPictureController::class)->name('user.cover-picture-update');
+Route::middleware(JwtAccessTokenMiddleware::class)->group(function (): void {
+    Route::post('users/update/profile-picture', UpdateProfilePictureController::class)->name('users.update_profile_picture');
+    Route::post('users/update/cover-photo', ChangeCoverPhotoController::class)->name('users.update_cover_photo');
 });
 
-Route::get('user/profile/{userId}', FetchUserProfileController::class);
+Route::get('users/profile/{user_id}', FetchUserProfileController::class)->name('users.fetch_profile');

@@ -3,17 +3,17 @@
 namespace App\Modules\Auth\Authentication\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\Application\UseCases\VerifyForgotPasswordOTPCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\ForgotPasswordOtpVerifyUseCase;
 use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserOtpMapper;
-use App\Modules\Auth\Authentication\Presentation\Requests\VerifyForgotPasswordOTPRequest;
+use App\Modules\Auth\Authentication\Presentation\Requests\ForgotPasswordOtpVerifyRequest;
 
-class VerifyForgotPasswordOTPController extends Controller
+class ForgotPasswordOtpVerifyController extends Controller
 {
-    public function __construct(protected VerifyForgotPasswordOTPCommandHandler $verifyForgotPasswordOTPCommandHandler) {}
+    public function __construct(protected ForgotPasswordOtpVerifyUseCase $forgotPasswordOtpVerifyUseCase) {}
 
-    public function __invoke(VerifyForgotPasswordOTPRequest $request)
+    public function __invoke(ForgotPasswordOtpVerifyRequest $request)
     {
-        $userOtp = $this->verifyForgotPasswordOTPCommandHandler->handle(
+        $userOtp = $this->forgotPasswordOtpVerifyUseCase->handle(
             email: $request->data()->email,
             otp: $request->data()->otp,
         );

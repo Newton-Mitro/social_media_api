@@ -18,9 +18,4 @@ class LoginRequest extends FormRequest
             'password' => 'required|string|min:6',
         ];
     }
-
-    public function data()
-    {
-        return new LoginRequestDTO($this);
-    }
 }

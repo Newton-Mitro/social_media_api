@@ -8,19 +8,19 @@ use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\Application\UseCases\BlacklistedTokenExistQueryHandler;
 use App\Modules\Auth\Authentication\Application\UseCases\FetchUserProfileUseCase;
-use App\Modules\Auth\Authentication\Application\UseCases\ForgotPasswordOTPCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\ForgotPasswordUseCase;
 use App\Modules\Auth\Authentication\Application\UseCases\UserLoginUseCase;
 use App\Modules\Auth\Authentication\Application\UseCases\LogoutUserUseCase;
-use App\Modules\Auth\Authentication\Application\UseCases\PasswordChangeCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\RefreshTokenCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\ChangePasswordUseCase;
+use App\Modules\Auth\Authentication\Application\UseCases\FetchRefreshTokenUseCase;
 use App\Modules\Auth\Authentication\Application\UseCases\RegisterUserUseCase;
-use App\Modules\Auth\Authentication\Application\UseCases\ReSendEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\ResetPasswordCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\SendEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\UpdateCoverPictureCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\UpdateProfilePictureCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\VerifyEmailVerifyingOTPCommandHandler;
-use App\Modules\Auth\Authentication\Application\UseCases\VerifyForgotPasswordOTPCommandHandler;
+use App\Modules\Auth\Authentication\Application\UseCases\ReSendEmailVerifyingOTPUseCase;
+use App\Modules\Auth\Authentication\Application\UseCases\ResetPasswordUseCase;
+use App\Modules\Auth\Authentication\Application\UseCases\SendEmailVerifyingOTPUseCase;
+use App\Modules\Auth\Authentication\Application\UseCases\ChangeCoverPhotoUseCase;
+use App\Modules\Auth\Authentication\Application\UseCases\UpdateProfilePictureUseCase;
+use App\Modules\Auth\Authentication\Application\UseCases\AccountOtpVerifyUseCase;
+use App\Modules\Auth\Authentication\Application\UseCases\ForgotPasswordOtpVerifyUseCase;
 use App\Modules\Auth\Authentication\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
 use App\Modules\Auth\Authentication\Domain\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserOTPRepositoryInterface;
@@ -52,14 +52,14 @@ class AuthServiceProvider extends ServiceProvider
 
             UserLoginUseCase::class => UserLoginUseCase::class,
             RegisterUserUseCase::class => RegisterUserUseCase::class,
-            PasswordChangeCommandHandler::class => PasswordChangeCommandHandler::class,
-            RefreshTokenCommandHandler::class => RefreshTokenCommandHandler::class,
+            ChangePasswordUseCase::class => ChangePasswordUseCase::class,
+            FetchRefreshTokenUseCase::class => FetchRefreshTokenUseCase::class,
             LogoutUserUseCase::class => LogoutUserUseCase::class,
-            ReSendEmailVerifyingOTPCommandHandler::class => ReSendEmailVerifyingOTPCommandHandler::class,
-            SendEmailVerifyingOTPCommandHandler::class => SendEmailVerifyingOTPCommandHandler::class,
-            VerifyEmailVerifyingOTPCommandHandler::class => VerifyEmailVerifyingOTPCommandHandler::class,
-            ForgotPasswordOTPCommandHandler::class => ForgotPasswordOTPCommandHandler::class,
-            ResetPasswordCommandHandler::class => ResetPasswordCommandHandler::class,
+            ReSendEmailVerifyingOTPUseCase::class => ReSendEmailVerifyingOTPUseCase::class,
+            SendEmailVerifyingOTPUseCase::class => SendEmailVerifyingOTPUseCase::class,
+            AccountOtpVerifyUseCase::class => AccountOtpVerifyUseCase::class,
+            ForgotPasswordUseCase::class => ForgotPasswordUseCase::class,
+            ResetPasswordUseCase::class => ResetPasswordUseCase::class,
 
             BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepositoryImpl::class,
             BlacklistedTokenExistQueryHandler::class => BlacklistedTokenExistQueryHandler::class,
@@ -67,14 +67,14 @@ class AuthServiceProvider extends ServiceProvider
             DeviceRepositoryInterface::class => DeviceRepositoryImpl::class,
 
             UserOTPRepositoryInterface::class => UserOtpRepositoryInterfaceImpl::class,
-            VerifyForgotPasswordOTPCommandHandler::class => VerifyForgotPasswordOTPCommandHandler::class,
+            ForgotPasswordOtpVerifyUseCase::class => ForgotPasswordOtpVerifyUseCase::class,
 
             UserRepositoryInterface::class => UserRepositoryInterfaceImpl::class,
             JwtAccessTokenService::class => JwtAccessTokenService::class,
             JwtRefreshTokenService::class => JwtRefreshTokenService::class,
 
-            UpdateCoverPictureCommandHandler::class => UpdateCoverPictureCommandHandler::class,
-            UpdateProfilePictureCommandHandler::class => UpdateProfilePictureCommandHandler::class,
+            ChangeCoverPhotoUseCase::class => ChangeCoverPhotoUseCase::class,
+            UpdateProfilePictureUseCase::class => UpdateProfilePictureUseCase::class,
             FetchUserProfileUseCase::class => FetchUserProfileUseCase::class,
         ];
 

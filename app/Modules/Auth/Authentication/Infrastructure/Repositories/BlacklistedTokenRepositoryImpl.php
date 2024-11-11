@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Infrastructure\Repositories;
 
-use App\Modules\Auth\Authentication\Domain\Entities\BlacklistedTokenModel;
+use App\Modules\Auth\Authentication\Domain\Entities\BlacklistedTokenEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
 use App\Modules\Auth\Authentication\Infrastructure\Models\BlacklistedToken;
 use Exception;
@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 
 class BlacklistedTokenRepositoryImpl implements BlacklistedTokenRepositoryInterface
 {
-    public function addTokenToBlackList(BlacklistedTokenModel $model): int
+    public function addTokenToBlackList(BlacklistedTokenEntity $model): int
     {
         try {
             $blacklistedToken = new BlacklistedToken;

@@ -2,12 +2,12 @@
 
 namespace App\Modules\Auth\Authentication\Domain\Interfaces;
 
-use App\Modules\Auth\Authentication\Domain\Entities\UserOtpModel;
+use App\Modules\Auth\Authentication\Domain\Entities\UserOtpEntity;
 
 
 interface UserOTPRepositoryInterface
 {
-    public function create(UserOtpModel $userOtpModel): ?UserOtpModel;
-    public function findUserOTPByUserId(string $userId): ?UserOtpModel;
-    public function update(UserOtpModel $userOtpModel): ?UserOtpModel;
+    public function create(UserOtpEntity $userOtpModel): ?UserOtpEntity;
+    public function findUserOTPByUserId(string $userId): ?UserOtpEntity;
+    public function update(UserOtpEntity $userOtpModel): ?UserOtpEntity;
 }

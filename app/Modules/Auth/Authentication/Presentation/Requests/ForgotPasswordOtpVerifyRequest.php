@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Presentation\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCoverPictureRequest extends FormRequest
+class ForgotPasswordOtpVerifyRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,7 +14,8 @@ class UpdateCoverPictureRequest extends FormRequest
     public function rules()
     {
         return [
-            'coverPhoto' => 'required|file|mimes:jpeg,jpg,png|max:2048',
+            'email' => 'required|email',
+            'otp' => 'required|string',
         ];
     }
 }

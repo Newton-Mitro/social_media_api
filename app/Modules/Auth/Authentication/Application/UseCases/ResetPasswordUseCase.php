@@ -9,31 +9,31 @@ use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
-class ResetPasswordCommandHandler
+class ResetPasswordUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $repository,
-        protected UserOTPRepositoryInterface $userOTPRepositoryInterface
+        protected UserRepositoryInterface $userRepository,
+        protected UserOTPRepositoryInterface $userOTPRepository
     ) {}
 
     public function handle(string $email, string $password, string $token): void
     {
         // if user email don't exists, through exception
         // if user email exists, reset password
-        $user = $this->repository->findUserByEmail(
+        $user = $this->userRepository->findUserByEmail(
             $email
         );
         if ($user === null) {
             throw new Exception('Email is not valid', Response::HTTP_NOT_FOUND);
         }
-        $userOTP = $this->userOTPRepositoryInterface->findUserOTPByUserId(
+        $userOTP = $this->userOTPRepository->findUserOTPByUserId(
             $user->getUserId()
         );
         // if token matched then reset the password
         if ($userOTP->getToken() === $token) {
             $user->setPassword(Hash::make($password));
             $user->setUpdatedAt(new DateTimeImmutable);
-            $this->repository->update($user->getUserId(), $user);
+            $this->userRepository->update($user->getUserId(), $user);
         } else {
             throw new Exception('Bad request', Response::HTTP_BAD_REQUEST);
         }

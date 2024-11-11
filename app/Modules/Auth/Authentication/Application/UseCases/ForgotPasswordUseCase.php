@@ -3,10 +3,10 @@
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
 use App\Core\Utilities\OTPGenerator;
-use App\Modules\Auth\Authentication\Application\Mail\ForgotPasswordOtpEmail;
-use App\Modules\Auth\Authentication\Domain\Entities\UserOtpModel;
+use App\Modules\Auth\Authentication\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\Infrastructure\Mail\ForgotPasswordOtpEmail;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;
@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 
-class ForgotPasswordOTPCommandHandler
+class ForgotPasswordUseCase
 {
     public function __construct(
         protected readonly UserRepositoryInterface $userRepository,
         protected readonly UserOTPRepositoryInterface $otpRepository,
     ) {}
 
-    public function handle(string $email): ?UserOtpModel
+    public function handle(string $email): ?UserOtpEntity
     {
         // if user email don't exists, through exception
         // if user email exists, generate otp and store otp to table and email OTP to user email
@@ -43,7 +43,7 @@ class ForgotPasswordOTPCommandHandler
             $otp = OTPGenerator::generateOTP();
             $expiresAt = OTPGenerator::generateExpireTime();
 
-            $userOtpModel = new UserOtpModel(
+            $userOtpModel = new UserOtpEntity(
                 id: 0,
                 otp: $otp,
                 userId: $user->getUserId(),

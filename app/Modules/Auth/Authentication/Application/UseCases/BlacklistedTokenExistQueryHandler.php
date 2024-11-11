@@ -8,11 +8,11 @@ use App\Modules\Auth\Authentication\Domain\Interfaces\BlacklistedTokenRepository
 class BlacklistedTokenExistQueryHandler
 {
     public function __construct(
-        protected readonly BlacklistedTokenRepositoryInterface $repository,
+        protected readonly BlacklistedTokenRepositoryInterface $blacklistedTokenRepository,
     ) {}
 
     public function handle(string $token): bool
     {
-        return $this->repository->blacklistedTokenExist($token);
+        return $this->blacklistedTokenRepository->blacklistedTokenExist($token);
     }
 }

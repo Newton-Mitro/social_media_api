@@ -2,12 +2,12 @@
 
 namespace App\Modules\Auth\Authentication\Domain\Interfaces;
 
-use App\Modules\Auth\Authentication\Domain\Entities\BlacklistedTokenModel;
+use App\Modules\Auth\Authentication\Domain\Entities\BlacklistedTokenEntity;
 
 
 interface BlacklistedTokenRepositoryInterface
 {
-    public function addTokenToBlackList(BlacklistedTokenModel $model): int;
+    public function addTokenToBlackList(BlacklistedTokenEntity $model): int;
 
     public function blacklistedTokenExist(string $token): bool;
 }

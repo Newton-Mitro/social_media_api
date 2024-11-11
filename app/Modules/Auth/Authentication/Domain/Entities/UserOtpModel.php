@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Domain\Entities;
 
 use DateTimeImmutable;
 
-class UserOtpModel
+class UserOtpEntity
 {
         public function __construct(
                 private int $id,
