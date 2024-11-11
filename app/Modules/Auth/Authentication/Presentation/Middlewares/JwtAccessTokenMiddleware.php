@@ -6,6 +6,7 @@ use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,7 +25,7 @@ class JwtAccessTokenMiddleware
             throw new UnauthorizedException('JWT access token required', Response::HTTP_UNAUTHORIZED);
         }
 
-        $tokenExist = $this->blacklistedTokenRepository->blacklistedTokenExist(
+        $tokenExist = $this->blacklistedTokenRepository->findByToken(
             $tokenString
         );
 
@@ -43,11 +44,7 @@ class JwtAccessTokenMiddleware
         $request->merge(['exp' => $expire_at->getTimestamp()]);
 
         if ($uid) {
-            // $user = $this->queryBus->ask(
-            //     new FindUserQuery($uid)
-            // );
-
-            // Auth::setUser($user);
+            Auth::setUser($user);
 
             if ($request->is('api/auth/logout')) {
                 return $next($request);
