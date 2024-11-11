@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Authentication\Presentation\Controllers;
 use Exception;
 use App\Core\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserResourceMapper;
 use App\Modules\Auth\Authentication\Presentation\Requests\UpdateProfilePictureRequest;
 use App\Modules\Auth\Authentication\Application\UseCases\UpdateProfilePictureUseCase;
 
@@ -23,7 +23,7 @@ class UpdateProfilePictureController extends Controller
             );
 
             return response()->json([
-                'data' => UserMapper::toUserResource($user),
+                'data' => UserResourceMapper::toUserResource($user),
                 'message' => 'Profile Picture Updated Successfully.',
                 'errors' => null,
             ], Response::HTTP_CREATED);

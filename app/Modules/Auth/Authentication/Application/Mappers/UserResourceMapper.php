@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Authentication\Application\Mappers;
 use App\Modules\Auth\Authentication\Application\Resources\UserResource;
 use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 
-class UserMapper
+class UserResourceMapper
 {
     public static function toResource(UserEntity $entity): UserResource
     {

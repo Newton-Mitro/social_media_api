@@ -7,7 +7,7 @@ use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserResourceMapper;
 use Carbon\Carbon;
 use ErrorException;
 use Illuminate\Http\Response;
@@ -54,7 +54,7 @@ class RegisterUserUseCase
         $user->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
         $updatedUser = $this->userRepository->update($user->getUserId(), $user);
 
-        $mappedUser = UserMapper::toUserResource($updatedUser);
+        $mappedUser = UserResourceMapper::toUserResource($updatedUser);
 
         // Generate user token here
         $access_token = $this->accessTokenService->generateToken($updatedUser);

@@ -7,7 +7,7 @@ use DateTimeImmutable;
 class DeviceEntity
 {
     public function __construct(
-        private int $deviceId,
+        private int $id,
         private string $userId,
         private string $deviceName,
         private string $deviceIp,
@@ -17,14 +17,14 @@ class DeviceEntity
         private DateTimeImmutable $updatedAt = new DateTimeImmutable
     ) {}
 
-    public function getDeviceId(): int
+    public function getId(): int
     {
-        return $this->deviceId;
+        return $this->id;
     }
 
-    public function setDeviceId(int $deviceId): void
+    public function setId(int $id): void
     {
-        $this->deviceId = $deviceId;
+        $this->id = $id;
     }
 
     public function getUserId(): string

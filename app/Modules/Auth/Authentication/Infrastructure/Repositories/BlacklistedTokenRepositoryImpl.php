@@ -4,29 +4,27 @@ namespace App\Modules\Auth\Authentication\Infrastructure\Repositories;
 
 use App\Modules\Auth\Authentication\Domain\Entities\BlacklistedTokenEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\BlacklistedTokenEntityMapper;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\BlacklistedTokenModelMapper;
 use App\Modules\Auth\Authentication\Infrastructure\Models\BlacklistedToken;
-use Exception;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class BlacklistedTokenRepositoryImpl implements BlacklistedTokenRepositoryInterface
 {
-    public function addTokenToBlackList(BlacklistedTokenEntity $model): int
+    public function save(BlacklistedTokenEntity $entity): void
     {
-        try {
-            $blacklistedToken = new BlacklistedToken;
-            $blacklistedToken->id = $model->getId();
-            $blacklistedToken->token = $model->getToken();
-            $blacklistedToken->created_at = $model->getCreatedAt();
-            $blacklistedToken->updated_at = $model->getUpdatedAt();
+        DB::transaction(function () use ($entity) {
+            $blacklistedToken = BlacklistedTokenModelMapper::toModel($entity);
             $blacklistedToken->save();
-            return $blacklistedToken->id;
-        } catch (Exception $exception) {
-            throw new Exception($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR, $exception);
-        }
+        });
     }
 
-    public function blacklistedTokenExist(string $token): bool
+    public function findByToken(string $token): ?BlacklistedTokenEntity
     {
-        return BlacklistedToken::where('token', $token)->exists();
+        $blacklistedToken =  BlacklistedToken::where('token', $token)->first();
+        if (!$blacklistedToken) {
+            return null;
+        }
+        return BlacklistedTokenEntityMapper::toEntity($blacklistedToken);
     }
 }

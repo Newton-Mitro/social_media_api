@@ -7,7 +7,6 @@ use App\Modules\Auth\Authentication\Domain\Entities\BlacklistedTokenEntity;
 
 interface BlacklistedTokenRepositoryInterface
 {
-    public function addTokenToBlackList(BlacklistedTokenEntity $model): int;
-
-    public function blacklistedTokenExist(string $token): bool;
+    public function save(BlacklistedTokenEntity $model): void;
+    public function findByToken(string $token): ?BlacklistedTokenEntity;
 }

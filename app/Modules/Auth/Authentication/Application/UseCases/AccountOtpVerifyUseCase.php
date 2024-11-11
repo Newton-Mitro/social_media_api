@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Authentication\Application\UseCases;
 use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserResourceMapper;
 use Carbon\Carbon;
 use DateTimeImmutable;
 use Exception;
@@ -41,7 +41,7 @@ class AccountOtpVerifyUseCase
             $access_token = $this->accessTokenService->generateToken($updatedUserModel);
             $refresh_token = $this->refreshTokenService->generateToken($updatedUserModel, $deviceName, $deviceIP);
 
-            return ['access_token' => $access_token, 'refresh_token' => $refresh_token, 'user' => UserMapper::toUserResource($updatedUserModel)];
+            return ['access_token' => $access_token, 'refresh_token' => $refresh_token, 'user' => UserResourceMapper::toUserResource($updatedUserModel)];
         }
         throw new Exception('OTP expired or invalid', Response::HTTP_FORBIDDEN);
     }

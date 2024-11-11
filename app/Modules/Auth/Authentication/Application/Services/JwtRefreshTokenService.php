@@ -4,9 +4,7 @@ namespace App\Modules\Auth\Authentication\Application\Services;
 
 use App\Modules\Auth\Authentication\Application\Resources\UserResource;
 use App\Modules\Auth\Authentication\Domain\Entities\DeviceEntity;
-use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\DeviceRepositoryInterface;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Validation\UnauthorizedException;
@@ -37,7 +35,6 @@ class JwtRefreshTokenService
             ->identifiedBy('4f1g23a12aa', true) // Configures the id (jti claim)
             ->issuedAt($now) // Configures the time that the token was issued (iat claim)
             //            ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
-            // TODO: Get time from env
             ->expiresAt($now->modify(config('app.jwt_refresh_expire_at'))) // Configures the expiration time of the token (exp claim)
             //            ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
             ->relatedTo('access_token') //JWT Subject
@@ -45,27 +42,17 @@ class JwtRefreshTokenService
             ->withClaim('uid', $user->id) // Configures a new claim, called "uid"
             ->getToken($this->config->signer(), $this->config->signingKey()); // Retrieves the generated token
 
-        $deviceModel = $this->deviceRepository->findDeviceByUserIdAndDeviceName(
+        $deviceEntity = $this->deviceRepository->findDeviceByUserIdAndDeviceName(
             $user->id,
             $device_name
         );
 
-        if ($deviceModel) {
-            $device = new DeviceEntity(
-                $deviceModel->getDeviceId(),
-                $deviceModel->getUserId(),
-                $deviceModel->getDeviceName(),
-                $deviceModel->getDeviceIp(),
-                $token->toString(),
-                '',
-                $deviceModel->getCreatedAt(),
-                new DateTimeImmutable
-            );
+        if ($deviceEntity) {
+            $deviceEntity->setDeviceToken($token->toString());
+            $deviceEntity->setUpdatedAt(new DateTimeImmutable);
 
-
-            $res = $this->deviceRepository->update(
-                $deviceModel->getDeviceId(),
-                $device
+            $this->deviceRepository->save(
+                $deviceEntity
             );
         } else {
             $device = new DeviceEntity(
@@ -76,16 +63,12 @@ class JwtRefreshTokenService
                 $token->toString(),
                 ''
             );
-            $res = $this->deviceRepository->create(
+            $this->deviceRepository->save(
                 $device
             );
         }
 
-        if ($res) {
-            return $token->toString();
-        }
-
-        throw new Exception('Unable to issue refresh token', Response::HTTP_INTERNAL_SERVER_ERROR);
+        return $token->toString();
     }
 
     public function validateToken(string $token)
@@ -113,9 +96,9 @@ class JwtRefreshTokenService
                 throw new UnauthorizedException('Token has been expired or revoked.', Response::HTTP_UNAUTHORIZED);
             }
 
-            $deviceModel = $this->deviceRepository->findDeviceWithToken($token);
+            $deviceEntity = $this->deviceRepository->findDeviceWithToken($token);
 
-            if ($deviceModel === null) {
+            if ($deviceEntity === null) {
                 throw new UnauthorizedException('Invalid token', Response::HTTP_UNAUTHORIZED);
             }
         } else {

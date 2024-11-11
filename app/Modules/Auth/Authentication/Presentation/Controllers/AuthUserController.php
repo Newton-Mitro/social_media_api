@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserResourceMapper;
 
 class AuthUserController extends Controller
 {
@@ -16,7 +16,7 @@ class AuthUserController extends Controller
         $user = $this->userRepository->findById($authUser['user_id']);
 
         return response()->json([
-            'data' => UserMapper::toUserResource($user),
+            'data' => UserResourceMapper::toUserResource($user),
             'message' => null,
             'errors' => null,
         ]);

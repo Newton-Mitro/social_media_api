@@ -3,7 +3,6 @@
 namespace App\Modules\Auth\Authentication\Application\Services;
 
 use App\Modules\Auth\Authentication\Application\Resources\UserResource;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Validation\UnauthorizedException;
@@ -34,7 +33,6 @@ class JwtAccessTokenService
             ->identifiedBy('4f1g23a12aa', true) // Configures the id (jti claim)
             ->issuedAt($now) // Configures the time that the token was issued (iat claim)
             ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
-            // TODO: get time from .env
             ->expiresAt($now->modify(config('app.jwt_expire_at'))) // Configures the expiration time of the token (exp claim)
             //            ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
             ->relatedTo('access_token') //JWT Subject

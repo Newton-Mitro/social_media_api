@@ -7,7 +7,6 @@ use App\Modules\Auth\Authentication\Domain\Entities\UserOtpEntity;
 
 interface UserOTPRepositoryInterface
 {
-    public function create(UserOtpEntity $userOtpModel): ?UserOtpEntity;
+    public function save(UserOtpEntity $userOtpModel): void;
     public function findUserOTPByUserId(string $userId): ?UserOtpEntity;
-    public function update(UserOtpEntity $userOtpModel): ?UserOtpEntity;
 }

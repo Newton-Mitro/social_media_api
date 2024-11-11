@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Authentication\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Authentication\Application\UseCases\ChangeCoverPhotoUseCase;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
+use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserResourceMapper;
 use App\Modules\Auth\Authentication\Presentation\Requests\ChangeCoverPhotoRequest;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ class ChangeCoverPhotoController extends Controller
             );
 
             return response()->json([
-                'data' => UserMapper::toUserResource($user),
+                'data' => UserResourceMapper::toUserResource($user),
                 'message' => 'Cover Picture Updated Successfully.',
                 'errors' => null,
             ], Response::HTTP_CREATED);
