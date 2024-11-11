@@ -2,10 +2,10 @@
 
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
+use App\Modules\Auth\Authentication\Application\Mappers\UserMapper;
 use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -23,17 +23,17 @@ class UserLoginUseCase
     {
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
 
-            $user = $this->userRepository->findUserByEmail($email);
+            $user = $this->userRepository->findByEmail($email);
 
             // Update User Last Logged in date
             $user->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
-            $updatedUser = $this->userRepository->update($user->getUserId(), $user);
+            $this->userRepository->save($user);
 
-            $mappedUser = UserMapper::toUserResource($updatedUser);
+            $mappedUser = UserMapper::toResource($user);
 
             // Generate user token here
-            $access_token = $this->accessTokenService->generateToken($updatedUser);
-            $refresh_token = $this->refreshTokenService->generateToken($updatedUser, $deviceName, $deviceIP);
+            $access_token = $this->accessTokenService->generateToken($mappedUser);
+            $refresh_token = $this->refreshTokenService->generateToken($mappedUser, $deviceName, $deviceIP);
 
             return ['access_token' => $access_token, 'refresh_token' => $refresh_token, 'user' => $mappedUser];
         }

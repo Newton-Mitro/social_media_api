@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Application\Services;
 
+use App\Modules\Auth\Authentication\Application\Resources\UserResource;
 use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserMapper;
 use DateTimeImmutable;
 use Exception;
@@ -24,10 +25,9 @@ class JwtAccessTokenService
         );
     }
 
-    public function generateToken($user)
+    public function generateToken(UserResource $user)
     {
         $now = new DateTimeImmutable;
-        $mappedUser = UserMapper::toUserResource($user);
         $token = $this->config->builder()
             ->issuedBy(config('app.issuer')) // Configures the issuer (iss claim)
             ->permittedFor(config('app.audience')) // Configures the audience (aud claim)
@@ -38,8 +38,8 @@ class JwtAccessTokenService
             ->expiresAt($now->modify(config('app.jwt_expire_at'))) // Configures the expiration time of the token (exp claim)
             //            ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
             ->relatedTo('access_token') //JWT Subject
-            ->withClaim('user', $mappedUser) // Configures a new claim, called "user"
-            ->withClaim('uid', $user->getUserId()) // Configures a new claim, called "user"
+            ->withClaim('user', $user) // Configures a new claim, called "user"
+            ->withClaim('uid', $user->id) // Configures a new claim, called "user"
             ->getToken($this->config->signer(), $this->config->signingKey()); // Retrieves the generated token
 
         return $token->toString();

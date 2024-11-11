@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Application\Services;
 
+use App\Modules\Auth\Authentication\Application\Resources\UserResource;
 use App\Modules\Auth\Authentication\Domain\Entities\DeviceEntity;
 use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\DeviceRepositoryInterface;
@@ -27,7 +28,7 @@ class JwtRefreshTokenService
         );
     }
 
-    public function generateToken(UserEntity $user, string $device_name, string $device_ip)
+    public function generateToken(UserResource $user, string $device_name, string $device_ip)
     {
         $now = new DateTimeImmutable;
         $token = $this->config->builder()
@@ -40,12 +41,12 @@ class JwtRefreshTokenService
             ->expiresAt($now->modify(config('app.jwt_refresh_expire_at'))) // Configures the expiration time of the token (exp claim)
             //            ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
             ->relatedTo('access_token') //JWT Subject
-            ->withClaim('user', UserMapper::toUserResource($user)) // Configures a new claim, called "uid"
-            ->withClaim('uid', $user->getUserId()) // Configures a new claim, called "uid"
+            ->withClaim('user', $user) // Configures a new claim, called "uid"
+            ->withClaim('uid', $user->id) // Configures a new claim, called "uid"
             ->getToken($this->config->signer(), $this->config->signingKey()); // Retrieves the generated token
 
         $deviceModel = $this->deviceRepository->findDeviceByUserIdAndDeviceName(
-            $user->getUserId(),
+            $user->id,
             $device_name
         );
 
@@ -69,7 +70,7 @@ class JwtRefreshTokenService
         } else {
             $device = new DeviceEntity(
                 0,
-                $user->getUserId(),
+                $user->id,
                 $device_name,
                 $device_ip,
                 $token->toString(),

@@ -20,8 +20,8 @@ class LoginController extends Controller
         $request->query();
 
         $res = $this->loginUserUseCase->handle(
-            $request->data()->email,
-            $request->data()->password,
+            $request->input('email'),
+            $request->input('password'),
             $userAgent,
             $ip,
         );
