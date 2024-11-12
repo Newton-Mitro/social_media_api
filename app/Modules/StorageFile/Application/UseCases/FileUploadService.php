@@ -2,7 +2,7 @@
 
 namespace App\Modules\StorageFile\Application\UseCases;
 
-use App\Modules\StorageFile\Core\Interfaces\FileUploadServiceInterface;
+use App\Modules\StorageFile\Domain\Interfaces\FileUploadServiceInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 

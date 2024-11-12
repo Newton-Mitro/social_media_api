@@ -2,7 +2,7 @@
 
 namespace App\Modules\Follow\Infrastructure\Models;
 
-use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Auth\Infrastructure\Models\User;
 use FollowFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Auth\Infrastructure\Models\User;
 
 
 

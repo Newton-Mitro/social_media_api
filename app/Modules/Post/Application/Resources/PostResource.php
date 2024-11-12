@@ -2,7 +2,7 @@
 
 namespace App\Modules\Post\Application\Resources;
 
-use App\Modules\Auth\Authentication\Application\Resources\UserResource;
+use App\Modules\Auth\Application\Resources\UserResource;
 
 
 

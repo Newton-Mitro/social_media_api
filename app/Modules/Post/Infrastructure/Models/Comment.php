@@ -2,7 +2,7 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
-use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Auth\Infrastructure\Models\User;
 use App\Modules\Post\Infrastructure\Models\Like;
 use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;

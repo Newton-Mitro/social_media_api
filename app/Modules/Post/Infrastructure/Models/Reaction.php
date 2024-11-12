@@ -2,7 +2,7 @@
 
 namespace App\Modules\Post\Infrastructure\Models;
 
-use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Auth\Infrastructure\Models\User;
 use Database\Factories\ReactionFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

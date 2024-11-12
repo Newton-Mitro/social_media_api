@@ -12,7 +12,7 @@ Accept: application/json
 @auth_token = {{login.response.body.data.access_token}}
 
 ###
-POST http://127.0.0.1:8000/api/user/profile/picture/update
+POST http://127.0.0.1:8000/api/users/update/profile-picture
 Accept: application/json
 Content-Type: multipart/form-data; boundary=------------------------abcdefg
 Authorization: Bearer {{auth_token}}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Follow\Http\Controllers;
+namespace App\Modules\Follow\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Follow\Infrastructure\Models\Follow;

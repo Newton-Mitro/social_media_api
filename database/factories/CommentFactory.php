@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Auth\Infrastructure\Models\User;
 use App\Modules\Post\Infrastructure\Models\Comment;
 use App\Modules\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;

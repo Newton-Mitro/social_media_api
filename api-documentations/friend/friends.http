@@ -1,0 +1,52 @@
+# @name login
+POST http://127.0.0.1:8000/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
+# Send Friend Request
+POST http://127.0.0.1:8000/api/friend-request/send/c9bde3da-9f51-4d07-84c1-e8d71c404f20
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+
+# Accept Friend Request
+POST http://127.0.0.1:8000/api/friend-request/accept/{{requestId}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+
+# Reject Friend Request
+POST http://127.0.0.1:8000/api/friend-request/reject/{{requestId}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+
+# Check Friend Request Status
+GET http://127.0.0.1:8000/api/friend-request/status/{{userId}}/{{otherUserId}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+
+# Get Pending Friend Request Count
+GET http://127.0.0.1:8000/api/friend-request/pending-count
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+
+# Get Friends List
+GET http://127.0.0.1:8000/api/friends/c9bde3da-9f51-4d07-84c1-e8d71c404f20?per_page=10
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

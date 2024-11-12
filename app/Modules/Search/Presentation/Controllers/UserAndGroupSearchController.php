@@ -3,7 +3,7 @@
 namespace App\Modules\Search\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Auth\Infrastructure\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\StorageFile\Providers;
+namespace App\Modules\StorageFile;
 
 use App\Modules\StorageFile\Application\UseCases\FileUploadService;
 use App\Modules\StorageFile\Core\Interfaces\FileUploadServiceInterface;

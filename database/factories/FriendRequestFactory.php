@@ -1,7 +1,7 @@
 <?php
 
-use App\Modules\Auth\Authentication\Infrastructure\Models\User;
-use App\Modules\User\Infrastructure\Models\FriendRequest;
+use App\Modules\Auth\Infrastructure\Models\User;
+use App\Modules\Friend\Infrastructure\Models\FriendRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FriendRequestFactory extends Factory

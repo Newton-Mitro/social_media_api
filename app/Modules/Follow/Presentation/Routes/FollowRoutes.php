@@ -1,11 +1,8 @@
 <?php
 
-use App\Modules\Auth\Authentication\Presentation\Middlewares\JwtAccessTokenMiddleware;
-use App\Modules\Follow\Http\Controllers\FollowController;
+use App\Modules\Auth\Presentation\Middlewares\JwtAccessTokenMiddleware;
+use App\Modules\Follow\Presentation\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
-
-
-
 
 
 Route::middleware(JwtAccessTokenMiddleware::class)->group(function () {

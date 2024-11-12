@@ -31,8 +31,11 @@
     27 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     28 => 'Termwind\\Laravel\\TermwindServiceProvider',
     29 => 'Pest\\Laravel\\PestServiceProvider',
-    30 => 'App\\Modules\\Auth\\Authentication\\AuthServiceProvider',
+    30 => 'App\\Modules\\Auth\\AuthServiceProvider',
     31 => 'App\\Modules\\Post\\PostServiceProvider',
+    32 => 'App\\Modules\\Profile\\ProfileServiceProvider',
+    33 => 'App\\Modules\\Follow\\FollowServiceProvider',
+    34 => 'App\\Modules\\Friend\\FriendServiceProvider',
   ),
   'eager' => 
   array (
@@ -51,8 +54,11 @@
     12 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     13 => 'Termwind\\Laravel\\TermwindServiceProvider',
     14 => 'Pest\\Laravel\\PestServiceProvider',
-    15 => 'App\\Modules\\Auth\\Authentication\\AuthServiceProvider',
+    15 => 'App\\Modules\\Auth\\AuthServiceProvider',
     16 => 'App\\Modules\\Post\\PostServiceProvider',
+    17 => 'App\\Modules\\Profile\\ProfileServiceProvider',
+    18 => 'App\\Modules\\Follow\\FollowServiceProvider',
+    19 => 'App\\Modules\\Friend\\FriendServiceProvider',
   ),
   'deferred' => 
   array (

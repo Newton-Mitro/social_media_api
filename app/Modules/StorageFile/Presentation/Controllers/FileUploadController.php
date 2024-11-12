@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\StorageFile\Http\Controllers;
+namespace App\Modules\StorageFile\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\StorageFile\Application\Resources\FileUploadRequest;
-use App\Modules\StorageFile\Core\Interfaces\FileUploadServiceInterface;
-use App\Modules\StorageFile\DTOs\FileUploadDTO;
+use App\Modules\StorageFile\Application\Resources\UploadedFileResource;
+use App\Modules\StorageFile\Domain\Interfaces\FileUploadServiceInterface;
+use App\Modules\StorageFile\Presentation\Request\FileUploadRequest;
 use DOMDocument;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ class FileUploadController extends Controller
         $fileData = $this->fileUploadService->uploadFile($request->file('file'));
 
         // Create DTO from the file data
-        $fileUploadDTO = new FileUploadDTO($fileData['url'], $fileData['path'], $fileData['file_name'], $fileData['file_type']);
+        $fileUploadDTO = new UploadedFileResource($fileData['url'], $fileData['path'], $fileData['file_name'], $fileData['file_type']);
 
         // Return response with data from the DTO
         return response()->json([

@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Modules\Auth\Authentication\Infrastructure\Models\Friend;
-use App\Modules\Auth\Authentication\Infrastructure\Models\FriendRequest;
-use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Auth\Infrastructure\Models\User;
 use App\Modules\Follow\Infrastructure\Models\Follow;
+use App\Modules\Friend\Infrastructure\Models\FriendRequest;
 use App\Modules\Post\Infrastructure\Models\Attachment;
 use App\Modules\Post\Infrastructure\Models\Comment;
 use App\Modules\Post\Infrastructure\Models\Post;
@@ -86,20 +85,7 @@ class DatabaseSeeder extends Seeder
         // Get the top three users
         $topUsers = User::take(3)->get();
 
-        // Seed friends, follows, and friend requests among top three users only
-
-        // Seed friends
-        foreach ($topUsers as $user) {
-            foreach ($topUsers as $friend) {
-                if ($user->id !== $friend->id) {
-                    Friend::firstOrCreate([
-                        'user_id' => $user->id,
-                        'friend_id' => $friend->id,
-                        'accepted_at' => now()
-                    ]);
-                }
-            }
-        }
+        // Seed follows, and friend requests among top three users only
 
         // Seed follows
         foreach ($topUsers as $follower) {

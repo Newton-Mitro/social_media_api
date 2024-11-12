@@ -1,4 +1,27 @@
+# @name login
+POST http://127.0.0.1:8000/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
 # @name fetchUserProfile
 GET http://127.0.0.1:8000/api/users/profile/c9bde3da-9f51-4d07-84c1-e8d71c404f20
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+
+
+### SET TOKEN
+# @name fetchUserProfile
+GET http://127.0.0.1:8000/api/users/profile/1beb7faa-3f32-4879-9eba-478a8b6c6202
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
