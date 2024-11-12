@@ -2,6 +2,8 @@
 
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
+use App\Modules\Auth\Authentication\Application\Mappers\UserResourceMapper;
+use App\Modules\Auth\Authentication\Application\Resources\UserResource;
 use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 use DateTimeImmutable;
@@ -16,7 +18,7 @@ class UpdateProfilePictureUseCase
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId, UploadedFile $profilePhoto): ?UserEntity
+    public function handle(string $userId, UploadedFile $profilePhoto): UserResource
     {
         $user = $this->userRepository->findById($userId);
 
@@ -34,8 +36,8 @@ class UpdateProfilePictureUseCase
         $user->setUpdatedAt(new DateTimeImmutable());
         $user->setProfilePicture($path);
 
-        if ($this->userRepository->update($userId, $user)) {
-            return $user;
+        if ($this->userRepository->save($user)) {
+            return UserResourceMapper::toResource($user);
         }
 
         throw new Exception('User update has failed!', Response::HTTP_BAD_REQUEST);

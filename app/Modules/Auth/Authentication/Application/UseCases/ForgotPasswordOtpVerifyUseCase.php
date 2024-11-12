@@ -3,6 +3,7 @@
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
 use App\Core\Utilities\OTPGenerator;
+use App\Modules\Auth\Authentication\Application\Resources\UserOtpResource;
 use App\Modules\Auth\Authentication\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
@@ -20,13 +21,10 @@ class ForgotPasswordOtpVerifyUseCase
         protected UserOTPRepositoryInterface $userOTPRepositoryInterface
     ) {}
 
-    public function handle(string $email, string $otp): ?UserOtpEntity
+    // TODO : fix me
+    public function handle(string $email, string $otp): UserOtpResource
     {
-        // if user email don't exists, through exception
-        // if user email exists, get OTP information by user id
-        // if valid, process to next setp
-        // if not valid, return validation failed exception
-        $user = $this->userRepositoryInterface->findUserByEmail(
+        $user = $this->userRepositoryInterface->findByEmail(
             $email
         );
         if ($user === null) {
@@ -34,7 +32,7 @@ class ForgotPasswordOtpVerifyUseCase
         } else {
             //Get user OTP
             $userOTP = $this->userOTPRepositoryInterface->findUserOTPByUserId(
-                $user->getUserId()
+                $user->getId()
             );
             if ($userOTP->getOtp() === $otp && $userOTP->getExpiresAt() > Carbon::now() && $userOTP->getIsVerified() === false) {
                 // creating user OTP
@@ -43,7 +41,7 @@ class ForgotPasswordOtpVerifyUseCase
                 $expiresAt = OTPGenerator::generateExpireTime();
                 $otpToken = Str::random();
                 $userOTP = $this->userOTPRepositoryInterface->findUserOTPByUserId(
-                    $user->getUserId()
+                    $user->getId()
                 );
                 $userOTP->setId($userOTP->getId());
                 $userOTP->setUserId($userOTP->getUserId());

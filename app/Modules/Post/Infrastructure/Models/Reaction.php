@@ -3,7 +3,7 @@
 namespace App\Modules\Post\Infrastructure\Models;
 
 use App\Modules\Auth\Authentication\Infrastructure\Models\User;
-use Database\Factories\LikeFactory;
+use Database\Factories\ReactionFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Str;
 
-class Like extends Model
+class Reaction extends Model
 {
     use HasFactory, HasUuids;
 
@@ -26,7 +26,7 @@ class Like extends Model
 
     protected $fillable = ['user_id'];
 
-    public function likable(): MorphTo
+    public function reactable(): MorphTo
     {
         return $this->morphTo();
     }
@@ -38,6 +38,6 @@ class Like extends Model
 
     protected static function newFactory()
     {
-        return new LikeFactory();
+        return new ReactionFactory();
     }
 }

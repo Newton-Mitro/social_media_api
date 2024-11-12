@@ -4,8 +4,8 @@ namespace App\Modules\Auth\Authentication\Infrastructure\Models;
 
 use App\Modules\Follow\Infrastructure\Models\Follow;
 use App\Modules\Post\Infrastructure\Models\Comment;
-use App\Modules\Post\Infrastructure\Models\Like;
 use App\Modules\Post\Infrastructure\Models\Post;
+use App\Modules\Post\Infrastructure\Models\Reaction;
 use App\Modules\Post\Infrastructure\Models\Share;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -57,14 +57,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class);
     }
 
-    public function postLikes()
+    public function postReactions()
     {
-        return $this->hasManyThrough(Like::class, Post::class);
+        return $this->hasManyThrough(Reaction::class, Post::class);
     }
 
-    public function likes()
+    public function reactions()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Reaction::class);
     }
 
     public function shares()

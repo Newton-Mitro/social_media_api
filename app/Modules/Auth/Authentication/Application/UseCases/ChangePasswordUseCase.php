@@ -14,20 +14,18 @@ class ChangePasswordUseCase
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $email, string $oldPassword, string $password): string
+    public function handle(string $email, string $oldPassword, string $password): void
     {
-        $user = $this->userRepository->findUserByEmail(
+        $user = $this->userRepository->findByEmail(
             $email
         );
 
         if (Hash::check($oldPassword, $user->getPassword())) {
             $user->setPassword($password);
             $user->setUpdatedAt(new DateTimeImmutable);
-            $this->userRepository->update($user->getUserId(), $user);
-
-            return 'Your password has been updated!';
+            $this->userRepository->save($user);
+        } else {
+            throw new Exception("Password doesn't match", Response::HTTP_BAD_REQUEST);
         }
-
-        throw new Exception("Password doesn't match", Response::HTTP_BAD_REQUEST);
     }
 }

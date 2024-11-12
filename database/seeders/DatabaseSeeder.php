@@ -2,12 +2,15 @@
 
 namespace Database\Seeders;
 
+use App\Modules\Auth\Authentication\Infrastructure\Models\Friend;
+use App\Modules\Auth\Authentication\Infrastructure\Models\FriendRequest;
 use App\Modules\Auth\Authentication\Infrastructure\Models\User;
+use App\Modules\Follow\Infrastructure\Models\Follow;
 use App\Modules\Post\Infrastructure\Models\Attachment;
 use App\Modules\Post\Infrastructure\Models\Comment;
-use App\Modules\Post\Infrastructure\Models\Like;
 use App\Modules\Post\Infrastructure\Models\Post;
 use App\Modules\Post\Infrastructure\Models\Privacy;
+use App\Modules\Post\Infrastructure\Models\Reaction;
 use App\Modules\Post\Infrastructure\Models\Share;
 use Illuminate\Database\Seeder;
 
@@ -46,15 +49,82 @@ class DatabaseSeeder extends Seeder
         // Create posts and related data for each privacy
         $privacies->each(function ($privacy) {
             // Create posts for each privacy
-            $posts = Post::factory()->count(5)->create(['privacy_id' => $privacy->id, 'user_id' => User::inRandomOrder()->first()->id]);
+            $posts = Post::factory()->count(5)->create([
+                'privacy_id' => $privacy->id,
+                'user_id' => User::inRandomOrder()->first()->id
+            ]);
 
-            // For each post, create comments, attachments, likes, and shares
             foreach ($posts as $post) {
-                Comment::factory()->count(3)->create(['commentable_id' => $post->id, 'commentable_type' => Post::class, 'user_id' => User::inRandomOrder()->first()->id]);
+                // Create comments if they don't already exist
+                Comment::factory()->count(3)->create([
+                    'commentable_id' => $post->id,
+                    'commentable_type' => Post::class,
+                    'user_id' => User::inRandomOrder()->first()->id
+                ]);
+
+                // Create attachments if they don't already exist
                 Attachment::factory()->count(2)->create(['post_id' => $post->id]);
-                Like::factory()->count(2)->create(['likable_id' => $post->id, 'likable_type' => Post::class, 'user_id' => User::inRandomOrder()->first()->id]);
-                Share::factory()->count(1)->create(['post_id' => $post->id, 'user_id' => User::inRandomOrder()->first()->id]);
+
+                // Ensure unique reactions by checking before creation
+                foreach (['like', 'love', 'haha', 'wow', 'sad', 'angry'] as $reactionType) {
+                    Reaction::firstOrCreate([
+                        'reactable_id' => $post->id,
+                        'reactable_type' => Post::class,
+                        'user_id' => User::inRandomOrder()->first()->id,
+                        'type' => $reactionType,
+                    ]);
+                }
+
+                // Create shares if they don't already exist
+                Share::factory()->count(1)->create([
+                    'post_id' => $post->id,
+                    'user_id' => User::inRandomOrder()->first()->id
+                ]);
             }
         });
+
+        // Get the top three users
+        $topUsers = User::take(3)->get();
+
+        // Seed friends, follows, and friend requests among top three users only
+
+        // Seed friends
+        foreach ($topUsers as $user) {
+            foreach ($topUsers as $friend) {
+                if ($user->id !== $friend->id) {
+                    Friend::firstOrCreate([
+                        'user_id' => $user->id,
+                        'friend_id' => $friend->id,
+                        'accepted_at' => now()
+                    ]);
+                }
+            }
+        }
+
+        // Seed follows
+        foreach ($topUsers as $follower) {
+            foreach ($topUsers as $following) {
+                if ($follower->id !== $following->id) {
+                    Follow::firstOrCreate([
+                        'follower_id' => $follower->id,
+                        'following_id' => $following->id
+                    ]);
+                }
+            }
+        }
+
+        // Seed friend requests
+        foreach ($topUsers as $sender) {
+            foreach ($topUsers as $receiver) {
+                if ($sender->id !== $receiver->id) {
+                    // Randomize the status (pending, accepted, or rejected)
+                    FriendRequest::firstOrCreate([
+                        'sender_id' => $sender->id,
+                        'receiver_id' => $receiver->id,
+                        'status' => fake()->randomElement(['pending', 'accepted', 'rejected'])
+                    ]);
+                }
+            }
+        }
     }
 }

@@ -20,20 +20,20 @@ class ResetPasswordUseCase
     {
         // if user email don't exists, through exception
         // if user email exists, reset password
-        $user = $this->userRepository->findUserByEmail(
+        $user = $this->userRepository->findByEmail(
             $email
         );
         if ($user === null) {
             throw new Exception('Email is not valid', Response::HTTP_NOT_FOUND);
         }
         $userOTP = $this->userOTPRepository->findUserOTPByUserId(
-            $user->getUserId()
+            $user->getId()
         );
         // if token matched then reset the password
         if ($userOTP->getToken() === $token) {
             $user->setPassword(Hash::make($password));
             $user->setUpdatedAt(new DateTimeImmutable);
-            $this->userRepository->update($user->getUserId(), $user);
+            $this->userRepository->save($user);
         } else {
             throw new Exception('Bad request', Response::HTTP_BAD_REQUEST);
         }

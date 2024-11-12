@@ -4,6 +4,7 @@ namespace App\Modules\Auth\Authentication\Application\UseCases;
 
 use App\Modules\Auth\Authentication\Application\Events\UserRegistered;
 use App\Modules\Auth\Authentication\Application\Mappers\UserResourceMapper;
+use App\Modules\Auth\Authentication\Application\Resources\AuthUserResource;
 use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
@@ -23,7 +24,7 @@ class RegisterUserUseCase
         protected SendEmailVerifyingOTPUseCase $sendEmailVerifyingOTPUseCase
     ) {}
 
-    public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): ?array
+    public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): AuthUserResource
     {
         // Check if user already exist
         $existingUser = $this->userRepository->findByEmail($email);
@@ -62,6 +63,7 @@ class RegisterUserUseCase
         $access_token = $this->accessTokenService->generateToken($mappedUser);
         $refresh_token = $this->refreshTokenService->generateToken($mappedUser, $deviceName, $deviceIP);
 
-        return ['user' => $mappedUser, 'access_token' => $access_token, 'refresh_token' => $refresh_token];
+        $authUser = new AuthUserResource(user: $mappedUser, access_token: $access_token, refresh_token: $refresh_token);
+        return $authUser;
     }
 }

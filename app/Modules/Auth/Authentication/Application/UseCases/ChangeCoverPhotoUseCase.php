@@ -2,11 +2,10 @@
 
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
-use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
+use App\Modules\Auth\Authentication\Application\Mappers\UserResourceMapper;
+use App\Modules\Auth\Authentication\Application\Resources\UserResource;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
 use DateTimeImmutable;
-use Exception;
-use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +15,7 @@ class ChangeCoverPhotoUseCase
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId, UploadedFile $coverPhoto): ?UserEntity
+    public function handle(string $userId, UploadedFile $coverPhoto): UserResource
     {
         $user = $this->userRepository->findById(
             $userId
@@ -36,10 +35,8 @@ class ChangeCoverPhotoUseCase
         $user->setUpdatedAt(new DateTimeImmutable());
         $user->setCoverPhoto($path);
 
-        if ($this->userRepository->update($userId, $user)) {
-            return $user;
-        }
+        $this->userRepository->save($user);
 
-        throw new Exception('User update has failed!', Response::HTTP_BAD_REQUEST);
+        return UserResourceMapper::toResource($user);
     }
 }

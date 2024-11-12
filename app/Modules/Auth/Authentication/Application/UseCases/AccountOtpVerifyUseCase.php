@@ -2,14 +2,15 @@
 
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
-use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
-use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
-use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserResourceMapper;
+use Exception;
 use Carbon\Carbon;
 use DateTimeImmutable;
-use Exception;
 use Illuminate\Http\Response;
+use App\Modules\Auth\Authentication\Application\Mappers\UserResourceMapper;
+use App\Modules\Auth\Authentication\Application\Resources\AuthUserResource;
+use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
+use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 
 class AccountOtpVerifyUseCase
 {
@@ -19,9 +20,9 @@ class AccountOtpVerifyUseCase
         protected JwtRefreshTokenService $refreshTokenService,
     ) {}
 
-    public function handle(string $deviceName, string $deviceIP, string $email, string $otp): array
+    public function handle(string $deviceName, string $deviceIP, string $email, string $otp): AuthUserResource
     {
-        $user = $this->userRepository->findUserByEmail(
+        $user = $this->userRepository->findByEmail(
             $email
         );
 
@@ -29,19 +30,21 @@ class AccountOtpVerifyUseCase
             throw new Exception('User not found', Response::HTTP_NOT_FOUND);
         }
 
-        // TODO: Implement UpdateUserCommand
         if ($user->getOtp() === $otp && $user->getOtpExpiresAt() > Carbon::now()) {
             $user->setOtp(null);
             $user->setOtpExpiresAt(null);
             $user->setEmailVerifiedAt(new DateTimeImmutable);
             $user->setOtpVerified(true);
-            $updatedUserModel = $this->userRepository->update($user->getUserId(), $user);
+            $this->userRepository->save($user);
+
+            $mappedUserResource = UserResourceMapper::toResource($user);
 
             // Generate user token here
-            $access_token = $this->accessTokenService->generateToken($updatedUserModel);
-            $refresh_token = $this->refreshTokenService->generateToken($updatedUserModel, $deviceName, $deviceIP);
+            $access_token = $this->accessTokenService->generateToken($mappedUserResource);
+            $refresh_token = $this->refreshTokenService->generateToken($mappedUserResource, $deviceName, $deviceIP);
 
-            return ['access_token' => $access_token, 'refresh_token' => $refresh_token, 'user' => UserResourceMapper::toUserResource($updatedUserModel)];
+            $authUser = new AuthUserResource(user: $mappedUserResource, access_token: $access_token, refresh_token: $refresh_token);
+            return $authUser;
         }
         throw new Exception('OTP expired or invalid', Response::HTTP_FORBIDDEN);
     }
