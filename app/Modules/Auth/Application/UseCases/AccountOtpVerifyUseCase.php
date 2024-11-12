@@ -30,6 +30,10 @@ class AccountOtpVerifyUseCase
             throw new Exception('User not found', Response::HTTP_NOT_FOUND);
         }
 
+        if ($user->getEmailVerifiedAt() !== null) {
+            throw new Exception('Account already verified', Response::HTTP_NOT_ACCEPTABLE);
+        }
+
         if ($user->getOtp() === $otp && $user->getOtpExpiresAt() > Carbon::now()) {
             $user->setOtp(null);
             $user->setOtpExpiresAt(null);

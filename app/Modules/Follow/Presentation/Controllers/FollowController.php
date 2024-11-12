@@ -26,6 +26,7 @@ class FollowController extends Controller
             return response()->json([
                 'data' => null,
                 'message' => 'Already following this user.',
+                'error' => null,
                 'errors' => null,
             ], 200);
         }
@@ -39,6 +40,7 @@ class FollowController extends Controller
         return response()->json([
             'data' => null,
             'message' => 'Followed successfully.',
+            'error' => null,
             'errors' => null,
         ], 201);
     }
@@ -56,6 +58,7 @@ class FollowController extends Controller
             return response()->json([
                 'data' => null,
                 'message' => 'Unfollowed successfully.',
+                'error' => null,
                 'errors' => null,
             ], 200);
         }
@@ -63,6 +66,7 @@ class FollowController extends Controller
         return response()->json([
             'data' => null,
             'message' => 'Follow relationship not found.',
+            'error' => null,
             'errors' => null,
         ], 404);
     }
@@ -78,6 +82,7 @@ class FollowController extends Controller
         return response()->json([
             'data' => $following,
             'message' => 'Following list retrieved successfully.',
+            'error' => null,
             'errors' => null,
         ]);
     }
@@ -93,6 +98,7 @@ class FollowController extends Controller
         return response()->json([
             'data' => $followers,
             'message' => 'Followers list retrieved successfully.',
+            'error' => null,
             'errors' => null,
         ]);
     }

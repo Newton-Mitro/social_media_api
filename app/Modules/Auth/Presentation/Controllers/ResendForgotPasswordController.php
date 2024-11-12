@@ -20,6 +20,7 @@ class ResendForgotPasswordController extends Controller
         return response()->json([
             'data' => UserOtpMapper::toForgotPasswordOTPResource($userOtp),
             'message' => 'OTP has been sent to your email.',
+            'error' => null,
             'errors' => null,
         ]);
     }

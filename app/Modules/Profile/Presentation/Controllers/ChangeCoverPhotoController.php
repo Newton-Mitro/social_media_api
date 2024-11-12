@@ -24,6 +24,7 @@ class ChangeCoverPhotoController extends Controller
             return response()->json([
                 'data' => $user,
                 'message' => 'Cover Picture Updated Successfully.',
+                'error' => null,
                 'errors' => null,
             ], Response::HTTP_CREATED);
         }

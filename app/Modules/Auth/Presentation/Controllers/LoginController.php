@@ -29,6 +29,7 @@ class LoginController extends Controller
         return response()->json([
             'data' => $res,
             'message' => 'Successfully logged in',
+            'error' => null,
             'errors' => null,
         ], Response::HTTP_OK);
     }

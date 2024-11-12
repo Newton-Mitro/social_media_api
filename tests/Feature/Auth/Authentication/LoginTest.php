@@ -1,8 +1,9 @@
 <?php
 
-use App\Modules\Auth\Device\Models\Device;
-use App\Modules\Auth\User\Models\User;
 use Illuminate\Http\Response;
+use App\Modules\Auth\Infrastructure\Models\User;
+use App\Modules\Auth\Infrastructure\Models\Device;
+
 
 describe('login', function (): void {
     it('can authenticate but email need to be verified', function (): void {

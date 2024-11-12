@@ -22,6 +22,7 @@ class ResetPasswordController extends Controller
         return response()->json([
             'data' => null,
             'message' => 'Password reset successfully.',
+            'error' => null,
             'errors' => null,
         ]);
     }

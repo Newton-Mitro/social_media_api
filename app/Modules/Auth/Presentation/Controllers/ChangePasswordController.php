@@ -22,6 +22,7 @@ class ChangePasswordController extends Controller
         return response()->json([
             'data' => null,
             'message' => $res,
+            'error' => null,
             'errors' => null,
         ]);
     }
