@@ -13,8 +13,6 @@ class AttachmentResource
     public string            $filePath;
     public string            $fileURL;
     public string            $mimeType;
-    public int $createdBy;
-    public ?UserResource $creator;
     public int               $likeCount;
     public int               $viewCount;
     public int               $shareCount;

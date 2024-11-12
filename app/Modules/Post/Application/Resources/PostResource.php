@@ -2,22 +2,15 @@
 
 namespace App\Modules\Post\Application\Resources;
 
-use App\Modules\Auth\Application\Resources\UserResource;
-
-
-
 class PostResource
 {
-    public int               $postId;
-    public int            $userId;
+    public string               $postId;
+    public string            $userId;
     public string            $body;
-    public int            $privacyId;
-    public int $createdBy;
-    public ?UserResource $creator;
-    public array            $attachments;
+    public string            $privacyId;
+    public string $createdBy;
     public int               $likeCount;
     public int               $shareCount;
     public string $createdAt;
     public string $updatedAt;
-    public ?string $expireDate;
 }
