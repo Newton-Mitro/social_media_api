@@ -3,8 +3,8 @@
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
 use App\Core\Utilities\OTPGenerator;
-use App\Modules\Auth\Authentication\Application\Mail\VerificationEmail;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Authentication\Infrastructure\Mail\VerificationEmail;
 use DateTimeImmutable;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,7 +21,7 @@ class SendEmailVerifyingOTPUseCase
         $expiresAt = OTPGenerator::generateExpireTime();
 
         // Find the user by email
-        $user = $this->userRepository->findUserByEmail($email);
+        $user = $this->userRepository->findByEmail($email);
 
         // TODO: Implement UpdateUserCommand
         $user->setOtp($otp);
@@ -29,7 +29,7 @@ class SendEmailVerifyingOTPUseCase
         $user->setUpdatedAt(new DateTimeImmutable);
         $user->setOtpVerified(false);
         // Persist user to db
-        $this->userRepository->update($user->getUserId(), $user);
+        $this->userRepository->save($user);
 
         // Send OTP to user email
         Mail::to($user->getEmail())->send(new VerificationEmail($user, $otp, $otpValidTime));

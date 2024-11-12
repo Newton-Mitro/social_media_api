@@ -37,7 +37,7 @@ class JwtRefreshTokenService
             //            ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
             ->expiresAt($now->modify(config('app.jwt_refresh_expire_at'))) // Configures the expiration time of the token (exp claim)
             //            ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
-            ->relatedTo('access_token') //JWT Subject
+            ->relatedTo('refresh_token') //JWT Subject
             ->withClaim('user', $user) // Configures a new claim, called "uid"
             ->withClaim('uid', $user->id) // Configures a new claim, called "uid"
             ->getToken($this->config->signer(), $this->config->signingKey()); // Retrieves the generated token

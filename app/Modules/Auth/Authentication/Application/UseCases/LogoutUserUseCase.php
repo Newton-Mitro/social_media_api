@@ -23,7 +23,7 @@ class LogoutUserUseCase
             token: $token
         );
 
-        $this->blacklistedTokenRepository->addTokenToBlackList($addBlackListToken);
+        $this->blacklistedTokenRepository->save($addBlackListToken);
 
 
         $device = $this->deviceRepository->findDeviceByUserIdAndDeviceName(
@@ -32,7 +32,7 @@ class LogoutUserUseCase
         );
 
         if ($device) {
-            $this->deviceRepository->logoutFromAllDevices($userId);
+            $this->deviceRepository->removeDevices($userId);
         }
     }
 }

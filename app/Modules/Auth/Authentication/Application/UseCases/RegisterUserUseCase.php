@@ -3,11 +3,11 @@
 namespace App\Modules\Auth\Authentication\Application\UseCases;
 
 use App\Modules\Auth\Authentication\Application\Events\UserRegistered;
+use App\Modules\Auth\Authentication\Application\Mappers\UserResourceMapper;
 use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Authentication\Domain\Entities\UserEntity;
 use App\Modules\Auth\Authentication\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Authentication\Infrastructure\Mappers\UserResourceMapper;
 use Carbon\Carbon;
 use ErrorException;
 use Illuminate\Http\Response;
@@ -26,14 +26,14 @@ class RegisterUserUseCase
     public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): ?array
     {
         // Check if user already exist
-        $existingUser = $this->userRepository->findUserByEmail($email);
+        $existingUser = $this->userRepository->findByEmail($email);
 
         if ($existingUser) {
             throw new ErrorException('User already exist', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         $userModel = new UserEntity(
-            userId: 0,
+            id: 0,
             name: $name,
             userName: Str::slug($name, '_'),
             email: $email,
@@ -41,25 +41,27 @@ class RegisterUserUseCase
         );
 
         // Persist user in database
-        $user = $this->userRepository->create(
+        $this->userRepository->save(
             $userModel
         );
 
-        if ($user) {
-            Event::dispatch(new UserRegistered($user));
+        $createdUser = $this->userRepository->findByEmail($email);
+
+        if ($createdUser) {
+            Event::dispatch(new UserRegistered($createdUser));
             $this->sendEmailVerifyingOTPUseCase->handle($email);
         }
 
         // Update User Last Logged in date
-        $user->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
-        $updatedUser = $this->userRepository->update($user->getUserId(), $user);
+        $createdUser->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
+        $this->userRepository->save($createdUser);
 
-        $mappedUser = UserResourceMapper::toUserResource($updatedUser);
+        $mappedUser = UserResourceMapper::toResource($createdUser);
 
         // Generate user token here
-        $access_token = $this->accessTokenService->generateToken($updatedUser);
-        $refresh_token = $this->refreshTokenService->generateToken($updatedUser, $deviceName, $deviceIP);
+        $access_token = $this->accessTokenService->generateToken($mappedUser);
+        $refresh_token = $this->refreshTokenService->generateToken($mappedUser, $deviceName, $deviceIP);
 
-        return ['access_token' => $access_token, 'refresh_token' => $refresh_token, 'user' => $mappedUser];
+        return ['user' => $mappedUser, 'access_token' => $access_token, 'refresh_token' => $refresh_token];
     }
 }

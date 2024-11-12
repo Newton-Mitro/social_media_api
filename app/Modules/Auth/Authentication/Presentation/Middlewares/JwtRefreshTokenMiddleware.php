@@ -2,12 +2,13 @@
 
 namespace App\Modules\Auth\Authentication\Presentation\Middlewares;
 
+use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\UnauthorizedException;
-use App\Modules\Auth\Authentication\Application\Services\JwtRefreshTokenService;
+use Symfony\Component\HttpFoundation\Response;
 
 class JwtRefreshTokenMiddleware
 {
@@ -31,7 +32,7 @@ class JwtRefreshTokenMiddleware
         $request->merge(['user' => $user]);
         $request->merge(['exp' => $expire_at->getTimestamp()]);
 
-        Auth::setUser($user);
+        Auth::setUser(User::find($uid));
 
         return $next($request);
     }

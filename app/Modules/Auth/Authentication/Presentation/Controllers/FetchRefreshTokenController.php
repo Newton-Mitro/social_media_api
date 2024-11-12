@@ -17,7 +17,7 @@ class FetchRefreshTokenController extends Controller
         $userAgent = $request->userAgent();
 
         $res = $this->fetchRefreshTokenUseCase->handle(
-            userId: $user['user_id'],
+            userId: $user['id'],
             deviceName: $userAgent,
             deviceIP: $ip
         );

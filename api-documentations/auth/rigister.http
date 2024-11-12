@@ -4,8 +4,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "name": "john5",
-    "email": "srikanto5.acharya@email.com",
+    "name": "john7",
+    "email": "srikanto7.acharya@email.com",
     "password": "password",
     "password_confirmation": "password"
 }
@@ -17,7 +17,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "srikanto.acharya@email.com",
+    "email": "srikanto7.acharya@email.com",
     "password": "password"
 }
 

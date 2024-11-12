@@ -16,7 +16,7 @@ class ReSendEmailVerifyingOTPUseCase
 
     public function handle(string $email): void
     {
-        $user = $this->repository->findUserByEmail(
+        $user = $this->repository->findByEmail(
             $email
         );
 

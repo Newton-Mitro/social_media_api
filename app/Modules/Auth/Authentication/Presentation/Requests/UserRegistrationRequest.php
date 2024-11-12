@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Authentication\Presentation\Requests;
 
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRegistrationRequest extends FormRequest

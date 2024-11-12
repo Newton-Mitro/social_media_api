@@ -21,9 +21,9 @@ class RegistrationController extends Controller
         $request->query();
 
         $res = $this->registerUserUseCase->handle(
-            name: $request->data()->name,
-            email: $request->data()->email,
-            password: Hash::make($request->data()->password),
+            name: $request->input('name'),
+            email: $request->input('email'),
+            password: Hash::make($request->input('password')),
             deviceName: $userAgent,
             deviceIP: $ip,
         );

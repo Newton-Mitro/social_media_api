@@ -2,10 +2,11 @@
 
 namespace App\Modules\Auth\Authentication\Presentation\Middlewares;
 
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use Closure;
 use Illuminate\Http\Request;
-use Lcobucci\JWT\Configuration;
 use Illuminate\Support\Facades\Auth;
+use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,7 @@ class RequestUserMiddleware
             $request->merge(['uid' => $uid]);
             $request->merge(['user' => $user]);
             $request->merge(['exp' => $expire_at->getTimestamp()]);
-            Auth::setUser($user);
+            Auth::setUser(User::find($uid));
         }
         return $next($request);
     }

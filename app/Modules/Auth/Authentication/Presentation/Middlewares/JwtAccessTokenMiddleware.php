@@ -4,6 +4,7 @@ namespace App\Modules\Auth\Authentication\Presentation\Middlewares;
 
 use App\Modules\Auth\Authentication\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Authentication\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
+use App\Modules\Auth\Authentication\Infrastructure\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,7 @@ class JwtAccessTokenMiddleware
         $request->merge(['exp' => $expire_at->getTimestamp()]);
 
         if ($uid) {
-            Auth::setUser($user);
+            Auth::setUser(User::find($uid));
 
             if ($request->is('api/auth/logout')) {
                 return $next($request);
@@ -58,7 +59,7 @@ class JwtAccessTokenMiddleware
                 return $next($request);
             }
 
-            if ($user && $user['email_verified_at']) {
+            if ($user && $user['account_verified']) {
                 return $next($request);
             }
 
