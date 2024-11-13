@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Auth\Application\Resources;
+namespace App\Modules\Auth\Application\DTOs;
 
 use DateTimeImmutable;
 
 
-class UserOtpResource
+class UserOtpDTO
 {
     public function __construct(
         public string $id,

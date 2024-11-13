@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\Auth\Application\Resources;
+namespace App\Modules\Auth\Application\DTOs;
 
 
-class AuthUserResource
+class AuthUserDTO
 {
     public function __construct(
-        public UserResource $user,
+        public UserDTO $user,
         public string $access_token,
         public string $refresh_token,
     ) {}

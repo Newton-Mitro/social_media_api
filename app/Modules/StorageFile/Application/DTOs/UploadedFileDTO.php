@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\StorageFile\Application\Resources;
+namespace App\Modules\StorageFile\Application\DTOs;
 
-class UploadedFileResource
+class UploadedFileDTO
 {
     public string $url;
     public string $path;

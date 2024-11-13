@@ -2,14 +2,14 @@
 
 namespace App\Modules\Auth\Application\Mappers;
 
-use App\Modules\Auth\Application\Resources\DeviceResource;
+use App\Modules\Auth\Application\DTOs\DeviceDTO;
 use App\Modules\Auth\Domain\Entities\DeviceEntity;
 
-class DeviceResourceMapper
+class DeviceDTOMapper
 {
-    public static function toResource(DeviceEntity $entity): DeviceResource
+    public static function toDTO(DeviceEntity $entity): DeviceDTO
     {
-        return new DeviceResource(
+        return new DeviceDTO(
             id: $entity->getId(),
             userId: $entity->getUserId(),
             deviceName: $entity->getDeviceName(),

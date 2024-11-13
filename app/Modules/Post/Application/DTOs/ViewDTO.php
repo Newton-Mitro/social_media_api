@@ -2,15 +2,15 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
-use App\Modules\Auth\Application\Resources\UserResource;
+use App\Modules\Auth\Application\DTOs\UserDTO;
 use DateTimeImmutable;
 
 
-class ViewResource
+class ViewDTO
 {
     public function __construct(
         public  string $id,
-        public  UserResource $viewer,
+        public  UserDTO $viewer,
         public  DateTimeImmutable $viewedAt
     ) {}
 }

@@ -2,9 +2,9 @@
 
 namespace App\Modules\Profile\Application\UseCases;
 
-use App\Modules\Auth\Application\Mappers\UserResourceMapper;
+use App\Modules\Auth\Application\Mappers\UserDTOMapper;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Profile\Application\Resources\ProfileResource;
+use App\Modules\Profile\Application\DTOs\ProfileDTO;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +15,7 @@ class FetchUserProfileUseCase
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId, string $authUserId = null): ProfileResource
+    public function handle(string $userId, string $authUserId = null): ProfileDTO
     {
         $user = $this->userRepository->findById(
             $userId
@@ -72,8 +72,8 @@ class FetchUserProfileUseCase
             $is_user_profile = $authUserId == $userId ? true : false;
         }
 
-        $mappedUser = UserResourceMapper::toResource($user);
-        $profileData = new ProfileResource(
+        $mappedUser = UserDTOMapper::toDTO($user);
+        $profileData = new ProfileDTO(
             $mappedUser,
             $followers_count,
             $following_count,

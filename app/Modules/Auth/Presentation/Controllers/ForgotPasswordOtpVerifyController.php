@@ -19,7 +19,7 @@ class ForgotPasswordOtpVerifyController extends Controller
         );
 
         return response()->json([
-            'data' => UserOtpMapper::toVerifyForgotPasswordOTPResource($userOtp),
+            'data' => UserOtpMapper::toVerifyForgotPasswordOTPDTO($userOtp),
             'message' => 'OTP verified successfully.',
             'error' => null,
             'errors' => null,

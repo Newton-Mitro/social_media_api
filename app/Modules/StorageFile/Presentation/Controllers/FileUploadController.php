@@ -3,7 +3,7 @@
 namespace App\Modules\StorageFile\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\StorageFile\Application\Resources\UploadedFileResource;
+use App\Modules\StorageFile\Application\DTOs\UploadedFileDTO;
 use App\Modules\StorageFile\Domain\Interfaces\FileUploadServiceInterface;
 use App\Modules\StorageFile\Presentation\Request\FileUploadRequest;
 use DOMDocument;
@@ -25,7 +25,7 @@ class FileUploadController extends Controller
         $fileData = $this->fileUploadService->uploadFile($request->file('file'));
 
         // Create DTO from the file data
-        $fileUploadDTO = new UploadedFileResource($fileData['url'], $fileData['path'], $fileData['file_name'], $fileData['file_type']);
+        $fileUploadDTO = new UploadedFileDTO($fileData['url'], $fileData['path'], $fileData['file_name'], $fileData['file_type']);
 
         // Return response with data from the DTO
         return response()->json([

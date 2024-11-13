@@ -2,8 +2,8 @@
 
 namespace App\Modules\Profile\Application\UseCases;
 
-use App\Modules\Auth\Application\Mappers\UserResourceMapper;
-use App\Modules\Auth\Application\Resources\UserResource;
+use App\Modules\Auth\Application\Mappers\UserDTOMapper;
+use App\Modules\Auth\Application\DTOs\UserDTO;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use DateTimeImmutable;
 use Illuminate\Http\UploadedFile;
@@ -15,7 +15,7 @@ class ChangeCoverPhotoUseCase
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId, UploadedFile $coverPhoto): UserResource
+    public function handle(string $userId, UploadedFile $coverPhoto): UserDTO
     {
         $user = $this->userRepository->findById(
             $userId
@@ -37,6 +37,6 @@ class ChangeCoverPhotoUseCase
 
         $this->userRepository->save($user);
 
-        return UserResourceMapper::toResource($user);
+        return UserDTOMapper::toDTO($user);
     }
 }

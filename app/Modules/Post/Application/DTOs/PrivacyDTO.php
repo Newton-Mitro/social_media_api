@@ -2,7 +2,7 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
-class PrivacyResource
+class PrivacyDTO
 {
     public function __construct(
         public string $id,

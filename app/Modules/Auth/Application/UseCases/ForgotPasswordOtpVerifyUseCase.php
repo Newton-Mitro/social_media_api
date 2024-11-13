@@ -3,7 +3,7 @@
 namespace App\Modules\Auth\Application\UseCases;
 
 use App\Core\Utilities\OTPGenerator;
-use App\Modules\Auth\Application\Resources\UserOtpResource;
+use App\Modules\Auth\Application\DTOs\UserOtpDTO;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
@@ -22,7 +22,7 @@ class ForgotPasswordOtpVerifyUseCase
     ) {}
 
     // TODO : fix me
-    public function handle(string $email, string $otp): UserOtpResource
+    public function handle(string $email, string $otp): UserOtpDTO
     {
         $user = $this->userRepositoryInterface->findByEmail(
             $email

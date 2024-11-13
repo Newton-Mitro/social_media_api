@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Post\Application\Resources;
+namespace App\Modules\Post\Application\DTOs;
 
 use DateTimeImmutable;
 
 
-class AttachmentResource
+class AttachmentDTO
 {
     public function __construct(
         public string $id,

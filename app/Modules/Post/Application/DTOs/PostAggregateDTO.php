@@ -2,12 +2,12 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
-use App\Modules\Auth\Application\Resources\UserResource;
+use App\Modules\Auth\Application\DTOs\UserDTO;
 use App\Modules\Post\Domain\Enums\PostStatus;
 use DateTimeImmutable;
 use Illuminate\Support\Collection;
 
-class PostAggregateResource
+class PostAggregateDTO
 {
     public Collection $attachments;
     public Collection $comments;
@@ -18,9 +18,9 @@ class PostAggregateResource
     public function __construct(
         public string $id,
         public string $content,
-        public UserResource $creator,
-        public PrivacyResource $privacy,
-        public ReactionResource $myReaction,
+        public UserDTO $creator,
+        public PrivacyDTO $privacy,
+        public ReactionDTO $myReaction,
         public int $reactionCount,
         public int $viewCount,
         public int $shareCount,

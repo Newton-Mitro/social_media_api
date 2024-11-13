@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\Auth\Application\Resources;
+namespace App\Modules\Auth\Application\DTOs;
 
 
-class UserResource
+class UserDTO
 {
     public function __construct(
         public string $id,

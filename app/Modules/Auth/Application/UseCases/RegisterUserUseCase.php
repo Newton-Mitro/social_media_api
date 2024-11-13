@@ -3,8 +3,8 @@
 namespace App\Modules\Auth\Application\UseCases;
 
 use App\Modules\Auth\Application\Events\UserRegistered;
-use App\Modules\Auth\Application\Mappers\UserResourceMapper;
-use App\Modules\Auth\Application\Resources\AuthUserResource;
+use App\Modules\Auth\Application\Mappers\UserDTOMapper;
+use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Domain\Entities\UserEntity;
@@ -24,7 +24,7 @@ class RegisterUserUseCase
         protected SendEmailVerifyingOTPUseCase $sendEmailVerifyingOTPUseCase
     ) {}
 
-    public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): AuthUserResource
+    public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): AuthUserDTO
     {
         // Check if user already exist
         $existingUser = $this->userRepository->findByEmail($email);
@@ -57,13 +57,13 @@ class RegisterUserUseCase
         $createdUser->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
         $this->userRepository->save($createdUser);
 
-        $mappedUser = UserResourceMapper::toResource($createdUser);
+        $mappedUser = UserDTOMapper::toDTO($createdUser);
 
         // Generate user token here
         $access_token = $this->accessTokenService->generateToken($mappedUser);
         $refresh_token = $this->refreshTokenService->generateToken($mappedUser, $deviceName, $deviceIP);
 
-        $authUser = new AuthUserResource(user: $mappedUser, access_token: $access_token, refresh_token: $refresh_token);
+        $authUser = new AuthUserDTO(user: $mappedUser, access_token: $access_token, refresh_token: $refresh_token);
         return $authUser;
     }
 }

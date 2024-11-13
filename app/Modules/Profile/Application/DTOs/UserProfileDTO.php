@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Modules\Profile\Application\Resources;
+namespace App\Modules\Profile\Application\DTOs;
 
-use App\Modules\Auth\Application\Resources\UserResource;
+use App\Modules\Auth\Application\DTOs\UserDTO;
 
 
 
-class ProfileResource
+class UserProfileDTO
 {
     public function __construct(
-        public UserResource $user,
+        public UserDTO $user,
         public int $followers_count,
         public int $following_count,
         public int $friends_count,

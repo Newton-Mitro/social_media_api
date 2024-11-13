@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\Auth\Application\Resources;
+namespace App\Modules\Auth\Application\DTOs;
 
 
-class BlacklistedTokenResource
+class BlacklistedTokenDTO
 {
     public function __construct(
         public string $id,

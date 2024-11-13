@@ -2,14 +2,14 @@
 
 namespace App\Modules\Auth\Application\Mappers;
 
-use App\Modules\Auth\Application\Resources\BlacklistedTokenResource;
+use App\Modules\Auth\Application\DTOs\BlacklistedTokenDTO;
 use App\Modules\Auth\Domain\Entities\BlacklistedTokenEntity;
 
-class BlacklistedTokenResourceMapper
+class BlacklistedTokenDTOMapper
 {
-    public static function toResource(BlacklistedTokenEntity $entity): BlacklistedTokenResource
+    public static function toDTO(BlacklistedTokenEntity $entity): BlacklistedTokenDTO
     {
-        return new BlacklistedTokenResource(
+        return new BlacklistedTokenDTO(
             id: $entity->getId(),
             token: $entity->getToken(),
         );

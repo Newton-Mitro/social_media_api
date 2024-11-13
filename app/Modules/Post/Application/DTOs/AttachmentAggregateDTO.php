@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\Post\Application\Resources;
+namespace App\Modules\Post\Application\DTOs;
 
-use App\Modules\Post\Domain\Entities\ReactionResource;
+use App\Modules\Post\Domain\Entities\ReactionDTO;
 use DateTimeImmutable;
 use Illuminate\Support\Collection;
 
-class AttachmentAggregateResource
+class AttachmentAggregateDTO
 {
     public Collection $comments;
     public Collection $reactions;
@@ -26,7 +26,7 @@ class AttachmentAggregateResource
         public int $viewCount,
         public int $shareCount,
         public int $commentCount,
-        public ReactionResource $myReaction,
+        public ReactionDTO $myReaction,
         public DateTimeImmutable $createdAt,
         public DateTimeImmutable $updatedAt
     ) {

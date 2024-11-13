@@ -2,14 +2,14 @@
 
 namespace App\Modules\Auth\Application\Mappers;
 
-use App\Modules\Auth\Application\Resources\UserResource;
+use App\Modules\Auth\Application\DTOs\UserDTO;
 use App\Modules\Auth\Domain\Entities\UserEntity;
 
-class UserResourceMapper
+class UserDTOMapper
 {
-    public static function toResource(UserEntity $entity): UserResource
+    public static function toDTO(UserEntity $entity): UserDTO
     {
-        return new UserResource(
+        return new UserDTO(
             id: $entity->getId(),
             name: $entity->getName(),
             username: $entity->getUserName(),

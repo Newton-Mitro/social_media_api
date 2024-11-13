@@ -7,7 +7,7 @@ use App\Modules\Post\Domain\Enums\SharePlatforms;
 use DateTimeImmutable;
 
 
-class ShareResource
+class ShareDTO
 {
     public function __construct(
         public  string $id,
