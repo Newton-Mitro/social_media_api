@@ -22,12 +22,13 @@ class AccountOtpVerifyController extends Controller
             deviceName: $userAgent,
             deviceIP: $ip,
             email: request()->user['email'],
-            otp: $request->data()->otp
+            otp: $request->input('otp')
         );
 
         return response()->json([
             'data' => $res,
             'message' => 'Verification successfully completed.',
+            'error' => null,
             'errors' => null,
         ]);
     }

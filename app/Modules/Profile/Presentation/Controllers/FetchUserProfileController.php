@@ -19,6 +19,7 @@ class FetchUserProfileController extends Controller
         return response()->json([
             'data' => $profileData,
             'message' => 'User Profile Fetched Successfully.',
+            'error' => null,
             'errors' => null,
         ], Response::HTTP_OK);
     }

@@ -21,6 +21,7 @@ class ResendAccountVerificationOtpController extends Controller
         return response()->json([
             'data' => null,
             'message' => 'OTP has been sent successfully',
+            'error' => null,
             'errors' => null,
         ]);
     }

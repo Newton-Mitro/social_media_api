@@ -24,6 +24,7 @@ class UpdateProfilePictureController extends Controller
             return response()->json([
                 'data' => $user,
                 'message' => 'Profile Picture Updated Successfully.',
+                'error' => null,
                 'errors' => null,
             ], Response::HTTP_CREATED);
         }

@@ -25,6 +25,7 @@ class FetchRefreshTokenController extends Controller
         return response()->json([
             'data' => $res,
             'message' => 'Token successfully refreshed.',
+            'error' => null,
             'errors' => null,
         ]);
     }

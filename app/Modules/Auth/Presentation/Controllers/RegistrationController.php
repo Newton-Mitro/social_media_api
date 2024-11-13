@@ -31,6 +31,7 @@ class RegistrationController extends Controller
         return response()->json([
             'data' => $res,
             'message' => 'User registered successfully.',
+            'error' => null,
             'errors' => null,
         ], Response::HTTP_CREATED);
     }

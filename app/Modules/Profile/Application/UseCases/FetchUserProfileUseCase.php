@@ -5,6 +5,7 @@ namespace App\Modules\Profile\Application\UseCases;
 use App\Modules\Auth\Application\Mappers\UserResourceMapper;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Profile\Application\Resources\ProfileResource;
+use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -21,11 +22,7 @@ class FetchUserProfileUseCase
         );
 
         if (!$user) {
-            return response()->json([
-                'data' => null,
-                'message' => 'User not found.',
-                'errors' => ['User not found.'],
-            ], Response::HTTP_NOT_FOUND);
+            throw new Exception('User not found.', Response::HTTP_NOT_FOUND);
         }
 
         // Fetch followers, following, friends, sent friend requests, and pending friend requests

@@ -18,6 +18,7 @@ class AuthUserController extends Controller
         return response()->json([
             'data' => UserResourceMapper::toResource($user),
             'message' => null,
+            'error' => null,
             'errors' => null,
         ]);
     }
