@@ -13,6 +13,8 @@ class CreateCommentsTable extends Migration
             $table->uuidMorphs('commentable'); // Creates commentable_id and commentable_type columns
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->text('comment_text');
+            $table->uuid('parent_id')->nullable();  // Add parent_id for replies, can be null for top-level comments
+            $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade'); // Cascade delete for parent comments
             $table->timestamps();
         });
     }

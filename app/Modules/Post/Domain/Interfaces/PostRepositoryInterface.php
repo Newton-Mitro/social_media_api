@@ -2,23 +2,27 @@
 
 namespace App\Modules\Post\Domain\Interfaces;
 
-use App\Modules\Post\Domain\Entities\CommentEntity;
+use App\Modules\Auth\Domain\Entities\UserEntity;
 use App\Modules\Post\Domain\Entities\PostAggregate;
-use Illuminate\Support\Collection;
+use App\Modules\Post\Domain\Enums\ReactionTypes;
 
 interface PostRepositoryInterface
 {
-    public function all($perPage): Collection;
+    public function getAll(int $limit = 10, int $offset = 0): array;
     public function save(PostAggregate $post): void;
     public function findById(string $postId): ?PostAggregate;
-    public function deleteById(string $postId): void;
+    public function delete(string $postId): void;
 
-    // public function reactToPost($postId, $userId, $reactionType); // update count, create reaction entry
-    // public function sharePost($postId, $userId); // update count, create post, create share entry
-    // public function viewPost($postId, $userId); // update count, create view entry
+    public function reactToPost(PostAggregate $postId, UserEntity $userId, ReactionTypes $reactionType);
+    public function getReactions();
 
-    public function addComment(PostAggregate $post, CommentEntity $comment): void;
-    public function removeComment(PostAggregate $post, CommentEntity $comment): void;
-    public function updateComment(PostAggregate $post, CommentEntity $comment): void;
-    public function saveComments(PostAggregate $post, Collection $comments): void;
+    public function sharePost(PostAggregate $postId, UserEntity $userId);
+    public function getShares();
+
+    public function viewPost(PostAggregate $postId, UserEntity $userId);
+    public function getViews();
+
+    public function saveComment();
+    public function deleteComment();
+    public function getComments();
 }

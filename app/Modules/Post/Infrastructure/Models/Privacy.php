@@ -11,7 +11,7 @@ class Privacy extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['privacy_name'];
+    protected $fillable = [];
 
     public function posts()
     {

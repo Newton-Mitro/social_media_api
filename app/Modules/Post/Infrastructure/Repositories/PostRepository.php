@@ -101,4 +101,30 @@ class PostRepository
             }
         });
     }
+
+    public function getAll(int $limit = 10, int $offset = 0): array
+    {
+        $posts = Post::with(['comments', 'reactions', 'attachments'])
+            ->limit($limit)
+            ->offset($offset)
+            ->get();
+
+        return $posts->map(fn($post) => $this->mapToAggregate($post))->toArray();
+    }
+
+    private function mapToAggregate(Post $post): PostAggregate
+    {
+        return new PostAggregate(
+            id: $post->id,
+            content: $post->content,
+            privacyId: $post->privacy_id,
+            createdBy: $post->user,
+            active: $post->active,
+            createdAt: $post->created_at,
+            updatedAt: $post->updated_at,
+            comments: new Collection($post->comments),
+            attachments: new Collection($post->attachments),
+            reactions: $post->reactions->count()
+        );
+    }
 }

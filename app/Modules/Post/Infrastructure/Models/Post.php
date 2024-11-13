@@ -19,7 +19,7 @@ class Post extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['body', 'likes', 'shares', 'location', 'privacy_id', 'user_id'];
+    protected $fillable = [];
 
     protected static function boot()
     {
@@ -50,9 +50,9 @@ class Post extends Model
         return $this->hasMany(Attachment::class);
     }
 
-    public function likes(): MorphMany
+    public function reactions(): MorphMany
     {
-        return $this->morphMany(Like::class, 'likable');
+        return $this->morphMany(Reaction::class, 'reactable');
     }
 
     public function shares()

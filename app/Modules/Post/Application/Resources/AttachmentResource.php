@@ -2,20 +2,25 @@
 
 namespace App\Modules\Post\Application\Resources;
 
-use App\Modules\Auth\Application\Resources\UserResource;
+use DateTimeImmutable;
 
 
 class AttachmentResource
 {
-    public int            $attachmentId;
-    public int            $postId;
-    public string            $fileName;
-    public string            $filePath;
-    public string            $fileURL;
-    public string            $mimeType;
-    public int               $likeCount;
-    public int               $viewCount;
-    public int               $shareCount;
-    public string $createdAt;
-    public string $updatedAt;
+    public function __construct(
+        public string $id,
+        public string $postId,
+        public string $fileURL,
+        public string $mimeType,
+        public string $fileName,
+        public string $filePath,
+        public string $title,
+        public string $description,
+        public int $reactionCount,
+        public int $viewCount,
+        public int $shareCount,
+        public int $commentCount,
+        public DateTimeImmutable $createdAt,
+        public DateTimeImmutable $updatedAt
+    ) {}
 }

@@ -3,26 +3,25 @@
 namespace App\Modules\Post\Domain\Entities;
 
 use App\Modules\Auth\Domain\Entities\UserEntity;
+use DateTimeImmutable;
 
 
 class ViewEntity
 {
     private string $id;
-    private UserEntity $viewer; // User who viewed the post
-    private \DateTimeImmutable $viewedAt; // Time when the post was viewed
+    private UserEntity $viewer;
+    private DateTimeImmutable $viewedAt;
 
-    // Constructor to initialize the ViewEntity
     public function __construct(
         string $id,
         UserEntity $viewer,
-        \DateTimeImmutable $viewedAt
+        DateTimeImmutable $viewedAt
     ) {
         $this->id = $id;
         $this->viewer = $viewer;
         $this->viewedAt = $viewedAt;
     }
 
-    // Getters for the properties
     public function getId(): string
     {
         return $this->id;
@@ -33,7 +32,7 @@ class ViewEntity
         return $this->viewer;
     }
 
-    public function getViewedAt(): \DateTimeImmutable
+    public function getViewedAt(): DateTimeImmutable
     {
         return $this->viewedAt;
     }

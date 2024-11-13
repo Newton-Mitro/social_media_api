@@ -15,17 +15,7 @@ class Attachment extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = [
-        'post_id',
-        'type',
-        'url',
-        'path',
-        'file_name',
-        'thumbnail_url',
-        'description',
-        'duration',
-        'likes',
-    ];
+    protected $fillable = [];
 
     protected static function boot()
     {
@@ -41,9 +31,9 @@ class Attachment extends Model
         return $this->belongsTo(Post::class);
     }
 
-    public function likes()
+    public function reactions()
     {
-        return $this->morphMany(Like::class, 'likable');
+        return $this->morphMany(Reaction::class, 'reactable');
     }
 
     public function comments()

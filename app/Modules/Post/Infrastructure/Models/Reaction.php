@@ -24,7 +24,7 @@ class Reaction extends Model
         });
     }
 
-    protected $fillable = ['user_id'];
+    protected $fillable = [];
 
     public function reactable(): MorphTo
     {

@@ -3,21 +3,21 @@
 namespace App\Modules\Post\Domain\Entities;
 
 use App\Modules\Auth\Domain\Entities\UserEntity;
-
+use App\Modules\Post\Domain\Enums\SharePlatforms;
+use DateTimeImmutable;
 
 class ShareEntity
 {
     private string $id;
-    private UserEntity $sharer; // User who shared the post
-    private string $platform;   // Platform on which the post was shared (e.g., Facebook, Twitter)
-    private \DateTimeImmutable $sharedAt; // Time when the post was shared
+    private UserEntity $sharer;
+    private SharePlatforms $platform;
+    private DateTimeImmutable $sharedAt;
 
-    // Constructor to initialize the ShareEntity
     public function __construct(
         string $id,
         UserEntity $sharer,
-        string $platform,
-        \DateTimeImmutable $sharedAt
+        SharePlatforms $platform,
+        DateTimeImmutable $sharedAt
     ) {
         $this->id = $id;
         $this->sharer = $sharer;
@@ -36,12 +36,12 @@ class ShareEntity
         return $this->sharer;
     }
 
-    public function getPlatform(): string
+    public function getPlatform(): SharePlatforms
     {
         return $this->platform;
     }
 
-    public function getSharedAt(): \DateTimeImmutable
+    public function getSharedAt(): DateTimeImmutable
     {
         return $this->sharedAt;
     }

@@ -15,7 +15,7 @@ class Comment extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['user_id', 'comment_text'];
+    protected $fillable = [];
 
     protected static function boot()
     {
@@ -31,9 +31,9 @@ class Comment extends Model
         return $this->morphTo();
     }
 
-    public function likes(): MorphMany
+    public function reactions(): MorphMany
     {
-        return $this->morphMany(Like::class, 'likable');
+        return $this->morphMany(Reaction::class, 'reactable');
     }
 
     public function user()

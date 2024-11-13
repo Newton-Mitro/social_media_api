@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Modules\Post\Domain\Entities;
+namespace App\Modules\Post\Application\Resources;
 
-use App\Modules\Auth\Application\Resources\UserResource;
-use App\Modules\Post\Domain\Enums\PostStatus;
+use App\Modules\Post\Domain\Entities\ReactionResource;
 use DateTimeImmutable;
 use Illuminate\Support\Collection;
 
-class PostAggregateResource
+class AttachmentAggregateResource
 {
-    public Collection $attachments;
     public Collection $comments;
     public Collection $reactions;
     public Collection $views;
@@ -17,23 +15,29 @@ class PostAggregateResource
 
     public function __construct(
         public string $id,
-        public string $content,
-        public UserResource $creator,
-        public PrivacyResource $privacy,
-        public ReactionResource $myReaction,
+        public string $postId,
+        public string $fileURL,
+        public string $mimeType,
+        public string $fileName,
+        public string $filePath,
+        public string $title,
+        public string $description,
         public int $reactionCount,
         public int $viewCount,
         public int $shareCount,
         public int $commentCount,
-        public PostStatus $status,
+        public ReactionResource $myReaction,
         public DateTimeImmutable $createdAt,
         public DateTimeImmutable $updatedAt
     ) {
         $this->id = $id;
-        $this->content = $content;
-        $this->privacy = $privacy;
-        $this->creator = $creator;
-        $this->attachments = collect();
+        $this->postId = $postId;
+        $this->title = $title;
+        $this->description = $description;
+        $this->fileName = $fileName;
+        $this->filePath = $filePath;
+        $this->fileURL = $fileURL;
+        $this->mimeType = $mimeType;
         $this->comments = collect();
         $this->commentCount = $commentCount;
         $this->reactions = collect();
@@ -43,7 +47,6 @@ class PostAggregateResource
         $this->viewCount = $viewCount;
         $this->shares = collect();
         $this->shareCount = $shareCount;
-        $this->status = $status;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }

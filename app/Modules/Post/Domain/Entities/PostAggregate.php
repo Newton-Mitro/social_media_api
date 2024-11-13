@@ -7,63 +7,56 @@ use App\Modules\Post\Domain\Entities\AttachmentEntity;
 use App\Modules\Post\Domain\Entities\ReactionEntity;
 use App\Modules\Post\Domain\Entities\ShareEntity;
 use App\Modules\Post\Domain\Entities\ViewEntity;
+use App\Modules\Post\Domain\Enums\PostStatus;
+use DateTimeImmutable;
 use Illuminate\Support\Collection;
 
 class PostAggregate
 {
     private string $id;
     private string $content;
-    private ?PrivacyEntity $privacy;
-    private string $privacyId;
-    private ?UserEntity $creator;
-    private string $createdBy;
+    private PrivacyEntity $privacy;
+    private UserEntity $creator;
     private Collection $attachments;
     private Collection $comments;
     private int $commentCount;
     private Collection $reactions;
     private int $reactionCount;
-    private ?ReactionEntity $myReaction;
     private Collection $views;
     private int $viewCount;
     private Collection $shares;
     private int $shareCount;
-    private bool $active;
-    private \DateTimeImmutable $createdAt;
-    private \DateTimeImmutable $updatedAt;
+    private PostStatus $status;
+    private DateTimeImmutable $createdAt;
+    private DateTimeImmutable $updatedAt;
 
     public function __construct(
         string $id,
         string $content,
-        string $privacyId,
-        string $createdBy,
-        bool $active,
-        \DateTimeImmutable $createdAt,
-        \DateTimeImmutable $updatedAt,
+        UserEntity $creator = null,
+        PrivacyEntity $privacy = null,
         int $reactionCount = 0,
         int $viewCount = 0,
         int $shareCount = 0,
         int $commentCount = 0,
-        ?UserEntity $creator = null,
-        ?PrivacyEntity $privacy = null,
-        ?ReactionEntity $myReaction = null
+        PostStatus $status,
+        DateTimeImmutable $createdAt = new DateTimeImmutable(),
+        DateTimeImmutable $updatedAt = new DateTimeImmutable(),
     ) {
         $this->id = $id;
         $this->content = $content;
         $this->privacy = $privacy;
-        $this->privacyId = $privacyId;
         $this->creator = $creator;
-        $this->createdBy = $createdBy;
         $this->attachments = collect();
         $this->comments = collect();
         $this->commentCount = $commentCount;
         $this->reactions = collect();
         $this->reactionCount = $reactionCount;
-        $this->myReaction = $myReaction;
         $this->views = collect();
         $this->viewCount = $viewCount;
         $this->shares = collect();
         $this->shareCount = $shareCount;
-        $this->active = $active;
+        $this->status = $status;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }
@@ -81,18 +74,12 @@ class PostAggregate
     {
         return $this->privacy;
     }
-    public function getPrivacyId(): string
-    {
-        return $this->privacyId;
-    }
+
     public function getCreator(): ?UserEntity
     {
         return $this->creator;
     }
-    public function getCreatedBy(): string
-    {
-        return $this->createdBy;
-    }
+
     public function getAttachments(): Collection
     {
         return $this->attachments;
@@ -113,10 +100,7 @@ class PostAggregate
     {
         return $this->reactionCount;
     }
-    public function getMyReaction(): ?ReactionEntity
-    {
-        return $this->myReaction;
-    }
+
     public function getViews(): Collection
     {
         return $this->views;
@@ -133,15 +117,15 @@ class PostAggregate
     {
         return $this->shareCount;
     }
-    public function isActive(): bool
+    public function getStatus(): PostStatus
     {
-        return $this->active;
+        return $this->status;
     }
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
-    public function getUpdatedAt(): \DateTimeImmutable
+    public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
     }
@@ -238,16 +222,9 @@ class PostAggregate
     }
 
     // Specific methods for `myReaction` and `active`
-    public function setMyReaction(?ReactionEntity $reaction): void
+
+    public function setStatus(PostStatus $status): void
     {
-        $this->myReaction = $reaction;
-    }
-    public function deactivate(): void
-    {
-        $this->active = false;
-    }
-    public function activate(): void
-    {
-        $this->active = true;
+        $this->status = $status;
     }
 }

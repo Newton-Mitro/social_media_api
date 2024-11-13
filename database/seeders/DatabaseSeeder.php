@@ -12,11 +12,15 @@ use App\Modules\Post\Infrastructure\Models\Privacy;
 use App\Modules\Post\Infrastructure\Models\Reaction;
 use App\Modules\Post\Infrastructure\Models\Share;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // Create Faker instance
+        $faker = Faker::create();
+
         // User emails to create
         $userEmails = [
             'test@email.com',
@@ -46,7 +50,7 @@ class DatabaseSeeder extends Seeder
         $privacies = Privacy::all();
 
         // Create posts and related data for each privacy
-        $privacies->each(function ($privacy) {
+        $privacies->each(function ($privacy) use ($faker) {
             // Create posts for each privacy
             $posts = Post::factory()->count(5)->create([
                 'privacy_id' => $privacy->id,
@@ -54,12 +58,20 @@ class DatabaseSeeder extends Seeder
             ]);
 
             foreach ($posts as $post) {
-                // Create comments if they don't already exist
-                Comment::factory()->count(3)->create([
+                // Create comments with a mix of parent and child comments
+                $postComments = Comment::factory()->count(3)->create([
                     'commentable_id' => $post->id,
                     'commentable_type' => Post::class,
                     'user_id' => User::inRandomOrder()->first()->id
                 ]);
+
+                foreach ($postComments as $comment) {
+                    // Randomly decide if the comment is a reply to another comment
+                    if ($faker->boolean) {
+                        $parentComment = $postComments->random();
+                        $comment->update(['parent_id' => $parentComment->id]);
+                    }
+                }
 
                 // Create attachments if they don't already exist
                 Attachment::factory()->count(2)->create(['post_id' => $post->id]);
@@ -107,7 +119,7 @@ class DatabaseSeeder extends Seeder
                     FriendRequest::firstOrCreate([
                         'sender_id' => $sender->id,
                         'receiver_id' => $receiver->id,
-                        'status' => fake()->randomElement(['pending', 'accepted', 'rejected'])
+                        'status' => $faker->randomElement(['pending', 'accepted', 'rejected'])
                     ]);
                 }
             }
