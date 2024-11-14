@@ -19,7 +19,16 @@ class Post extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'post_text',
+        'reaction_count',
+        'share_count',
+        'view_count',
+        'comment_count',
+        'location',
+        'privacy_id',
+        'user_id',
+    ];
 
     protected static function boot()
     {

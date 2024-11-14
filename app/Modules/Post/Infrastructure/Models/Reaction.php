@@ -24,7 +24,12 @@ class Reaction extends Model
         });
     }
 
-    protected $fillable = [];
+    protected $fillable = [
+        'reactable_id',
+        'reactable_type',
+        'user_id',
+        'type',
+    ];
 
     public function reactable(): MorphTo
     {

@@ -19,7 +19,10 @@ class CreateAttachmentsTable extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->integer('duration')->nullable();
-            $table->unsignedInteger('likes')->default(0);
+            $table->unsignedInteger('comment_count')->default(0);
+            $table->unsignedInteger('reaction_count')->default(0);
+            $table->unsignedInteger('view_count')->default(0);
+            $table->unsignedInteger('share_count')->default(0);
             $table->timestamps();
         });
     }

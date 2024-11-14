@@ -46,7 +46,10 @@ class AttachmentFactory extends Factory
             'thumbnail_url' => $thumbnail_url,
             'description' => $this->faker->optional()->sentence,
             'duration' => $type === 'video' ? $this->faker->optional()->numberBetween(1, 120) : null,
-            'likes' => $this->faker->numberBetween(0, 100),
+            'comment_count' => $this->faker->numberBetween(0, 100),
+            'share_count' => $this->faker->numberBetween(0, 100),
+            'view_count' => $this->faker->numberBetween(0, 100),
+            'reaction_count' => $this->faker->numberBetween(0, 100),
         ];
     }
 }

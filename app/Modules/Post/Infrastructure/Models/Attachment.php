@@ -5,7 +5,6 @@ namespace App\Modules\Post\Infrastructure\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Database\Factories\AttachmentFactory;
-use App\Modules\Post\Infrastructure\Models\Like;
 use App\Modules\Post\Infrastructure\Models\Post;
 use App\Modules\Post\Infrastructure\Models\Comment;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -15,7 +14,22 @@ class Attachment extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'id',
+        'post_id',
+        'type',
+        'url',
+        'path',
+        'file_name',
+        'thumbnail_url',
+        'title',
+        'description',
+        'duration',
+        'comment_count',
+        'reaction_count',
+        'view_count',
+        'share_count',
+    ];
 
     protected static function boot()
     {

@@ -14,9 +14,11 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'body' => $this->faker->paragraph,
-            'likes' => $this->faker->numberBetween(0, 100),
-            'shares' => $this->faker->numberBetween(0, 100),
+            'post_text' => $this->faker->paragraph,
+            'comment_count' => $this->faker->numberBetween(0, 100),
+            'share_count' => $this->faker->numberBetween(0, 100),
+            'view_count' => $this->faker->numberBetween(0, 100),
+            'reaction_count' => $this->faker->numberBetween(0, 100),
             'location' => $this->faker->city,
             'privacy_id' => Privacy::inRandomOrder()->first()->id,
             'user_id' => User::inRandomOrder()->first()->id,

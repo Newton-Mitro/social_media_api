@@ -12,7 +12,10 @@ class Share extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'post_id',
+        'user_id',
+    ];
 
     public function post()
     {

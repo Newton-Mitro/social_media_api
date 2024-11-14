@@ -10,18 +10,33 @@ class CommentEntity
     private string $id;
     private string $postId;
     private UserEntity $author;
-    private string $content;
+    private string $commentText;
+    private string $commentableId;
+    private string $commentableType;
+    private ?string $parentId;
     private DateTimeImmutable $createdAt;
     private DateTimeImmutable $updatedAt;
 
-    public function __construct(string $id, string $postId, UserEntity $author, string $content)
-    {
+    public function __construct(
+        string $id,
+        string $postId,
+        UserEntity $author,
+        string $commentText,
+        string $commentableId,
+        string $commentableType,
+        ?string $parentId = null,
+        ?DateTimeImmutable $createdAt = null,
+        ?DateTimeImmutable $updatedAt = null
+    ) {
         $this->id = $id;
         $this->postId = $postId;
         $this->author = $author;
-        $this->content = $content;
-        $this->createdAt = new DateTimeImmutable();
-        $this->updatedAt = new DateTimeImmutable();
+        $this->commentText = $commentText;
+        $this->commentableId = $commentableId;
+        $this->commentableType = $commentableType;
+        $this->parentId = $parentId;
+        $this->createdAt = $createdAt ?? new DateTimeImmutable();
+        $this->updatedAt = $updatedAt ?? new DateTimeImmutable();
     }
 
     public function getId(): string
@@ -39,9 +54,24 @@ class CommentEntity
         return $this->author;
     }
 
-    public function getContent(): string
+    public function getCommentText(): string
     {
-        return $this->content;
+        return $this->commentText;
+    }
+
+    public function getCommentableId(): string
+    {
+        return $this->commentableId;
+    }
+
+    public function getCommentableType(): string
+    {
+        return $this->commentableType;
+    }
+
+    public function getParentId(): ?string
+    {
+        return $this->parentId;
     }
 
     public function getCreatedAt(): DateTimeImmutable
@@ -54,9 +84,14 @@ class CommentEntity
         return $this->updatedAt;
     }
 
-    public function updateContent(string $newContent): void
+    public function updateCommentText(string $newContent): void
     {
-        $this->content = $newContent;
-        $this->updatedAt = new DateTimeImmutable(); // Update the timestamp
+        $this->commentText = $newContent;
+        $this->updatedAt = new DateTimeImmutable();
+    }
+
+    public function isTopLevel(): bool
+    {
+        return $this->parentId === null;
     }
 }

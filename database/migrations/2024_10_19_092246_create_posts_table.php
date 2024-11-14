@@ -10,10 +10,11 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->text('body');
-            $table->unsignedInteger('likes')->default(0);
-            $table->unsignedInteger('shares')->default(0);
-            $table->unsignedInteger('comments')->default(0);
+            $table->text('post_text');
+            $table->unsignedInteger('reaction_count')->default(0);
+            $table->unsignedInteger('share_count')->default(0);
+            $table->unsignedInteger('view_count')->default(0);
+            $table->unsignedInteger('comment_count')->default(0);
             $table->string('location');
             $table->foreignId('privacy_id')->constrained('privacies');
             $table->foreignUuid('user_id')->constrained('users');
