@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Modules\Friend\Domain\Repositories;
+namespace App\Modules\Profile\Domain\Interfaces;
 
-use App\Modules\Post\Domain\Entities\CommentEntity;
-use App\Modules\Post\Domain\Entities\PostAggregate;
-use Illuminate\Support\Collection;
+use App\Modules\Friend\Domain\Entities\FriendRequestEntity;
+use App\Modules\Friend\Domain\ValueObjects\FriendRequestStatus;
 
 interface FriendRepositoryInterface
 {
-    public function addComment(PostAggregate $post, CommentEntity $comment): void;
-    public function removeComment(PostAggregate $post, CommentEntity $comment): void;
-    public function updateComment(PostAggregate $post, CommentEntity $comment): void;
-    public function saveComments(PostAggregate $post, Collection $comments): void;
+    public function getAll(int $limit = 10, int $offset = 0): array;
+    public function save(FriendRequestEntity $friendRequest): void;
+    public function findById(string $friendRequestId): ?FriendRequestEntity;
+    public function delete(string $friendRequestId): void;
+    public function userFriendsCount(string $userId): int;
+    public function userFriendRequestsCount(string $userId): int;
+    public function userFriendRequestStatus(string $userId, string $authUserId = null): FriendRequestStatus;
 }

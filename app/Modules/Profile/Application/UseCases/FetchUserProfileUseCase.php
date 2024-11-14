@@ -4,7 +4,7 @@ namespace App\Modules\Profile\Application\UseCases;
 
 use App\Modules\Auth\Application\Mappers\UserDTOMapper;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Profile\Application\DTOs\ProfileDTO;
+use App\Modules\Profile\Application\DTOs\UserProfileDTO;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +15,7 @@ class FetchUserProfileUseCase
         protected UserRepositoryInterface $userRepository,
     ) {}
 
-    public function handle(string $userId, string $authUserId = null): ProfileDTO
+    public function handle(string $userId, string $authUserId = null): UserProfileDTO
     {
         $user = $this->userRepository->findById(
             $userId
@@ -73,7 +73,7 @@ class FetchUserProfileUseCase
         }
 
         $mappedUser = UserDTOMapper::toDTO($user);
-        $profileData = new ProfileDTO(
+        $profileData = new UserProfileDTO(
             $mappedUser,
             $followers_count,
             $following_count,

@@ -2,14 +2,16 @@
 
 namespace App\Modules\Follow\Domain\Repositories;
 
-use App\Modules\Post\Domain\Entities\CommentEntity;
-use App\Modules\Post\Domain\Entities\PostAggregate;
-use Illuminate\Support\Collection;
+use App\Modules\Follow\Domain\Entities\FollowEntity;
+use App\Modules\Friend\Domain\Entities\FriendRequestEntity;
 
 interface FollowRepositoryInterface
 {
-    public function addComment(PostAggregate $post, CommentEntity $comment): void;
-    public function removeComment(PostAggregate $post, CommentEntity $comment): void;
-    public function updateComment(PostAggregate $post, CommentEntity $comment): void;
-    public function saveComments(PostAggregate $post, Collection $comments): void;
+    public function getAll(int $limit = 10, int $offset = 0): array;
+    public function save(FollowEntity $followEntity): void;
+    public function findById(string $followId): ?FriendRequestEntity;
+    public function delete(string $followId): void;
+    public function userFollowingCount(string $userId): int;
+    public function userFollowsCount(string $userId): int;
+    public function isFollowing(string $userId, string $authUserId = null): bool;
 }

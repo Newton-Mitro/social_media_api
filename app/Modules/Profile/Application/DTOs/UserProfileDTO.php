@@ -3,6 +3,7 @@
 namespace App\Modules\Profile\Application\DTOs;
 
 use App\Modules\Auth\Application\DTOs\UserDTO;
+use App\Modules\Friend\Domain\ValueObjects\FriendRequestStatus;
 
 
 
@@ -17,6 +18,6 @@ class UserProfileDTO
         public int $post_likes_count,
         public bool $is_following,
         public bool $is_user_profile,
-        public ?string $friend_request_status
+        public FriendRequestStatus $friend_request_status
     ) {}
 }
