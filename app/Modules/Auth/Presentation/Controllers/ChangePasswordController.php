@@ -15,8 +15,8 @@ class ChangePasswordController extends Controller
     {
         $res = $this->changePasswordUseCase->handle(
             email: $request->user['email'],
-            password: Hash::make($request->data()->password),
-            oldPassword: $request->data()->old_password
+            password: Hash::make($request->input('password')),
+            oldPassword: $request->input('old_password')
         );
 
         return response()->json([

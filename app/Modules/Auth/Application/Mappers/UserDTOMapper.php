@@ -12,11 +12,8 @@ class UserDTOMapper
         return new UserDTO(
             id: $entity->getId(),
             name: $entity->getName(),
-            username: $entity->getUserName(),
             email: $entity->getEmail(),
             account_verified: $entity->getEmailVerifiedAt() ? true : false,
-            profile_picture: $entity->getProfilePicture(),
-            cover_photo: $entity->getCoverPhoto()
         );
     }
 }

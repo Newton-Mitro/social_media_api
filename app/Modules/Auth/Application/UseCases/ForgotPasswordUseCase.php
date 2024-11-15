@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Application\UseCases;
 use App\Core\Utilities\OTPGenerator;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
-use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mail\ForgotPasswordOtpEmail;
 use Carbon\Carbon;
 use Exception;
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 class ForgotPasswordUseCase
 {
     public function __construct(
-        protected readonly RepositoryInterface $userRepository,
+        protected readonly UserRepositoryInterface $userRepository,
         protected readonly UserOTPRepositoryInterface $otpRepository,
     ) {}
 
@@ -26,7 +26,7 @@ class ForgotPasswordUseCase
     {
         // if user email don't exists, through exception
         // if user email exists, generate otp and store otp to table and email OTP to user email
-        $user = $this->userRepository->findUserByEmail(
+        $user = $this->userRepository->findByEmail(
             $email
         );
 
@@ -35,7 +35,7 @@ class ForgotPasswordUseCase
         }
 
         $userOTP = $this->otpRepository->findUserOTPByUserId(
-            $user->getUserId()
+            $user->getId()
         );
 
         if ($userOTP === null) {
@@ -47,13 +47,13 @@ class ForgotPasswordUseCase
             $userOtpModel = new UserOtpEntity(
                 id: 0,
                 otp: $otp,
-                userId: $user->getUserId(),
+                userId: $user->getId(),
                 expiresAt: $expiresAt->toDateTimeImmutable(),
                 isVerified: true,
             );
             // Persist user in database
-            $returnResult = $this->otpRepository->create($userOtpModel);
-            Mail::to($user->getEmail())->send(new ForgotPasswordOtpEmail($user->getUserName(), $otp, $otpValidTime));
+            $returnResult = $this->otpRepository->save($userOtpModel);
+            Mail::to($user->getEmail())->send(new ForgotPasswordOtpEmail($user->getName(), $otp, $otpValidTime));
         }
         //generate otp and store otp to table and emil to user email
         else {
@@ -63,7 +63,7 @@ class ForgotPasswordUseCase
             $expiresAt = OTPGenerator::generateExpireTime();
             $otpToken = Str::random();
             $userOTP = $this->otpRepository->findUserOTPByUserId(
-                $user->getUserId()
+                $user->getId()
             );
             $userOTP->setId($userOTP->getId());
             $userOTP->setUserId($userOTP->getUserId());

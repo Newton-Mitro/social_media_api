@@ -16,7 +16,7 @@ class ForgotPasswordController extends Controller
         $userOTP = $this->forgotPasswordUseCase->handle($request->email);
 
         return response()->json([
-            'data' => UserOtpMapper::toForgotPasswordOTPDTO($userOTP),
+            'data' => $userOTP,
             'message' => 'OTP has been sent to your email.',
             'error' => null,
             'errors' => null,

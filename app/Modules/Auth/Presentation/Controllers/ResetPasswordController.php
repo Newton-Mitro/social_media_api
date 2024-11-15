@@ -14,9 +14,9 @@ class ResetPasswordController extends Controller
     {
 
         $this->resetPasswordUseCase->handle(
-            email: $request->data()->email,
-            password: $request->data()->password,
-            token: $request->data()->token
+            email: $request->input('email'),
+            password: $request->input('password'),
+            token: $request->input('token')
         );
 
         return response()->json([

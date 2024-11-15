@@ -6,7 +6,7 @@ use App\Core\Utilities\OTPGenerator;
 use App\Modules\Auth\Application\DTOs\UserOtpDTO;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
-use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mail\ForgotPasswordOtpEmail;
 use Carbon\Carbon;
 use Exception;
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 class ForgotPasswordOtpVerifyUseCase
 {
     public function __construct(
-        protected RepositoryInterface $userRepositoryInterface,
+        protected UserRepositoryInterface $userRepositoryInterface,
         protected UserOTPRepositoryInterface $userOTPRepositoryInterface
     ) {}
 

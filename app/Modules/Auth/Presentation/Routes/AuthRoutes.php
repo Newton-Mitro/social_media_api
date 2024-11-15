@@ -22,7 +22,6 @@ Route::middleware('guest')->prefix('auth')->group(function (): void {
     Route::post('login', LoginController::class)->name('auth.login');
     Route::post('forgot-password', ForgotPasswordController::class)->name('auth.forgot_password');
     Route::post('forgot-password-otp-verify', ForgotPasswordOtpVerifyController::class)->name('auth.forgot_password_otp_verify');
-    Route::post('change-password', ChangePasswordController::class)->name('auth.change_password');
     Route::post('resend-forgot-password-otp', ResendForgotPasswordController::class)->name('auth.resend_forgot_password_otp');
     Route::post('reset-password', ResetPasswordController::class)->name('auth.reset_password');
 });

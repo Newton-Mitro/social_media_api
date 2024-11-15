@@ -3,13 +3,13 @@
 namespace App\Modules\Auth\Infrastructure\Repositories;
 
 use App\Modules\Auth\Domain\Entities\UserEntity;
-use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mappers\UserEntityMapper;
 use App\Modules\Auth\Infrastructure\Mappers\UserModelMapper;
 use App\Modules\Auth\Infrastructure\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class RepositoryInterfaceImpl implements RepositoryInterface
+class UserRepositoryInterfaceImpl implements UserRepositoryInterface
 {
     public function findById(string $userId): ?UserEntity
     {

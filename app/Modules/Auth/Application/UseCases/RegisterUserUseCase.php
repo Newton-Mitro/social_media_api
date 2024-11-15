@@ -8,7 +8,7 @@ use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Domain\Entities\UserEntity;
-use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use ErrorException;
 use Illuminate\Http\Response;
@@ -20,7 +20,7 @@ class RegisterUserUseCase
     public function __construct(
         protected JwtAccessTokenService $accessTokenService,
         protected JwtRefreshTokenService $refreshTokenService,
-        protected RepositoryInterface $userRepository,
+        protected UserRepositoryInterface $userRepository,
         protected SendEmailVerifyingOTPUseCase $sendEmailVerifyingOTPUseCase
     ) {}
 

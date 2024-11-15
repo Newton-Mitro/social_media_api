@@ -2,7 +2,7 @@
 
 namespace App\Modules\Profile\Infrastructure\Interfaces;
 
-use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mappers\UserEntityMapper;
 use App\Modules\Follow\Domain\Repositories\FollowRepositoryInterface;
 use App\Modules\Follow\Infrastructure\Repositories\FollowRepository;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class ProfileRepository implements ProfileRepositoryInterface
 {
     public function __construct(
-        protected RepositoryInterface $userRepository,
+        protected UserRepositoryInterface $userRepository,
         // protected FollowRepositoryInterface $followRepository,
         // protected FriendRepositoryInterface $friendRepository,
         // protected PostRepositoryInterface $postRepository

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
-use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;
@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 class ReSendEmailVerifyingOTPUseCase
 {
     public function __construct(
-        protected RepositoryInterface $repository,
+        protected UserRepositoryInterface $repository,
         protected SendEmailVerifyingOTPUseCase $sendEmailVerifyingOTPCommandHandler
     ) {}
 

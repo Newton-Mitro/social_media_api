@@ -14,12 +14,12 @@ class ForgotPasswordOtpVerifyController extends Controller
     public function __invoke(ForgotPasswordOtpVerifyRequest $request)
     {
         $userOtp = $this->forgotPasswordOtpVerifyUseCase->handle(
-            email: $request->data()->email,
-            otp: $request->data()->otp,
+            email: $request->input('email'),
+            otp: $request->input('otp'),
         );
 
         return response()->json([
-            'data' => UserOtpMapper::toVerifyForgotPasswordOTPDTO($userOtp),
+            'data' => $userOtp,
             'message' => 'OTP verified successfully.',
             'error' => null,
             'errors' => null,
