@@ -8,14 +8,14 @@ use DateTimeImmutable;
 use Illuminate\Http\Response;
 use App\Modules\Auth\Application\Mappers\UserDTOMapper;
 use App\Modules\Auth\Application\DTOs\AuthUserDTO;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
 
 class AccountOtpVerifyUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository,
+        protected RepositoryInterface $userRepository,
         protected JwtAccessTokenService $accessTokenService,
         protected JwtRefreshTokenService $refreshTokenService,
     ) {}

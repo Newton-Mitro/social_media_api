@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Application\UseCases;
 use App\Core\Utilities\OTPGenerator;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mail\ForgotPasswordOtpEmail;
 use Carbon\Carbon;
 use Exception;
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 class ForgotPasswordUseCase
 {
     public function __construct(
-        protected readonly UserRepositoryInterface $userRepository,
+        protected readonly RepositoryInterface $userRepository,
         protected readonly UserOTPRepositoryInterface $otpRepository,
     ) {}
 

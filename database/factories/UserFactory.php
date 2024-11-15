@@ -17,16 +17,11 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'user_name' => $this->faker->unique()->userName,
+            'display_name' => $this->faker->unique()->userName,
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'profile_picture' => $this->faker->imageUrl(640, 480, 'people'),
-            'cover_photo' => $this->faker->imageUrl(1280, 720, 'nature'),
-            'otp' => $this->faker->optional()->numerify('######'),
-            'otp_expires_at' => $this->faker->optional()->dateTimeBetween('now', '+1 hour'),
-            'otp_verified' => $this->faker->boolean(50), // 50% chance of being true
             'last_logged_in' => $this->faker->optional()->dateTime(),
         ];
     }

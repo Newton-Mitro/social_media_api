@@ -9,15 +9,9 @@ class UserEntity
     public function __construct(
         private string $id,
         private string $name,
-        private string $userName,
         private string $email,
         private ?string $password = null,
-        private ?string $profilePicture = null,
-        private ?string $coverPhoto = null,
         private ?DateTimeImmutable $emailVerifiedAt = null,
-        private ?string $otp = null,
-        private ?DateTimeImmutable $otpExpiresAt = null,
-        private bool $otpVerified = false,
         private ?DateTimeImmutable $lastLoggedIn = null,
         private DateTimeImmutable $createdAt = new DateTimeImmutable,
         private DateTimeImmutable $updatedAt = new DateTimeImmutable
@@ -43,16 +37,6 @@ class UserEntity
         $this->name = $name;
     }
 
-    public function getUserName(): string
-    {
-        return $this->userName;
-    }
-
-    public function setUserName(string $userName): void
-    {
-        $this->userName = $userName;
-    }
-
     public function getEmail(): string
     {
         return $this->email;
@@ -71,26 +55,6 @@ class UserEntity
     public function setPassword(?string $password): void
     {
         $this->password = $password;
-    }
-
-    public function getProfilePicture(): ?string
-    {
-        return $this->profilePicture;
-    }
-
-    public function setProfilePicture(?string $profilePicture): void
-    {
-        $this->profilePicture = $profilePicture;
-    }
-
-    public function getCoverPhoto(): ?string
-    {
-        return $this->coverPhoto;
-    }
-
-    public function setCoverPhoto(?string $coverPhoto): void
-    {
-        $this->coverPhoto = $coverPhoto;
     }
 
     public function getCreatedAt(): DateTimeImmutable
@@ -121,36 +85,6 @@ class UserEntity
     public function setEmailVerifiedAt(?DateTimeImmutable $emailVerifiedAt): void
     {
         $this->emailVerifiedAt = $emailVerifiedAt;
-    }
-
-    public function getOtp(): ?string
-    {
-        return $this->otp;
-    }
-
-    public function setOtp(?string $otp): void
-    {
-        $this->otp = $otp;
-    }
-
-    public function getOtpExpiresAt(): ?DateTimeImmutable
-    {
-        return $this->otpExpiresAt;
-    }
-
-    public function setOtpExpiresAt(?DateTimeImmutable $otpExpiresAt): void
-    {
-        $this->otpExpiresAt = $otpExpiresAt;
-    }
-
-    public function isOtpVerified(): bool
-    {
-        return $this->otpVerified;
-    }
-
-    public function setOtpVerified(bool $otpVerified): void
-    {
-        $this->otpVerified = $otpVerified;
     }
 
     public function getLastLoggedIn(): ?DateTimeImmutable

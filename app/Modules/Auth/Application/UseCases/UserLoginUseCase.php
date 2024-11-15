@@ -6,7 +6,7 @@ use App\Modules\Auth\Application\Mappers\UserDTOMapper;
 use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class UserLoginUseCase
     public function __construct(
         protected JwtAccessTokenService $accessTokenService,
         protected JwtRefreshTokenService $refreshTokenService,
-        protected UserRepositoryInterface $userRepository
+        protected RepositoryInterface $userRepository
     ) {}
 
     public function handle(string $email, string $password, string $deviceName, string $deviceIP): AuthUserDTO

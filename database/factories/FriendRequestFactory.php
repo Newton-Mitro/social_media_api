@@ -13,7 +13,7 @@ class FriendRequestFactory extends Factory
         return [
             'sender_id' => User::inRandomOrder()->first()->id,
             'receiver_id' => User::inRandomOrder()->first()->id,
-            'status' => $this->faker->randomElement(['pending', 'accepted', 'rejected']),
+            'status' => $this->faker->randomElement(['Pending', 'Accepted', 'Rejected']),
         ];
     }
 }

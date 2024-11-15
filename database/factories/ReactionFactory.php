@@ -18,7 +18,7 @@ class ReactionFactory extends Factory
             'reactable_id' => $this->faker->uuid, // Assuming reactable_id is a UUID
             'reactable_type' => $this->faker->randomElement([Post::class, Comment::class]),
             'user_id' => User::inRandomOrder()->first()->id,
-            'type' => $this->faker->randomElement(['like', 'love', 'haha', 'wow', 'sad', 'angry']),
+            'type' => $this->faker->randomElement(['Like', 'Love', 'Haha', 'Wow', 'Sad', 'Angry']),
         ];
     }
 }

@@ -11,7 +11,5 @@ class UserDTO
         public string $username,
         public string $email,
         public bool $account_verified,
-        public ?string $profile_picture,
-        public ?string $cover_photo,
     ) {}
 }

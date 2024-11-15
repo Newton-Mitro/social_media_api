@@ -3,12 +3,13 @@
 namespace App\Modules\Profile\Domain\Aggregates;
 
 use App\Modules\Auth\Domain\Entities\UserEntity;
-use App\Modules\Friend\Domain\ValueObjects\FriendRequestStatus;
+use App\Modules\Profile\Domain\Entities\ProfileEntity;
 
-class UserProfileAggregate
+class ProfileAggregate
 {
     public function __construct(
         public UserEntity $user,
+        public ProfileEntity $profile,
         public int $followers_count,
         public int $following_count,
         public int $friends_count,
@@ -16,6 +17,6 @@ class UserProfileAggregate
         public int $post_likes_count,
         public bool $is_following,
         public bool $is_user_profile,
-        public FriendRequestStatus $friend_request_status
+        public ?string $friend_request_status
     ) {}
 }

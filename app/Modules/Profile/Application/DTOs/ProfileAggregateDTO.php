@@ -3,14 +3,15 @@
 namespace App\Modules\Profile\Application\DTOs;
 
 use App\Modules\Auth\Application\DTOs\UserDTO;
-use App\Modules\Friend\Domain\ValueObjects\FriendRequestStatus;
+use App\Modules\Profile\Application\DTOs\ProfileDTO;
 
 
 
-class UserProfileDTO
+class ProfileAggregateDTO
 {
     public function __construct(
         public UserDTO $user,
+        public ProfileDTO $profile,
         public int $followers_count,
         public int $following_count,
         public int $friends_count,
@@ -18,6 +19,6 @@ class UserProfileDTO
         public int $post_likes_count,
         public bool $is_following,
         public bool $is_user_profile,
-        public FriendRequestStatus $friend_request_status
+        public ?string $friend_request_status
     ) {}
 }

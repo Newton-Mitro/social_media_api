@@ -5,13 +5,13 @@ namespace App\Modules\Auth\Application\UseCases;
 use App\Modules\Auth\Domain\Entities\BlacklistedTokenEntity;
 use App\Modules\Auth\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\DeviceRepositoryInterface;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 
 
 class LogoutUserUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository,
+        protected RepositoryInterface $userRepository,
         protected DeviceRepositoryInterface $deviceRepository,
         protected BlacklistedTokenRepositoryInterface $blacklistedTokenRepository
     ) {}

@@ -4,7 +4,7 @@ namespace App\Modules\Profile\Application\UseCases;
 
 use App\Modules\Auth\Application\Mappers\UserDTOMapper;
 use App\Modules\Auth\Application\DTOs\UserDTO;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 use DateTimeImmutable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class UpdateProfilePictureUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository,
+        protected RepositoryInterface $userRepository,
     ) {}
 
     public function handle(string $userId, UploadedFile $profilePhoto): UserDTO

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
 
             // Define 'type' as an ENUM with specific reaction types
-            $table->enum('type', ['like', 'love', 'haha', 'wow', 'sad', 'angry'])->index();
+            $table->enum('type', ['Like', 'Love', 'Haha', 'Wow', 'Sad', 'Angry'])->index();
 
             $table->timestamps();
 

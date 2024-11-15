@@ -25,17 +25,25 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use HasUuids;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'id',
+        'name',
+        'display_name',
+        'email',
+        'password',
+        'email_verified_at',
+        'last_logged_in',
+    ];
 
     protected $hidden = [
         'password',
-        'otp',
-        'otp_expires_at',
-        'otp_verified',
+        'remember_token',
     ];
 
     protected $casts = [
+        'id' => 'string',
         'email_verified_at' => 'datetime',
+        'last_logged_in' => 'datetime',
     ];
 
     protected static function boot()

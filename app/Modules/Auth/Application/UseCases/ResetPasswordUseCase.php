@@ -3,7 +3,7 @@
 namespace App\Modules\Auth\Application\UseCases;
 
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ResetPasswordUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository,
+        protected RepositoryInterface $userRepository,
         protected UserOTPRepositoryInterface $userOTPRepository
     ) {}
 

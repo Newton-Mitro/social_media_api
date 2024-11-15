@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Http\Response;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class ChangePasswordUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository,
+        protected RepositoryInterface $userRepository,
     ) {}
 
     public function handle(string $email, string $oldPassword, string $password): void

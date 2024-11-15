@@ -3,7 +3,7 @@
 namespace App\Modules\Auth\Application\UseCases;
 
 use App\Core\Utilities\OTPGenerator;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mail\VerificationEmail;
 use DateTimeImmutable;
 use Illuminate\Support\Facades\Mail;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 class SendEmailVerifyingOTPUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository,
+        protected RepositoryInterface $userRepository,
     ) {}
 
     public function handle(string $email): void

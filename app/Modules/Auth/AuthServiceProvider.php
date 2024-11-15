@@ -20,11 +20,11 @@ use App\Modules\Auth\Application\UseCases\ForgotPasswordOtpVerifyUseCase;
 use App\Modules\Auth\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\RepositoryInterface;
 use App\Modules\Auth\Infrastructure\Repositories\BlacklistedTokenRepositoryImpl;
 use App\Modules\Auth\Infrastructure\Repositories\DeviceRepositoryImpl;
 use App\Modules\Auth\Infrastructure\Repositories\UserOtpRepositoryInterfaceImpl;
-use App\Modules\Auth\Infrastructure\Repositories\UserRepositoryInterfaceImpl;
+use App\Modules\Auth\Infrastructure\Repositories\RepositoryInterfaceImpl;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -61,7 +61,7 @@ class AuthServiceProvider extends ServiceProvider
             BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepositoryImpl::class,
             DeviceRepositoryInterface::class => DeviceRepositoryImpl::class,
             UserOTPRepositoryInterface::class => UserOtpRepositoryInterfaceImpl::class,
-            UserRepositoryInterface::class => UserRepositoryInterfaceImpl::class,
+            RepositoryInterface::class => RepositoryInterfaceImpl::class,
         ];
 
         foreach ($singletons as $abstract => $concrete) {

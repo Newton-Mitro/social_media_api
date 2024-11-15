@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
                 Attachment::factory()->count(2)->create(['post_id' => $post->id]);
 
                 // Ensure unique reactions by checking before creation
-                foreach (['like', 'love', 'haha', 'wow', 'sad', 'angry'] as $reactionType) {
+                foreach (['Like', 'Love', 'Haha', 'Wow', 'Sad', 'Angry'] as $reactionType) {
                     Reaction::firstOrCreate([
                         'reactable_id' => $post->id,
                         'reactable_type' => Post::class,
@@ -119,7 +119,7 @@ class DatabaseSeeder extends Seeder
                     FriendRequest::firstOrCreate([
                         'sender_id' => $sender->id,
                         'receiver_id' => $receiver->id,
-                        'status' => $faker->randomElement(['pending', 'accepted', 'rejected'])
+                        'status' => $faker->randomElement(['Pending', 'Accepted', 'Rejected'])
                     ]);
                 }
             }
