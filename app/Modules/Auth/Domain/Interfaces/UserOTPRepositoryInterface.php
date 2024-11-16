@@ -8,5 +8,5 @@ use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 interface UserOTPRepositoryInterface
 {
     public function save(UserOtpEntity $userOtpModel): void;
-    public function findUserOTPByUserId(string $userId): ?UserOtpEntity;
+    public function findUserOTPByUserIdAndType(string $userId, string $type): ?UserOtpEntity;
 }

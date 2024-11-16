@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    public function up()
     {
-        Schema::table('profiles', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->enum('sex', ['Male, Female, Others'])->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
         });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('profiles');
     }

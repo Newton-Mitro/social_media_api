@@ -14,7 +14,7 @@ class UserOtpModelMapper
         $user->user_id = $entity->getUserId();
         $user->is_verified = $entity->getIsVerified();
         $user->token = $entity->getToken();
-        $user->otp_expires_at = $entity->getExpiresAt();
+        $user->expires_at = $entity->getExpiresAt();
         $user->created_at = $entity->getCreatedAt();
         $user->updated_at = $entity->getUpdatedAt();
 

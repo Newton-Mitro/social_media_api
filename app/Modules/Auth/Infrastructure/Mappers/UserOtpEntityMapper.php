@@ -14,7 +14,7 @@ class UserOtpEntityMapper
             id: $model->id,
             otp: $model->otp,
             userId: $model->user_id,
-            expiresAt: $model->expires_at,
+            expiresAt: new DateTimeImmutable($model->expires_at),
             isVerified: $model->is_verified,
             token: $model->token,
             createdAt: new DateTimeImmutable($model->created_at),

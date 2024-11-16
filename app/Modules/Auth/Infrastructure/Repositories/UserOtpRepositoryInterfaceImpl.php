@@ -19,7 +19,7 @@ class UserOtpRepositoryInterfaceImpl implements UserOTPRepositoryInterface
         });
     }
 
-    public function findUserOTPByUserId(string $userId): ?UserOtpEntity
+    public function findUserOTPByUserIdAndType(string $userId, string $type): ?UserOtpEntity
     {
         $userOtp = UserOtp::where('user_id', $userId)->first();
         if ($userOtp) {

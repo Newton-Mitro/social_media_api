@@ -13,7 +13,6 @@ use Carbon\Carbon;
 use ErrorException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Str;
 
 class RegisterUserUseCase
 {
@@ -21,7 +20,6 @@ class RegisterUserUseCase
         protected JwtAccessTokenService $accessTokenService,
         protected JwtRefreshTokenService $refreshTokenService,
         protected UserRepositoryInterface $userRepository,
-        protected SendEmailVerifyingOTPUseCase $sendEmailVerifyingOTPUseCase
     ) {}
 
     public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): AuthUserDTO
@@ -36,7 +34,6 @@ class RegisterUserUseCase
         $userModel = new UserEntity(
             id: 0,
             name: $name,
-            userName: Str::slug($name, '_'),
             email: $email,
             password: $password,
         );
@@ -50,7 +47,6 @@ class RegisterUserUseCase
 
         if ($createdUser) {
             Event::dispatch(new UserRegistered($createdUser));
-            $this->sendEmailVerifyingOTPUseCase->handle($email);
         }
 
         // Update User Last Logged in date

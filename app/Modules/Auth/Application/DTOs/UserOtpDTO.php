@@ -9,10 +9,11 @@ class UserOtpDTO
 {
     public function __construct(
         public string $id,
-        public string $otp,
         public string $userId,
+        public string $type,
         public DateTimeImmutable $expiresAt,
         public bool $isVerified,
+        public string $otp,
         public string $token,
         public DateTimeImmutable $createdAt,
         public DateTimeImmutable $updatedAt,

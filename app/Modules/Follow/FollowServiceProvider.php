@@ -3,7 +3,7 @@
 namespace App\Modules\Follow;
 
 use App\Modules\Auth\Application\Events\UserRegistered;
-use App\Modules\Auth\Application\Listeners\SendWelcomeEmail;
+use App\Modules\Auth\Application\Listeners\UserRegisteredEventHandler;
 use App\Modules\Auth\Application\UseCases\UserLoginUseCase;
 use App\Modules\Auth\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Repositories\BlacklistedTokenRepositoryImpl;
@@ -18,7 +18,7 @@ class FollowServiceProvider extends ServiceProvider
         // Register event mappings
         Event::listen(
             UserRegistered::class,
-            [SendWelcomeEmail::class, 'handle']
+            [UserRegisteredEventHandler::class, 'handle']
         );
     }
 

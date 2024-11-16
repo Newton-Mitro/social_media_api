@@ -4,7 +4,6 @@ namespace App\Modules\Auth\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
 use App\Modules\Auth\Application\UseCases\ForgotPasswordUseCase;
-use App\Modules\Auth\Infrastructure\Mappers\UserOtpMapper;
 use App\Modules\Auth\Presentation\Requests\ForgotPasswordOTPRequest;
 
 class ForgotPasswordController extends Controller
@@ -13,7 +12,7 @@ class ForgotPasswordController extends Controller
 
     public function __invoke(ForgotPasswordOTPRequest $request)
     {
-        $userOTP = $this->forgotPasswordUseCase->handle($request->email);
+        $userOTP = $this->forgotPasswordUseCase->handle($request->input('email'));
 
         return response()->json([
             'data' => $userOTP,

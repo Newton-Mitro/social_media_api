@@ -3,10 +3,13 @@
 namespace App\Modules\Auth\Application\UseCases;
 
 use App\Core\Utilities\OTPGenerator;
+use App\Modules\Auth\Application\DTOs\UserOtpDTO;
+use App\Modules\Auth\Application\Mappers\UserOtpDTOMapper;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mail\ForgotPasswordOtpEmail;
+use App\Modules\Auth\Infrastructure\Mappers\UserOtpModelMapper;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;
@@ -22,7 +25,7 @@ class ForgotPasswordUseCase
     ) {}
 
     // TODO : fix me
-    public function handle(string $email): ?UserOtpEntity
+    public function handle(string $email): ?UserOtpDTO
     {
         // if user email don't exists, through exception
         // if user email exists, generate otp and store otp to table and email OTP to user email
@@ -48,7 +51,7 @@ class ForgotPasswordUseCase
                 id: 0,
                 otp: $otp,
                 userId: $user->getId(),
-                expiresAt: $expiresAt->toDateTimeImmutable(),
+                expiresAt: $expiresAt,
                 isVerified: true,
             );
             // Persist user in database
@@ -57,7 +60,7 @@ class ForgotPasswordUseCase
         }
         //generate otp and store otp to table and emil to user email
         else {
-            // creating user OTP
+            // update user OTP
             $otpValidTime = OTPGenerator::getValidateTime();
             $otp = OTPGenerator::generateOTP();
             $expiresAt = OTPGenerator::generateExpireTime();
@@ -69,7 +72,7 @@ class ForgotPasswordUseCase
             $userOTP->setUserId($userOTP->getUserId());
             $userOTP->setIsVerified(true);
             // verification status changed then no data will be changed
-            if ($command->getVerificationStatus() === true) {
+            if ($userOTP->getIsVerified()) {
                 $userOTP->setOtp($userOTP->getOtp());
                 $userOTP->setExpiresAt($userOTP->getExpiresAt());
                 $userOTP->setToken($otpToken);
@@ -77,16 +80,16 @@ class ForgotPasswordUseCase
             // if verification status, no changed then new otp & otp expiration will be added
             else {
                 $userOTP->setOtp($otp);
-                $userOTP->setExpiresAt($expiresAt->toDateTimeImmutable());
+                $userOTP->setExpiresAt($expiresAt);
                 $userOTP->setToken(null);
             }
             $userOTP->setCreatedAt($userOTP->getCreatedAt());
             $userOTP->setUpdatedAt(Carbon::now()->toDateTimeImmutable());
-            $returnResult = $this->otpRepository->update($userOTP);
-            if ($command->getVerificationStatus() === false) {
-                Mail::to($email)->send(new ForgotPasswordOtpEmail($command->getUserName(), $otp, $otpValidTime));
+            $returnResult = $this->otpRepository->save($userOTP);
+            if ($userOTP->getIsVerified()) {
+                Mail::to($email)->send(new ForgotPasswordOtpEmail($user->getName(), $otp, $otpValidTime));
             }
         }
-        return $returnResult;
+        return UserOtpDTOMapper::toDTO($userOTP);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
+use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use Exception;
@@ -10,13 +11,13 @@ use Illuminate\Http\Response;
 class ReSendEmailVerifyingOTPUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $repository,
-        protected SendEmailVerifyingOTPUseCase $sendEmailVerifyingOTPCommandHandler
+        protected UserOTPRepositoryInterface $userOTPRepository,
+        protected UserRepositoryInterface $userRepository,
     ) {}
 
     public function handle(string $email): void
     {
-        $user = $this->repository->findByEmail(
+        $user = $this->userRepository->findByEmail(
             $email
         );
 
@@ -24,12 +25,19 @@ class ReSendEmailVerifyingOTPUseCase
             throw new Exception('User not found', Response::HTTP_NOT_FOUND);
         }
 
-        if ($user->getOtpExpiresAt() && $user->getOtpExpiresAt() > Carbon::now()) {
+        $userOtp = $this->userOTPRepository->findUserOTPByUserIdAndType(
+            $email,
+            'type'
+        );
+
+        if ($userOtp->getExpiresAt() && $userOtp->getExpiresAt() > Carbon::now()) {
             throw new Exception('OTP is still valid. Please check your email.', Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->sendEmailVerifyingOTPCommandHandler->handle(
-            email: $email,
-        );
+        // Generate OTP
+
+        // Store in db
+
+        // Send Email OTP
     }
 }

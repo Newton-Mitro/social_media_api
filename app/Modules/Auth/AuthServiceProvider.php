@@ -3,7 +3,7 @@
 namespace App\Modules\Auth;
 
 use App\Modules\Auth\Application\Events\UserRegistered;
-use App\Modules\Auth\Application\Listeners\SendWelcomeEmail;
+use App\Modules\Auth\Application\Listeners\UserRegisteredEventHandler;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Application\UseCases\AccountOtpVerifyUseCase;
@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         // Register event mappings
         Event::listen(
             UserRegistered::class,
-            [SendWelcomeEmail::class, 'handle']
+            [UserRegisteredEventHandler::class, 'handle']
         );
     }
 
