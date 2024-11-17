@@ -9,7 +9,7 @@ class ProfileAggregate
 {
     public function __construct(
         public UserEntity $user,
-        public ProfileEntity $profile,
+        public ?ProfileEntity $profile,
         public int $followers_count,
         public int $following_count,
         public int $friends_count,

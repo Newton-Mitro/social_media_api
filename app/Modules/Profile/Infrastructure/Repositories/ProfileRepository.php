@@ -1,16 +1,10 @@
 <?php
 
-namespace App\Modules\Profile\Infrastructure\Interfaces;
+namespace App\Modules\Profile\Infrastructure\Repositories;
 
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Infrastructure\Mappers\UserEntityMapper;
-use App\Modules\Follow\Domain\Repositories\FollowRepositoryInterface;
-use App\Modules\Follow\Infrastructure\Repositories\FollowRepository;
-use App\Modules\Post\Domain\Interfaces\PostRepositoryInterface;
 use App\Modules\Profile\Domain\Aggregates\ProfileAggregate;
-use App\Modules\Profile\Domain\Interfaces\FriendRepositoryInterface;
 use App\Modules\Profile\Domain\Interfaces\ProfileRepositoryInterface;
-use App\Modules\Profile\Infrastructure\Mappers\UserProfileEntityMapper;
 use App\Modules\Profile\Infrastructure\Models\Profile;
 use Exception;
 use Illuminate\Http\Response;
@@ -25,7 +19,7 @@ class ProfileRepository implements ProfileRepositoryInterface
         // protected PostRepositoryInterface $postRepository
     ) {}
 
-    public function fetchUserProfile(string $userId, string $authUserId = null): ?ProfileAggregate
+    public function fetchUserProfile(string $userId, string $authUserId = null): ProfileAggregate
     {
 
         $user = $this->userRepository->findById(

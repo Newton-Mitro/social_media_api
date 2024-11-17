@@ -12,6 +12,7 @@ class ProfileAggregateDTOMapper
     {
         return new ProfileAggregateDTO(
             user: UserDTOMapper::toDTO($entity->user),
+            profile: UserDTOMapper::toDTO($entity->user),
             followers_count: $entity->followers_count,
             following_count: $entity->following_count,
             friends_count: $entity->friends_count,

@@ -3,12 +3,12 @@
 namespace App\Modules\Profile;
 
 
-use Illuminate\Support\ServiceProvider;
 use App\Modules\Profile\Application\UseCases\ChangeCoverPhotoUseCase;
 use App\Modules\Profile\Application\UseCases\FetchUserProfileUseCase;
 use App\Modules\Profile\Application\UseCases\UpdateProfilePictureUseCase;
 use App\Modules\Profile\Domain\Interfaces\ProfileRepositoryInterface;
-use App\Modules\Profile\Infrastructure\Interfaces\UserProfileRepository;
+use App\Modules\Profile\Infrastructure\Repositories\ProfileRepository;
+use Illuminate\Support\ServiceProvider;
 
 class ProfileServiceProvider extends ServiceProvider
 {
@@ -21,7 +21,7 @@ class ProfileServiceProvider extends ServiceProvider
             UpdateProfilePictureUseCase::class => UpdateProfilePictureUseCase::class,
             FetchUserProfileUseCase::class => FetchUserProfileUseCase::class,
 
-            ProfileRepositoryInterface::class => UserProfileRepository::class,
+            ProfileRepositoryInterface::class => ProfileRepository::class,
         ];
 
         foreach ($singletons as $abstract => $concrete) {
