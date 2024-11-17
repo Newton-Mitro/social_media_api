@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
 class Profile extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;
-    use HasUuids;
 
     protected $fillable = [
         'id',
@@ -30,16 +29,6 @@ class Profile extends Authenticatable implements MustVerifyEmail
         'id' => 'string',
         'dbo' => 'datetime',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($profile) {
-            $profile->id = (string) Str::uuid();
-        });
-    }
-
 
     public function user(): BelongsTo
     {

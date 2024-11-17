@@ -12,21 +12,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Share extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
 
     protected $fillable = [
         'post_id',
         'user_id',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($share) {
-            $share->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
 
     public function post()
     {

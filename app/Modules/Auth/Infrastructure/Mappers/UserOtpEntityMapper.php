@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Infrastructure\Mappers;
 
+use App\Core\Enums\OtpTypes;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Infrastructure\Models\UserOtp;
 use DateTimeImmutable;
@@ -14,6 +15,7 @@ class UserOtpEntityMapper
             id: $model->id,
             otp: $model->otp,
             userId: $model->user_id,
+            type: OtpTypes::from($model->type),
             expiresAt: new DateTimeImmutable($model->expires_at),
             isVerified: $model->is_verified,
             token: $model->token,

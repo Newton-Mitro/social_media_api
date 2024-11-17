@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
+use App\Core\Enums\OtpTypes;
 use App\Core\Utilities\OTPGenerator;
 use App\Modules\Auth\Application\DTOs\UserOtpDTO;
 use App\Modules\Auth\Application\Mappers\UserOtpDTOMapper;
@@ -9,7 +10,6 @@ use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mail\ForgotPasswordOtpEmail;
-use App\Modules\Auth\Infrastructure\Mappers\UserOtpModelMapper;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;
@@ -24,11 +24,8 @@ class ForgotPasswordUseCase
         protected readonly UserOTPRepositoryInterface $otpRepository,
     ) {}
 
-    // TODO : fix me
     public function handle(string $email): ?UserOtpDTO
     {
-        // if user email don't exists, through exception
-        // if user email exists, generate otp and store otp to table and email OTP to user email
         $user = $this->userRepository->findByEmail(
             $email
         );
@@ -37,59 +34,41 @@ class ForgotPasswordUseCase
             throw new Exception('Email is not valid', Response::HTTP_NOT_FOUND);
         }
 
-        $userOTP = $this->otpRepository->findUserOTPByUserId(
-            $user->getId()
+        $userOTP = $this->otpRepository->findUserOTPByUserIdAndType(
+            $user->getId(),
+            OtpTypes::FORGOT_PASSWORD
         );
 
-        if ($userOTP === null) {
-            // creating user OTP
-            $otpValidTime = OTPGenerator::getValidateTime();
-            $otp = OTPGenerator::generateOTP();
-            $expiresAt = OTPGenerator::generateExpireTime();
+        $otpValidTime = OTPGenerator::getValidateTime();
+        $otp = OTPGenerator::generateOTP();
+        $expiresAt = OTPGenerator::generateExpireTime();
+        $otpToken = Str::random();
 
+        if ($userOTP === null) {
             $userOtpModel = new UserOtpEntity(
-                id: 0,
-                otp: $otp,
                 userId: $user->getId(),
+                type: OtpTypes::FORGOT_PASSWORD,
+                otp: $otp,
                 expiresAt: $expiresAt,
-                isVerified: true,
+                isVerified: false,
+                token: $otpToken
             );
             // Persist user in database
-            $returnResult = $this->otpRepository->save($userOtpModel);
+            $this->otpRepository->save($userOtpModel);
             Mail::to($user->getEmail())->send(new ForgotPasswordOtpEmail($user->getName(), $otp, $otpValidTime));
+            return UserOtpDTOMapper::toDTO($userOtpModel);
         }
         //generate otp and store otp to table and emil to user email
         else {
             // update user OTP
-            $otpValidTime = OTPGenerator::getValidateTime();
-            $otp = OTPGenerator::generateOTP();
-            $expiresAt = OTPGenerator::generateExpireTime();
-            $otpToken = Str::random();
-            $userOTP = $this->otpRepository->findUserOTPByUserId(
-                $user->getId()
-            );
-            $userOTP->setId($userOTP->getId());
-            $userOTP->setUserId($userOTP->getUserId());
-            $userOTP->setIsVerified(true);
-            // verification status changed then no data will be changed
-            if ($userOTP->getIsVerified()) {
-                $userOTP->setOtp($userOTP->getOtp());
-                $userOTP->setExpiresAt($userOTP->getExpiresAt());
-                $userOTP->setToken($otpToken);
-            }
-            // if verification status, no changed then new otp & otp expiration will be added
-            else {
-                $userOTP->setOtp($otp);
-                $userOTP->setExpiresAt($expiresAt);
-                $userOTP->setToken(null);
-            }
-            $userOTP->setCreatedAt($userOTP->getCreatedAt());
+            $userOTP->setOtp($otp);
+            $userOTP->setToken($otpToken);
+            $userOTP->setExpiresAt($expiresAt);
             $userOTP->setUpdatedAt(Carbon::now()->toDateTimeImmutable());
-            $returnResult = $this->otpRepository->save($userOTP);
-            if ($userOTP->getIsVerified()) {
-                Mail::to($email)->send(new ForgotPasswordOtpEmail($user->getName(), $otp, $otpValidTime));
-            }
+            $this->otpRepository->save($userOTP);
+            Mail::to($email)->send(new ForgotPasswordOtpEmail($user->getName(), $otp, $otpValidTime));
+
+            return UserOtpDTOMapper::toDTO($userOTP);
         }
-        return UserOtpDTOMapper::toDTO($userOTP);
     }
 }

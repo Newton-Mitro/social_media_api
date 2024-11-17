@@ -9,17 +9,7 @@ use Illuminate\Support\Str;
 
 class Device extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($device) {
-            $device->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
-
+    use HasFactory;
 
     protected $fillable = ['user_id', 'device_token', 'device_name', 'device_ip', 'device_identifier'];
 }

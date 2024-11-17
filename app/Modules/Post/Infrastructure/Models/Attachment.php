@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Attachment extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
     protected $fillable = [
         'id',
@@ -30,15 +30,6 @@ class Attachment extends Model
         'view_count',
         'share_count',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($attachment) {
-            $attachment->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
 
     public function post()
     {

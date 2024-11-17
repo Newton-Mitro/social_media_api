@@ -9,16 +9,7 @@ use Illuminate\Support\Str;
 
 class BlacklistedToken extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($blacklistedToken) {
-            $blacklistedToken->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
+    use HasFactory;
 
     protected $fillable = ['token'];
 }

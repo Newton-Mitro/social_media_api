@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Infrastructure\Repositories;
 
+use App\Core\Enums\OtpTypes;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mappers\UserOtpEntityMapper;
@@ -26,7 +27,7 @@ class UserOtpRepository implements UserOTPRepositoryInterface
         $user->save();
     }
 
-    public function findUserOTPByUserIdAndType(string $userId, string $type): ?UserOtpEntity
+    public function findUserOTPByUserIdAndType(string $userId, OtpTypes $type): ?UserOtpEntity
     {
         $userOtp = UserOtp::where('user_id', $userId)
             ->where('type', $type)

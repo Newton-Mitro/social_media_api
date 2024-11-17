@@ -5,8 +5,6 @@ namespace App\Modules\Auth\Application\Mappers;
 use App\Modules\Auth\Application\DTOs\UserOtpDTO;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 
-use function PHPSTORM_META\type;
-
 class UserOtpDTOMapper
 {
     public static function toDTO(UserOtpEntity $entity): UserOtpDTO

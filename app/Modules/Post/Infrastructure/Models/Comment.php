@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 class Comment extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
     protected $fillable = [
         'id',
@@ -25,15 +25,6 @@ class Comment extends Model
         'comment_text',
         'parent_id',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($comment) {
-            $comment->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
 
     public function reactions(): MorphMany
     {

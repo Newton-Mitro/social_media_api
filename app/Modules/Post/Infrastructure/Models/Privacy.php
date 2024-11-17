@@ -11,19 +11,9 @@ use Illuminate\Support\Str;
 
 class Privacy extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
 
     protected $fillable = ['privacy_name',];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($privacy) {
-            $privacy->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
-
 
     public function posts()
     {

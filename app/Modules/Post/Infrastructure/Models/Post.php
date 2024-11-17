@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
     protected $fillable = [
         'post_text',
@@ -29,15 +29,6 @@ class Post extends Model
         'privacy_id',
         'user_id',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($post) {
-            $post->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
 
     public function privacy()
     {

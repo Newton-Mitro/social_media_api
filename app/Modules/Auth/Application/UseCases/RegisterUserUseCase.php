@@ -62,8 +62,6 @@ class RegisterUserUseCase
             updatedAt: new DateTimeImmutable
         );
 
-
-
         // Store OTP/Persist user to db
         $this->authRepository->register($userEntity, $userOtpEntity);
 

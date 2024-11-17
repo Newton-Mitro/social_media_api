@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class FriendRequest extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
 
     protected $fillable = [
         'sender_id',
@@ -23,15 +23,6 @@ class FriendRequest extends Model
     protected $casts = [
         'status' => 'string', // Assuming 'status' is an enum or string type
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($friendRequest) {
-            $friendRequest->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
 
     public function sender(): BelongsTo
     {

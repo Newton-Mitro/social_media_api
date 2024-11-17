@@ -9,7 +9,6 @@ use App\Modules\Post\Infrastructure\Models\Reaction;
 use App\Modules\Post\Infrastructure\Models\Share;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,7 +22,6 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
-    use HasUuids;
 
     protected $fillable = [
         'id',
@@ -45,15 +43,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'last_logged_in' => 'datetime',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($user) {
-            $user->id = (string) Str::uuid(); // Generate UUID when creating a new user
-        });
-    }
 
     public function posts()
     {

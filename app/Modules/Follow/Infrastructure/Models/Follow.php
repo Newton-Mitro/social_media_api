@@ -12,21 +12,12 @@ use Illuminate\Support\Str;
 
 class Follow extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
 
     protected $fillable = [
         'follower_id',
         'following_id',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($follow) {
-            $follow->id = (string) Str::uuid(); // Generate UUID when creating a new post
-        });
-    }
 
     public function follower(): BelongsTo
     {

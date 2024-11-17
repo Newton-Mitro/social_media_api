@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
+use App\Core\Enums\OtpTypes;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
@@ -26,8 +27,8 @@ class ReSendEmailVerifyingOTPUseCase
         }
 
         $userOtp = $this->userOTPRepository->findUserOTPByUserIdAndType(
-            $email,
-            'type'
+            $user->getId(),
+            OtpTypes::USER_REGISTERED
         );
 
         if ($userOtp->getExpiresAt() && $userOtp->getExpiresAt() > Carbon::now()) {

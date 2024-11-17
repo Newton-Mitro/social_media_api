@@ -13,16 +13,7 @@ use Illuminate\Support\Str;
 
 class Reaction extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($like) {
-            $like->id = (string) Str::uuid();
-        });
-    }
+    use HasFactory;
 
     protected $fillable = [
         'reactable_id',
