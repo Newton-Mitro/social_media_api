@@ -6,6 +6,7 @@ use App\Modules\Auth\Infrastructure\Models\User;
 use App\Modules\Post\Infrastructure\Models\Comment;
 use App\Modules\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class CommentFactory extends Factory
 {
@@ -28,6 +29,7 @@ class CommentFactory extends Factory
         }
 
         return [
+            'id' => Str::uuid(),
             'commentable_id' => $postId,  // Using the random post ID, or null if no posts exist
             'commentable_type' => Post::class,  // Assuming the comment is related to a post
             'user_id' => User::inRandomOrder()->first()->id,  // Randomly assigning a user

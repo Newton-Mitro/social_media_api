@@ -5,6 +5,7 @@ namespace App\Modules\Friend\Infrastructure\Models;
 use App\Modules\Auth\Infrastructure\Models\User;
 use FriendRequestFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,9 +13,10 @@ use Illuminate\Support\Str;
 
 class FriendRequest extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
+        'id',
         'sender_id',
         'receiver_id',
         'status',

@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modules\Auth\Infrastructure\Models\User;
 use App\Modules\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Share extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
+        'id',
         'post_id',
         'user_id',
     ];

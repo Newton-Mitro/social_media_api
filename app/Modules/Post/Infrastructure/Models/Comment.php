@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'id',

@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class BlacklistedToken extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
-    protected $fillable = ['token'];
+    protected $fillable = ['id', 'token'];
 }

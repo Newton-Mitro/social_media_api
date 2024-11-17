@@ -11,8 +11,9 @@ use App\Modules\Post\Infrastructure\Models\Post;
 use App\Modules\Post\Infrastructure\Models\Privacy;
 use App\Modules\Post\Infrastructure\Models\Reaction;
 use App\Modules\Post\Infrastructure\Models\Share;
-use Illuminate\Database\Seeder;
+use Exception;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -43,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
         // Insert privacy values if not already present
         foreach ($privacyValues as $privacyName) {
-            Privacy::firstOrCreate(['privacy_name' => $privacyName]);
+            Privacy::factory()->create(['privacy_name' => $privacyName]);
         }
 
         // Retrieve all privacy records

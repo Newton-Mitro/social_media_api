@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Modules\Post\Infrastructure\Models\Attachment;
 use App\Modules\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Modules\Post\Infrastructure\Models\Attachment;
+use Illuminate\Support\Str;
 
 class AttachmentFactory extends Factory
 {
@@ -38,6 +39,7 @@ class AttachmentFactory extends Factory
         }
 
         return [
+            'id' => Str::uuid(),
             'post_id' => Post::inRandomOrder()->first()->id,
             'type' => $type,
             'url' => $url,

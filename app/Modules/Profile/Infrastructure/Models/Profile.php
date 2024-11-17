@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class Profile extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'id',

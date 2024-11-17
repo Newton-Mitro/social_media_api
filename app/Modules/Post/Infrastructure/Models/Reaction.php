@@ -13,9 +13,10 @@ use Illuminate\Support\Str;
 
 class Reaction extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
+        'id',
         'reactable_id',
         'reactable_type',
         'user_id',

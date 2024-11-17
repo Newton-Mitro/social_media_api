@@ -17,9 +17,10 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
+        'id',
         'post_text',
         'reaction_count',
         'share_count',

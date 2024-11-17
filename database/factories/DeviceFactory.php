@@ -13,6 +13,7 @@ class DeviceFactory extends Factory
     public function definition(): array
     {
         return [
+            'id' => Str::uuid(),
             'user_id' => fake()->name(),
             'device_name' => fake()->name(),
             'device_ip' => fake()->ipv4(),

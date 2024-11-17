@@ -9,9 +9,10 @@ use Illuminate\Support\Str;
 
 class UserOtp extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
+        'id',
         'otp',
         'user_id',
         'expires_at',

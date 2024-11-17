@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class Device extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
-    protected $fillable = ['user_id', 'device_token', 'device_name', 'device_ip', 'device_identifier'];
+    protected $fillable = ['id', 'user_id', 'device_token', 'device_name', 'device_ip', 'device_identifier'];
 }
