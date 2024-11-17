@@ -9,15 +9,17 @@ class UserOtpModelMapper
 {
     public static function toModel(UserOtpEntity $entity): UserOtp
     {
-        $user = UserOtp::find($entity->getId()) ?? new UserOtp();
-        $user->otp = $entity->getOtp();
-        $user->user_id = $entity->getUserId();
-        $user->is_verified = $entity->getIsVerified();
-        $user->token = $entity->getToken();
-        $user->expires_at = $entity->getExpiresAt();
-        $user->created_at = $entity->getCreatedAt();
-        $user->updated_at = $entity->getUpdatedAt();
+        $model = UserOtp::find($entity->getId()) ?? new UserOtp();
+        $model->id = $entity->getId();
+        $model->otp = $entity->getOtp();
+        $model->user_id = $entity->getUserId();
+        $model->is_verified = $entity->getIsVerified();
+        $model->type = $entity->getType();
+        $model->token = $entity->getToken();
+        $model->expires_at = $entity->getExpiresAt();
+        $model->created_at = $entity->getCreatedAt();
+        $model->updated_at = $entity->getUpdatedAt();
 
-        return $user;
+        return $model;
     }
 }

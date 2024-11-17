@@ -9,7 +9,7 @@ class CreateFriendRequestsTable extends Migration
     public function up()
     {
         Schema::create('friend_requests', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignUuid('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignUuid('receiver_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status', ['Pending', 'Accepted', 'Rejected'])->default('Pending');

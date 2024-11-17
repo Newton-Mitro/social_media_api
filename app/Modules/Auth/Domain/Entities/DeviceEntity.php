@@ -2,30 +2,24 @@
 
 namespace App\Modules\Auth\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
 use DateTimeImmutable;
 
-class DeviceEntity
+class DeviceEntity extends BaseEntity
 {
     public function __construct(
-        private int $id,
         private string $userId,
         private string $deviceName,
         private string $deviceIp,
         private string $deviceToken,
-        private string $deviceIdentifier,
+        private ?string $deviceIdentifier = null,
         private DateTimeImmutable $createdAt = new DateTimeImmutable,
-        private DateTimeImmutable $updatedAt = new DateTimeImmutable
-    ) {}
-
-    public function getId(): int
-    {
-        return $this->id;
+        private DateTimeImmutable $updatedAt = new DateTimeImmutable,
+        protected ?string $id = null,
+    ) {
+        parent::__construct($id);
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function getUserId(): string
     {
@@ -67,7 +61,7 @@ class DeviceEntity
         $this->deviceToken = $deviceToken;
     }
 
-    public function getDeviceIdentifier(): string
+    public function getDeviceIdentifier(): ?string
     {
         return $this->deviceIdentifier;
     }

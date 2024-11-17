@@ -2,11 +2,11 @@
 
 namespace App\Modules\Profile\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
 use DateTimeImmutable;
 
-class ProfileEntity
+class ProfileEntity extends BaseEntity
 {
-    private string $id;
     private string $userId;
     private ?string $sex;
     private ?DateTimeImmutable $dbo;
@@ -18,7 +18,7 @@ class ProfileEntity
     private DateTimeImmutable $updatedAt;
 
     public function __construct(
-        string $id,
+
         string $userId,
         ?string $sex,
         ?DateTimeImmutable $dbo,
@@ -27,9 +27,10 @@ class ProfileEntity
         ?string $coverPhoto,
         ?string $bio,
         DateTimeImmutable $createdAt,
-        DateTimeImmutable $updatedAt
+        DateTimeImmutable $updatedAt,
+        ?string $id = null
     ) {
-        $this->id = $id;
+        parent::__construct($id);
         $this->userId = $userId;
         $this->sex = $sex;
         $this->dbo = $dbo;
@@ -42,11 +43,6 @@ class ProfileEntity
     }
 
     // Getters
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
     public function getUserId(): string
     {
         return $this->userId;

@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('blacklisted_tokens', function (Blueprint $table) {
-            $table->id('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('token', 1024);
             $table->timestamps();
         });

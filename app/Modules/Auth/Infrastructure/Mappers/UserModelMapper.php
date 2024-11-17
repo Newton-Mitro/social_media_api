@@ -9,15 +9,16 @@ class UserModelMapper
 {
     public static function toModel(UserEntity $entity): User
     {
-        $user = User::find($entity->getId()) ?? new User();
-        $user->name = $entity->getName();
-        $user->email = $entity->getEmail();
-        $user->password = $entity->getPassword();
-        $user->email_verified_at = $entity->getEmailVerifiedAt();
-        $user->last_logged_in = $entity->getLastLoggedIn();
-        $user->created_at = $entity->getCreatedAt();
-        $user->updated_at = $entity->getUpdatedAt();
+        $model = User::find($entity->getId()) ?? new User();
+        $model->id = $entity->getId();
+        $model->name = $entity->getName();
+        $model->email = $entity->getEmail();
+        $model->password = $entity->getPassword();
+        $model->email_verified_at = $entity->getEmailVerifiedAt();
+        $model->last_logged_in = $entity->getLastLoggedIn();
+        $model->created_at = $entity->getCreatedAt();
+        $model->updated_at = $entity->getUpdatedAt();
 
-        return $user;
+        return $model;
     }
 }

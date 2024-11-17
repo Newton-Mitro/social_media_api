@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('follows', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
 
             // Foreign keys
             $table->foreignUuid('follower_id')->references('id')->on('users')->onDelete('cascade');

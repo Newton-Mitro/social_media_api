@@ -2,21 +2,20 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
-class PrivacyEntity
+use App\Core\Entities\BaseEntity;
+
+class PrivacyEntity extends BaseEntity
 {
-    private string $id;
+
     private string $name;
 
-    public function __construct(string $id, string $name)
+    public function __construct(string $name, ?string $id = null)
     {
-        $this->id = $id;
+        parent::__construct($id);
         $this->name = $name;
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
+
 
     public function getName(): string
     {

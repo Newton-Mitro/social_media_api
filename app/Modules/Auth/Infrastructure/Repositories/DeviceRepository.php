@@ -8,9 +8,8 @@ use App\Modules\Auth\Infrastructure\Mappers\DeviceEntityMapper;
 use App\Modules\Auth\Infrastructure\Mappers\DeviceModelMapper;
 use App\Modules\Auth\Infrastructure\Models\Device;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
-class DeviceRepositoryImpl implements DeviceRepositoryInterface
+class DeviceRepository implements DeviceRepositoryInterface
 {
     public function findDeviceByUserIdAndDeviceName(string $user_id, string $device_name): ?DeviceEntity
     {
@@ -34,10 +33,8 @@ class DeviceRepositoryImpl implements DeviceRepositoryInterface
 
     public function save(DeviceEntity $entity): void
     {
-        DB::transaction(function () use ($entity) {
-            $user = DeviceModelMapper::toModel($entity);
-            $user->save();
-        });
+        $user = DeviceModelMapper::toModel($entity);
+        $user->save();
     }
 
 

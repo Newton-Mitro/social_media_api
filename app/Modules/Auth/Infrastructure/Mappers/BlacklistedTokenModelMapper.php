@@ -9,11 +9,12 @@ class BlacklistedTokenModelMapper
 {
     public static function toModel(BlacklistedTokenEntity $entity): BlacklistedToken
     {
-        $user = BlacklistedToken::find($entity->getId()) ?? new BlacklistedToken();
-        $user->token = $entity->getToken();
-        $user->created_at = $entity->getCreatedAt();
-        $user->updated_at = $entity->getUpdatedAt();
+        $model = BlacklistedToken::find($entity->getId()) ?? new BlacklistedToken();
+        $model->id = $entity->getId();
+        $model->token = $entity->getToken();
+        $model->created_at = $entity->getCreatedAt();
+        $model->updated_at = $entity->getUpdatedAt();
 
-        return $user;
+        return $model;
     }
 }

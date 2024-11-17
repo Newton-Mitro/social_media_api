@@ -2,12 +2,23 @@
 
 namespace App\Modules\Auth\Infrastructure\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class UserOtp extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($userOtp) {
+            $userOtp->id = (string) Str::uuid(); // Generate UUID when creating a new post
+        });
+    }
 
     protected $fillable = [
         'otp',

@@ -2,26 +2,20 @@
 
 namespace App\Modules\Auth\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
 use DateTimeImmutable;
 
-class BlacklistedTokenEntity
+class BlacklistedTokenEntity extends BaseEntity
 {
     public function __construct(
-        private int $id,
         private string $token,
         private readonly DateTimeImmutable $createdAt = new DateTimeImmutable,
         private readonly DateTimeImmutable $updatedAt = new DateTimeImmutable,
-    ) {}
-
-    public function getId(): int
-    {
-        return $this->id;
+        protected ?string $id = null,
+    ) {
+        parent::__construct($id);
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function getToken(): string
     {

@@ -17,14 +17,16 @@ use App\Modules\Auth\Application\UseCases\ReSendEmailVerifyingOTPUseCase;
 use App\Modules\Auth\Application\UseCases\ResetPasswordUseCase;
 use App\Modules\Auth\Application\UseCases\SendEmailVerifyingOTPUseCase;
 use App\Modules\Auth\Application\UseCases\UserLoginUseCase;
+use App\Modules\Auth\Domain\Interfaces\AuthRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Infrastructure\Repositories\BlacklistedTokenRepositoryImpl;
-use App\Modules\Auth\Infrastructure\Repositories\DeviceRepositoryImpl;
-use App\Modules\Auth\Infrastructure\Repositories\UserOtpRepositoryInterfaceImpl;
-use App\Modules\Auth\Infrastructure\Repositories\UserRepositoryInterfaceImpl;
+use App\Modules\Auth\Infrastructure\Repositories\AuthRepository;
+use App\Modules\Auth\Infrastructure\Repositories\BlacklistedTokenRepository;
+use App\Modules\Auth\Infrastructure\Repositories\DeviceRepository;
+use App\Modules\Auth\Infrastructure\Repositories\UserOtpRepository;
+use App\Modules\Auth\Infrastructure\Repositories\UserRepository;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -52,16 +54,16 @@ class AuthServiceProvider extends ServiceProvider
             FetchRefreshTokenUseCase::class => FetchRefreshTokenUseCase::class,
             LogoutUserUseCase::class => LogoutUserUseCase::class,
             ReSendEmailVerifyingOTPUseCase::class => ReSendEmailVerifyingOTPUseCase::class,
-            SendEmailVerifyingOTPUseCase::class => SendEmailVerifyingOTPUseCase::class,
             ForgotPasswordOtpVerifyUseCase::class => ForgotPasswordOtpVerifyUseCase::class,
             AccountOtpVerifyUseCase::class => AccountOtpVerifyUseCase::class,
             ForgotPasswordUseCase::class => ForgotPasswordUseCase::class,
             ResetPasswordUseCase::class => ResetPasswordUseCase::class,
 
-            BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepositoryImpl::class,
-            DeviceRepositoryInterface::class => DeviceRepositoryImpl::class,
-            UserOTPRepositoryInterface::class => UserOtpRepositoryInterfaceImpl::class,
-            UserRepositoryInterface::class => UserRepositoryInterfaceImpl::class,
+            BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepository::class,
+            DeviceRepositoryInterface::class => DeviceRepository::class,
+            UserOTPRepositoryInterface::class => UserOtpRepository::class,
+            UserRepositoryInterface::class => UserRepository::class,
+            AuthRepositoryInterface::class => AuthRepository::class,
         ];
 
         foreach ($singletons as $abstract => $concrete) {

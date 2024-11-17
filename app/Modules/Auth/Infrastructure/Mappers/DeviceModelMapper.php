@@ -9,15 +9,16 @@ class DeviceModelMapper
 {
     public static function toModel(DeviceEntity $entity): Device
     {
-        $user = Device::find($entity->getId()) ?? new Device();
-        $user->user_id = $entity->getUserId();
-        $user->device_name = $entity->getDeviceName();
-        $user->device_ip = $entity->getDeviceIp();
-        $user->device_token = $entity->getDeviceToken();
-        $user->device_identifier = $entity->getDeviceIdentifier();
-        $user->created_at = $entity->getCreatedAt();
-        $user->updated_at = $entity->getUpdatedAt();
+        $model = Device::find($entity->getId()) ?? new Device();
+        $model->id = $entity->getId();
+        $model->user_id = $entity->getUserId();
+        $model->device_name = $entity->getDeviceName();
+        $model->device_ip = $entity->getDeviceIp();
+        $model->device_token = $entity->getDeviceToken();
+        $model->device_identifier = $entity->getDeviceIdentifier();
+        $model->created_at = $entity->getCreatedAt();
+        $model->updated_at = $entity->getUpdatedAt();
 
-        return $user;
+        return $model;
     }
 }

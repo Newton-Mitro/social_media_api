@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('devices', function (Blueprint $table) {
-            $table->id('id')->primary();
+            $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->references('id')->on('users');
             $table->string('device_name');
             $table->string('device_ip')->nullable();

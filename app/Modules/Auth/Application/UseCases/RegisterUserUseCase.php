@@ -2,17 +2,24 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
+use App\Core\Enums\OtpTypes;
+use App\Core\Utilities\OTPGenerator;
+use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Events\UserRegistered;
 use App\Modules\Auth\Application\Mappers\UserDTOMapper;
-use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserOtpEntity;
+use App\Modules\Auth\Domain\Interfaces\AuthRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Infrastructure\Mail\VerificationEmail;
 use Carbon\Carbon;
+use DateTimeImmutable;
 use ErrorException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterUserUseCase
 {
@@ -20,6 +27,7 @@ class RegisterUserUseCase
         protected JwtAccessTokenService $accessTokenService,
         protected JwtRefreshTokenService $refreshTokenService,
         protected UserRepositoryInterface $userRepository,
+        protected AuthRepositoryInterface $authRepository
     ) {}
 
     public function handle(string $name, string $email, string $password, string $deviceName, string $deviceIP): AuthUserDTO
@@ -31,29 +39,40 @@ class RegisterUserUseCase
             throw new ErrorException('User already exist', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $userModel = new UserEntity(
-            id: 0,
+        // Generate OTP
+        $otpValidTime = OTPGenerator::getValidateTime();
+        $otp = OTPGenerator::generateOTP();
+        $expiresAt = OTPGenerator::generateExpireTime();
+
+        $userEntity = new UserEntity(
             name: $name,
             email: $email,
             password: $password,
+            lastLoggedIn: new DateTimeImmutable()
         );
 
-        // Persist user in database
-        $this->userRepository->save(
-            $userModel
+        $userOtpEntity = new UserOtpEntity(
+            otp: $otp,
+            type: OtpTypes::USER_REGISTERED,
+            userId: $userEntity->getId(),
+            expiresAt: $expiresAt,
+            isVerified: false,
+            token: null,
+            createdAt: new DateTimeImmutable,
+            updatedAt: new DateTimeImmutable
         );
 
-        $createdUser = $this->userRepository->findByEmail($email);
 
-        if ($createdUser) {
-            Event::dispatch(new UserRegistered($createdUser));
-        }
 
-        // Update User Last Logged in date
-        $createdUser->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
-        $this->userRepository->save($createdUser);
+        // Store OTP/Persist user to db
+        $this->authRepository->register($userEntity, $userOtpEntity);
 
-        $mappedUser = UserDTOMapper::toDTO($createdUser);
+        // Send OTP to user email
+        Mail::to($email)->send(new VerificationEmail($userEntity, $otp, $otpValidTime));
+
+        Event::dispatch(new UserRegistered($userEntity));
+
+        $mappedUser = UserDTOMapper::toDTO($userEntity);
 
         // Generate user token here
         $access_token = $this->accessTokenService->generateToken($mappedUser);

@@ -2,32 +2,24 @@
 
 namespace App\Modules\Auth\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
+use App\Core\Enums\OtpTypes;
 use DateTimeImmutable;
 
-class UserOtpEntity
+class UserOtpEntity extends BaseEntity
 {
         public function __construct(
-                private int $id,
                 private string $userId,
-                private string $type,
+                private OtpTypes $type,
                 private DateTimeImmutable $expiresAt,
                 private bool $isVerified = false,
                 private ?string $otp = null,
                 private ?string $token = null,
                 private DateTimeImmutable $createdAt = new DateTimeImmutable,
-                private DateTimeImmutable $updatedAt = new DateTimeImmutable
-        ) {}
-
-        public function getId()
-        {
-                return $this->id;
-        }
-
-        public function setId($id)
-        {
-                $this->id = $id;
-
-                return $this;
+                private DateTimeImmutable $updatedAt = new DateTimeImmutable,
+                protected ?string $id = null,
+        ) {
+                parent::__construct($id);
         }
 
         public function getType()

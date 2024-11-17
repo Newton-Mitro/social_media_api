@@ -2,30 +2,26 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
 use App\Modules\Auth\Domain\Entities\UserEntity;
 use DateTimeImmutable;
 
 
-class ViewEntity
+class ViewEntity extends BaseEntity
 {
-    private string $id;
     private UserEntity $viewer;
     private DateTimeImmutable $viewedAt;
 
     public function __construct(
-        string $id,
         UserEntity $viewer,
-        DateTimeImmutable $viewedAt
+        DateTimeImmutable $viewedAt,
+        ?string $id = null,
     ) {
-        $this->id = $id;
+        parent::__construct($id);
         $this->viewer = $viewer;
         $this->viewedAt = $viewedAt;
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
 
     public function getViewer(): UserEntity
     {

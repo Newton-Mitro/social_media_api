@@ -2,29 +2,22 @@
 
 namespace App\Modules\Auth\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
 use DateTimeImmutable;
 
-class UserEntity
+class UserEntity extends BaseEntity
 {
     public function __construct(
-        private string $id,
         private string $name,
         private string $email,
         private ?string $password = null,
         private ?DateTimeImmutable $emailVerifiedAt = null,
         private ?DateTimeImmutable $lastLoggedIn = null,
         private DateTimeImmutable $createdAt = new DateTimeImmutable,
-        private DateTimeImmutable $updatedAt = new DateTimeImmutable
-    ) {}
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function setId(string $id): void
-    {
-        $this->id = $id;
+        private DateTimeImmutable $updatedAt = new DateTimeImmutable,
+        protected ?string $id = null,
+    ) {
+        parent::__construct($id);
     }
 
     public function getName(): string

@@ -56,12 +56,10 @@ class JwtRefreshTokenService
             );
         } else {
             $device = new DeviceEntity(
-                0,
                 $user->id,
                 $device_name,
                 $device_ip,
                 $token->toString(),
-                ''
             );
             $this->deviceRepository->save(
                 $device

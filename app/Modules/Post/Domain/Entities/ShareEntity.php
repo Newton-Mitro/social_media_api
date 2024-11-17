@@ -2,34 +2,31 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
 use App\Modules\Auth\Domain\Entities\UserEntity;
 use App\Modules\Post\Domain\Enums\SharePlatforms;
 use DateTimeImmutable;
 
-class ShareEntity
+class ShareEntity extends BaseEntity
 {
-    private string $id;
     private UserEntity $sharer;
     private SharePlatforms $platform;
     private DateTimeImmutable $sharedAt;
 
     public function __construct(
-        string $id,
+
         UserEntity $sharer,
         SharePlatforms $platform,
-        DateTimeImmutable $sharedAt
+        DateTimeImmutable $sharedAt,
+        ?string $id = null
     ) {
-        $this->id = $id;
+        parent::__construct($id);
         $this->sharer = $sharer;
         $this->platform = $platform;
         $this->sharedAt = $sharedAt;
     }
 
     // Getters for the properties
-    public function getId(): string
-    {
-        return $this->id;
-    }
 
     public function getSharer(): UserEntity
     {

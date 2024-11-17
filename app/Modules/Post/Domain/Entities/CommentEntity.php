@@ -2,12 +2,12 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
 use App\Modules\Auth\Domain\Entities\UserEntity;
 use DateTimeImmutable;
 
-class CommentEntity
+class CommentEntity extends BaseEntity
 {
-    private string $id;
     private string $postId;
     private UserEntity $author;
     private string $commentText;
@@ -18,7 +18,6 @@ class CommentEntity
     private DateTimeImmutable $updatedAt;
 
     public function __construct(
-        string $id,
         string $postId,
         UserEntity $author,
         string $commentText,
@@ -26,9 +25,10 @@ class CommentEntity
         string $commentableType,
         ?string $parentId = null,
         ?DateTimeImmutable $createdAt = null,
-        ?DateTimeImmutable $updatedAt = null
+        ?DateTimeImmutable $updatedAt = null,
+        ?string $id = null,
     ) {
-        $this->id = $id;
+        parent::__construct($id);
         $this->postId = $postId;
         $this->author = $author;
         $this->commentText = $commentText;
@@ -39,10 +39,6 @@ class CommentEntity
         $this->updatedAt = $updatedAt ?? new DateTimeImmutable();
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
 
     public function getPostId(): string
     {

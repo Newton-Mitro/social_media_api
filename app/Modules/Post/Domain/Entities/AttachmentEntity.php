@@ -2,11 +2,11 @@
 
 namespace App\Modules\Post\Domain\Entities;
 
+use App\Core\Entities\BaseEntity;
 use DateTimeImmutable;
 
-class AttachmentEntity
+class AttachmentEntity extends BaseEntity
 {
-    private string $id;
     private string $postId;
     private string $title;
     private string $description;
@@ -22,22 +22,23 @@ class AttachmentEntity
     private DateTimeImmutable $updatedAt;
 
     public function __construct(
-        string $id,
+
         string $postId,
         string $fileURL,
         string $mimeType,
         string $fileName,
         string $filePath,
-        string $title = null,
-        string $description = null,
+        ?string $title = null,
+        ?string $description = null,
         int $reactionCount = 0,
         int $viewCount = 0,
         int $shareCount = 0,
         int $commentCount = 0,
         DateTimeImmutable $createdAt = new DateTimeImmutable(),
-        DateTimeImmutable $updatedAt = new DateTimeImmutable()
+        DateTimeImmutable $updatedAt = new DateTimeImmutable(),
+        ?string $id = null
     ) {
-        $this->id = $id;
+        parent::__construct($id);
         $this->postId = $postId;
         $this->title = $title;
         $this->description = $description;
@@ -54,10 +55,6 @@ class AttachmentEntity
     }
 
     // Getters for the properties
-    public function getId(): string
-    {
-        return $this->id;
-    }
 
     public function getPostId(): string
     {

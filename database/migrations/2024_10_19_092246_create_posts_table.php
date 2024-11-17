@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('view_count')->default(0);
             $table->unsignedInteger('comment_count')->default(0);
             $table->string('location');
-            $table->foreignId('privacy_id')->constrained('privacies');
+            $table->foreignUuid('privacy_id')->constrained('privacies');
             $table->foreignUuid('user_id')->constrained('users');
             $table->timestamps();
         });

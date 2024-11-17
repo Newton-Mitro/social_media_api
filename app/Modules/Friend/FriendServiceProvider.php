@@ -6,7 +6,7 @@ use App\Modules\Auth\Application\Events\UserRegistered;
 use App\Modules\Auth\Application\Listeners\UserRegisteredEventHandler;
 use App\Modules\Auth\Application\UseCases\UserLoginUseCase;
 use App\Modules\Auth\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
-use App\Modules\Auth\Infrastructure\Repositories\BlacklistedTokenRepositoryImpl;
+use App\Modules\Auth\Infrastructure\Repositories\BlacklistedTokenRepository;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,7 +27,7 @@ class FriendServiceProvider extends ServiceProvider
         $singletons = [
             UserLoginUseCase::class => UserLoginUseCase::class,
 
-            BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepositoryImpl::class,
+            BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepository::class,
 
         ];
 
