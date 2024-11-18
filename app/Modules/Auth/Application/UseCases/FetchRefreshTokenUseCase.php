@@ -22,7 +22,7 @@ class FetchRefreshTokenUseCase
             $userId
         );
 
-        $userDTO = UserDTOMapper::toDTO($user);
+        $userDTO = UserDTOMapper::fromEntity($user);
 
         $access_token = $this->accessTokenService->generateToken($userDTO);
         $refresh_token = $this->jwtRefreshTokenService->generateToken($userDTO, $deviceName, $deviceIP);

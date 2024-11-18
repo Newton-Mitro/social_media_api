@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
-            $table->enum('sex', ['Male, Female, Others'])->nullable();
+            $table->enum('sex', ['Male', 'Female', 'Others'])->default('Male');
             $table->timestamp('dbo')->nullable();
             $table->string('mobile_number')->nullable();
             $table->string('profile_picture', 1024)->nullable();

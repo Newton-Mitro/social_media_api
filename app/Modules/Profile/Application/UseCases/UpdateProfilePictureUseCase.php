@@ -35,6 +35,6 @@ class UpdateProfilePictureUseCase
 
         $this->userRepository->save($user);
 
-        return UserDTOMapper::toDTO($user);
+        return UserDTOMapper::fromEntity($user);
     }
 }

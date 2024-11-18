@@ -70,7 +70,7 @@ class RegisterUserUseCase
 
         Event::dispatch(new UserRegistered($userEntity));
 
-        $mappedUser = UserDTOMapper::toDTO($userEntity);
+        $mappedUser = UserDTOMapper::fromEntity($userEntity);
 
         // Generate user token here
         $access_token = $this->accessTokenService->generateToken($mappedUser);

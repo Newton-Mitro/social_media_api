@@ -41,7 +41,7 @@ class AccountOtpVerifyUseCase
             $user->setOtpVerified(true);
             $this->userRepository->save($user);
 
-            $mappedUserDTO = UserDTOMapper::toDTO($user);
+            $mappedUserDTO = UserDTOMapper::fromEntity($user);
 
             // Generate user token here
             $access_token = $this->accessTokenService->generateToken($mappedUserDTO);

@@ -30,7 +30,7 @@ class UserLoginUseCase
             $user->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
             $this->userRepository->save($user);
 
-            $mappedUser = UserDTOMapper::toDTO($user);
+            $mappedUser = UserDTOMapper::fromEntity($user);
 
             // Generate user token here
             $access_token = $this->accessTokenService->generateToken($mappedUser);

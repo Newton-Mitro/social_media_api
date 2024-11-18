@@ -7,7 +7,7 @@ use App\Modules\Auth\Domain\Entities\UserEntity;
 
 class UserDTOMapper
 {
-    public static function toDTO(UserEntity $entity): UserDTO
+    public static function fromEntity(UserEntity $entity): UserDTO
     {
         return new UserDTO(
             id: $entity->getId(),

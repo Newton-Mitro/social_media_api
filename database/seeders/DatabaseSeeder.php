@@ -11,6 +11,7 @@ use App\Modules\Post\Infrastructure\Models\Post;
 use App\Modules\Post\Infrastructure\Models\Privacy;
 use App\Modules\Post\Infrastructure\Models\Reaction;
 use App\Modules\Post\Infrastructure\Models\Share;
+use App\Modules\Profile\Infrastructure\Models\Profile;
 use Exception;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -31,7 +32,10 @@ class DatabaseSeeder extends Seeder
 
         // Create users
         foreach ($userEmails as $email) {
-            User::factory()->create(['email' => $email]);
+            $user = User::factory()->create(['email' => $email]);
+            Profile::factory()->create([
+                'user_id' => $user->id
+            ]);
         }
 
         // Privacy values to insert

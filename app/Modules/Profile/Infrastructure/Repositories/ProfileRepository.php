@@ -3,8 +3,10 @@
 namespace App\Modules\Profile\Infrastructure\Repositories;
 
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Infrastructure\Models\User;
 use App\Modules\Profile\Domain\Aggregates\ProfileAggregate;
 use App\Modules\Profile\Domain\Interfaces\ProfileRepositoryInterface;
+use App\Modules\Profile\Infrastructure\Mappers\ProfileAggregateEntityMapper;
 use App\Modules\Profile\Infrastructure\Models\Profile;
 use Exception;
 use Illuminate\Http\Response;
@@ -22,9 +24,7 @@ class ProfileRepository implements ProfileRepositoryInterface
     public function fetchUserProfile(string $userId, string $authUserId = null): ProfileAggregate
     {
 
-        $user = $this->userRepository->findById(
-            $userId
-        );
+        $user = User::find($userId);
 
         if (!$user) {
             throw new Exception('User not found.', Response::HTTP_NOT_FOUND);
@@ -79,17 +79,21 @@ class ProfileRepository implements ProfileRepositoryInterface
             $is_user_profile = $authUserId == $userId ? true : false;
         }
 
-        return new ProfileAggregate(
-            user: $user,
-            profile: $profile,
-            followers_count: $followers_count,
-            following_count: $following_count,
-            friends_count: $friends_count,
-            friend_requests_count: $friend_requests_count,
-            post_likes_count: $post_likes_count,
-            is_following: $is_following,
-            is_user_profile: $is_user_profile,
-            friend_request_status: $friend_request_status
+        $counters = [
+            'followers_count' => $followers_count,
+            'following_count' => $following_count,
+            'friends_count' => $friends_count,
+            'friend_requests_count' => $friend_requests_count,
+            'post_likes_count' => $post_likes_count,
+            'is_following' => $is_following,
+            'is_user_profile' => $is_user_profile,
+            'friend_request_status' => $friend_request_status,
+        ];
+
+        return ProfileAggregateEntityMapper::fromModel(
+            userModel: $user,
+            profileModel: $profile,
+            counters: $counters
         );
     }
 }

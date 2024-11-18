@@ -8,11 +8,11 @@ use App\Modules\Profile\Domain\Aggregates\ProfileAggregate;
 
 class ProfileAggregateDTOMapper
 {
-    public static function toDTO(ProfileAggregate $entity): ProfileAggregateDTO
+    public static function fromEntity(ProfileAggregate $entity): ProfileAggregateDTO
     {
         return new ProfileAggregateDTO(
-            user: UserDTOMapper::toDTO($entity->user),
-            profile: UserDTOMapper::toDTO($entity->user),
+            user: UserDTOMapper::fromEntity($entity->user),
+            profile: ProfileDTOMapper::fromEntity($entity->profile),
             followers_count: $entity->followers_count,
             following_count: $entity->following_count,
             friends_count: $entity->friends_count,

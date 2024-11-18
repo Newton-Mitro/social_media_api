@@ -19,7 +19,7 @@ class FetchUserProfileUseCase
             $authUserId
         );
 
-        return ProfileAggregateDTOMapper::toDTO(
+        return ProfileAggregateDTOMapper::fromEntity(
             $userProfileAggregate
         );
     }

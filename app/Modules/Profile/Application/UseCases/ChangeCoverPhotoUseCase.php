@@ -37,6 +37,6 @@ class ChangeCoverPhotoUseCase
 
         $this->userRepository->save($user);
 
-        return UserDTOMapper::toDTO($user);
+        return UserDTOMapper::fromEntity($user);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Modules\Profile\Domain\Aggregates;
 use App\Modules\Auth\Domain\Entities\UserEntity;
 use App\Modules\Profile\Domain\Entities\ProfileEntity;
 
+
 class ProfileAggregate
 {
     public function __construct(

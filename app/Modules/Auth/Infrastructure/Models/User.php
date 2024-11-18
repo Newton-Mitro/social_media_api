@@ -2,21 +2,22 @@
 
 namespace App\Modules\Auth\Infrastructure\Models;
 
-use App\Modules\Follow\Infrastructure\Models\Follow;
-use App\Modules\Post\Infrastructure\Models\Comment;
-use App\Modules\Post\Infrastructure\Models\Post;
-use App\Modules\Post\Infrastructure\Models\Reaction;
-use App\Modules\Post\Infrastructure\Models\Share;
-use Database\Factories\UserFactory;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Database\Factories\UserFactory;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Modules\Post\Infrastructure\Models\Post;
+use App\Modules\Post\Infrastructure\Models\Share;
+use App\Modules\Post\Infrastructure\Models\Comment;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Modules\Follow\Infrastructure\Models\Follow;
+use App\Modules\Post\Infrastructure\Models\Reaction;
+use App\Modules\Profile\Infrastructure\Models\Profile;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -93,6 +94,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function userFollowing()
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 
     // Relationship for accepted friends

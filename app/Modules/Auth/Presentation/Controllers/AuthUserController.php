@@ -16,7 +16,7 @@ class AuthUserController extends Controller
         $user = $this->userRepository->findById($authUser['id']);
 
         return response()->json([
-            'data' => UserDTOMapper::toDTO($user),
+            'data' => UserDTOMapper::fromEntity($user),
             'message' => null,
             'error' => null,
             'errors' => null,
