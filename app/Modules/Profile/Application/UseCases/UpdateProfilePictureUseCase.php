@@ -2,27 +2,26 @@
 
 namespace App\Modules\Profile\Application\UseCases;
 
-use App\Modules\Auth\Application\Mappers\UserDTOMapper;
-use App\Modules\Auth\Application\DTOs\UserDTO;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
-use DateTimeImmutable;
+use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;
+use App\Modules\Profile\Application\Mappers\ProfileAggregateDTOMapper;
+use App\Modules\Profile\Domain\Interfaces\ProfileRepositoryInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateProfilePictureUseCase
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository,
+        protected ProfileRepositoryInterface $profileRepository,
     ) {}
 
-    public function handle(string $userId, UploadedFile $profilePhoto): UserDTO
+    public function handle(string $userId, UploadedFile $profilePhoto): ProfileAggregateDTO
     {
-        $user = $this->userRepository->findById($userId);
+        $userAggregate = $this->profileRepository->fetchUserProfile($userId);
 
         // Delete Old Photo
-        if ($user->getProfilePicture()) {
+        if ($userAggregate->profile->getProfilePicture()) {
             // Get the existing photo path
-            $existingPhotoPath = parse_url($user->getProfilePicture(), PHP_URL_PATH);
+            $existingPhotoPath = parse_url($userAggregate->profile->getProfilePicture(), PHP_URL_PATH);
             // Delete the existing photo
             Storage::disk('public')->delete(ltrim($existingPhotoPath, '/'));
         }
@@ -30,11 +29,15 @@ class UpdateProfilePictureUseCase
         // Store the new profile photo
         $path = $profilePhoto->store('users', 'public');
 
-        $user->setUpdatedAt(new DateTimeImmutable());
-        $user->setProfilePicture($path);
+        $userAggregate->profile->updateProfile(
+            $userAggregate->profile->getMobileNumber(),
+            $path,
+            $userAggregate->profile->getCoverPhoto(),
+            $userAggregate->profile->getBio()
+        );
 
-        $this->userRepository->save($user);
+        $this->profileRepository->save($userAggregate);
 
-        return UserDTOMapper::fromEntity($user);
+        return ProfileAggregateDTOMapper::fromEntity($userAggregate);
     }
 }

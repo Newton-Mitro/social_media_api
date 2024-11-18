@@ -15,7 +15,7 @@ class FriendRequestFactory extends Factory
             'id' => Str::uuid(),
             'sender_id' => User::inRandomOrder()->first()->id,
             'receiver_id' => User::inRandomOrder()->first()->id,
-            'status' => $this->faker->randomElement(['Pending', 'Accepted', 'Rejected']),
+            'status' => $this->faker->randomElement(['Pending', 'Accepted']),
         ];
     }
 }

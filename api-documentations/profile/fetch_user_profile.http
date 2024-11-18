@@ -21,7 +21,7 @@ Authorization: Bearer {{auth_token}}
 
 ### SET TOKEN
 # @name fetchUserProfile
-GET http://127.0.0.1:8000/api/users/profile/60b7ca58-eb8c-4f56-be31-571cc94d7c34
+GET http://127.0.0.1:8000/api/users/profile/678d3fdc-f319-4f96-b9a0-80391225f0e8
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{auth_token}}

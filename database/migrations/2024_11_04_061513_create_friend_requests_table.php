@@ -12,7 +12,7 @@ class CreateFriendRequestsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignUuid('receiver_id')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('status', ['Pending', 'Accepted', 'Rejected'])->default('Pending');
+            $table->enum('status', ['Pending', 'Accepted'])->default('Pending');
             $table->timestamps();
         });
     }
