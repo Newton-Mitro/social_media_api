@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Modules\Auth\Infrastructure\Models\User;
-use App\Modules\Post\Infrastructure\Models\Post;
-use App\Modules\Post\Infrastructure\Models\Privacy;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Modules\Auth\Infrastructure\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Modules\Content\Post\Infrastructure\Models\Post;
+use App\Modules\Content\Privacy\Infrastructure\Models\Privacy;
 
 class PostFactory extends Factory
 {

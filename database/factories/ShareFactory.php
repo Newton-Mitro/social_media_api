@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Modules\Auth\Infrastructure\Models\User;
-use App\Modules\Post\Infrastructure\Models\Post;
-use App\Modules\Post\Infrastructure\Models\Share;
+use App\Modules\Content\Post\Infrastructure\Models\Post;
+use App\Modules\Content\Share\Infrastructure\Models\Share;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

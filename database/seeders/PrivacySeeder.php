@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Modules\Post\Infrastructure\Models\Privacy;
+use App\Modules\Content\Infrastructure\Models\Privacy;
 
 class PrivacySeeder extends Seeder
 {

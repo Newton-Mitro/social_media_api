@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Modules\Post\Infrastructure\Models\Attachment;
-use App\Modules\Post\Infrastructure\Models\Post;
+use App\Modules\Content\Post\Infrastructure\Models\Attachment;
+use App\Modules\Content\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

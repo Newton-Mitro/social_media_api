@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Modules\Post\Infrastructure\Models\Reaction;
+use App\Modules\Content\Infrastructure\Models\Reaction;
 
 class ReactionSeeder extends Seeder
 {
