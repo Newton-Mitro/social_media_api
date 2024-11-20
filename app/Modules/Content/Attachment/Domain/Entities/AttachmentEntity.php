@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Content\Post\Domain\Entities;
+namespace App\Modules\Content\Attachment\Domain\Entities;
 
 use App\Core\Entities\BaseEntity;
 use DateTimeImmutable;
@@ -10,9 +10,11 @@ class AttachmentEntity extends BaseEntity
     private string $postId;
     private string $title;
     private string $description;
+    private string $duration;
     private string $fileName;
     private string $filePath;
     private string $fileURL;
+    private string $thumbnailUrl;
     private string $mimeType;
     private int $commentCount;
     private int $reactionCount;
@@ -25,11 +27,13 @@ class AttachmentEntity extends BaseEntity
 
         string $postId,
         string $fileURL,
+        string $thumbnailUrl,
         string $mimeType,
         string $fileName,
         string $filePath,
         ?string $title = null,
         ?string $description = null,
+        ?string $duration = null,
         int $reactionCount = 0,
         int $viewCount = 0,
         int $shareCount = 0,
@@ -42,9 +46,11 @@ class AttachmentEntity extends BaseEntity
         $this->postId = $postId;
         $this->title = $title;
         $this->description = $description;
+        $this->duration = $duration;
         $this->fileName = $fileName;
         $this->filePath = $filePath;
         $this->fileURL = $fileURL;
+        $this->thumbnailUrl = $thumbnailUrl;
         $this->mimeType = $mimeType;
         $this->commentCount = $commentCount;
         $this->reactionCount = $reactionCount;
@@ -71,6 +77,11 @@ class AttachmentEntity extends BaseEntity
         return $this->description;
     }
 
+    public function getDuration(): string
+    {
+        return $this->duration;
+    }
+
     public function getFileName(): string
     {
         return $this->fileName;
@@ -84,6 +95,11 @@ class AttachmentEntity extends BaseEntity
     public function getFileURL(): string
     {
         return $this->fileURL;
+    }
+
+    public function getThumbnailURL(): string
+    {
+        return $this->thumbnailUrl;
     }
 
     public function getMimeType(): string

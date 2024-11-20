@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
 use Illuminate\Database\Seeder;
-use App\Modules\Content\Infrastructure\Models\Attachment;
 
 class AttachmentSeeder extends Seeder
 {

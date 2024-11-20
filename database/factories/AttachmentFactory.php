@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Modules\Content\Post\Infrastructure\Models\Attachment;
+use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
 use App\Modules\Content\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -41,9 +41,9 @@ class AttachmentFactory extends Factory
         return [
             'id' => Str::uuid(),
             'post_id' => Post::inRandomOrder()->first()->id,
-            'type' => $type,
-            'url' => $url,
-            'path' => $this->faker->filePath(), // Random file path
+            'mime_type' => $type,
+            'file_url' => $url,
+            'file_path' => $this->faker->filePath(), // Random file path
             'file_name' => $this->faker->word . '.' . $this->faker->fileExtension, // Random file name
             'thumbnail_url' => $thumbnail_url,
             'description' => $this->faker->optional()->sentence,

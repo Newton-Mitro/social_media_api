@@ -3,7 +3,7 @@
 namespace App\Modules\Content\Post\Application\DTOs;
 
 use App\Modules\Auth\Application\DTOs\UserDTO;
-use App\Modules\Content\Post\Application\DTOs\AttachmentDTO;
+use App\Modules\Content\Attachment\Application\DTOs\AttachmentDTO;
 use App\Modules\Content\Post\Domain\ValueObjects\PostStatus;
 use App\Modules\Content\Privacy\Application\DTOs\PrivacyDTO;
 use App\Modules\Content\Reaction\Application\DTOs\ReactionDTO;
@@ -19,22 +19,16 @@ class PostAggregateDTO
         public string $content,
         public UserDTO $creator,
         public PrivacyDTO $privacy,
-        public ReactionDTO $myReaction,
-        public int $reactionCount,
-        public int $viewCount,
-        public int $shareCount,
-        public int $commentCount,
-        public PostStatus $status,
-        public DateTimeImmutable $createdAt,
-        public DateTimeImmutable $updatedAt
+        public ReactionDTO $my_reaction,
+        public int $reaction_count,
+        public int $view_count,
+        public int $share_count,
+        public int $comment_count,
+        public string $status,
+        public DateTimeImmutable $created_at,
+        public DateTimeImmutable $updated_at
     ) {
         $this->attachments = collect();
-    }
-
-    // Getter for Attachments
-    public function getAttachments(): Collection
-    {
-        return $this->attachments;
     }
 
     // Add an Attachment

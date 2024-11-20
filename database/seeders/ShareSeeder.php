@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Modules\Content\Share\Infrastructure\Models\Share;
 use Illuminate\Database\Seeder;
-use App\Modules\Content\Infrastructure\Models\Share;
 
 class ShareSeeder extends Seeder
 {

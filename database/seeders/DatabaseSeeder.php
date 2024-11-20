@@ -3,16 +3,15 @@
 namespace Database\Seeders;
 
 use App\Modules\Auth\Infrastructure\Models\User;
+use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
+use App\Modules\Content\Comment\Infrastructure\Models\Comment;
+use App\Modules\Content\Post\Infrastructure\Models\Post;
+use App\Modules\Content\Privacy\Infrastructure\Models\Privacy;
+use App\Modules\Content\Reaction\Infrastructure\Models\Reaction;
+use App\Modules\Content\Share\Infrastructure\Models\Share;
 use App\Modules\Follow\Infrastructure\Models\Follow;
 use App\Modules\Friend\Infrastructure\Models\FriendRequest;
-use App\Modules\Content\Infrastructure\Models\Attachment;
-use App\Modules\Content\Infrastructure\Models\Comment;
-use App\Modules\Content\Infrastructure\Models\Post;
-use App\Modules\Content\Infrastructure\Models\Privacy;
-use App\Modules\Content\Infrastructure\Models\Reaction;
-use App\Modules\Content\Infrastructure\Models\Share;
 use App\Modules\Profile\Infrastructure\Models\Profile;
-use Exception;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 

@@ -2,41 +2,62 @@
 
 namespace App\Modules\Content\Reaction\Domain\Entities;
 
-use App\Core\Entities\BaseEntity;
 use App\Modules\Auth\Domain\Entities\UserEntity;
 use App\Modules\Content\Reaction\Domain\ValueObjects\ReactionTypes;
 use DateTimeImmutable;
 
-class ReactionEntity extends BaseEntity
+class ReactionEntity
 {
-    private UserEntity $reactedBy;
-    private ReactionTypes $reactionType;
+    private string $id;
+    private string $reactableId;
+    private string $reactableType;
+    private UserEntity $user;
+    private ReactionTypes $type;
     private DateTimeImmutable $createdAt;
     private DateTimeImmutable $updatedAt;
 
     public function __construct(
-
-        UserEntity $reactedBy,
-        ReactionTypes $reactionType,
-        DateTimeImmutable $createdAt = new DateTimeImmutable(),
-        DateTimeImmutable $updatedAt = new DateTimeImmutable(),
-        ?string $id = null
+        string $id,
+        string $reactableId,
+        string $reactableType,
+        UserEntity $user,
+        ReactionTypes $type,
+        DateTimeImmutable $createdAt,
+        DateTimeImmutable $updatedAt
     ) {
-        parent::__construct($id);
-        $this->reactedBy = $reactedBy;
-        $this->reactionType = $reactionType;
+        $this->id = $id;
+        $this->reactableId = $reactableId;
+        $this->reactableType = $reactableType;
+        $this->user = $user;
+        $this->type = $type;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }
 
-    public function getReactedBy(): UserEntity
+    // Getter methods
+    public function getId(): string
     {
-        return $this->reactedBy;
+        return $this->id;
     }
 
-    public function getReactionType(): ReactionTypes
+    public function getReactableId(): string
     {
-        return $this->reactionType;
+        return $this->reactableId;
+    }
+
+    public function getReactableType(): string
+    {
+        return $this->reactableType;
+    }
+
+    public function getUser(): UserEntity
+    {
+        return $this->user;
+    }
+
+    public function getType(): ReactionTypes
+    {
+        return $this->type;
     }
 
     public function getCreatedAt(): DateTimeImmutable
@@ -47,11 +68,5 @@ class ReactionEntity extends BaseEntity
     public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    public function updateReactionType(ReactionTypes $newReactionType): void
-    {
-        $this->reactionType = $newReactionType;
-        $this->updatedAt = new DateTimeImmutable();
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Modules\Content\Reaction\Infrastructure\Models\Reaction;
 use Illuminate\Database\Seeder;
-use App\Modules\Content\Infrastructure\Models\Reaction;
 
 class ReactionSeeder extends Seeder
 {

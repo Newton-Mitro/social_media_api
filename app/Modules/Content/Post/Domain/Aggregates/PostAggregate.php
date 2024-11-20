@@ -3,9 +3,10 @@
 namespace App\Modules\Content\Post\Domain\Aggregates;
 
 use App\Modules\Auth\Domain\Entities\UserEntity;
-use App\Modules\Content\Post\Domain\Entities\AttachmentEntity;
+use App\Modules\Content\Attachment\Domain\Entities\AttachmentEntity;
 use App\Modules\Content\Post\Domain\ValueObjects\PostStatus;
 use App\Modules\Content\Privacy\Domain\Entities\PrivacyEntity;
+use App\Modules\Content\Reaction\Domain\Entities\ReactionEntity;
 use DateTimeImmutable;
 use Illuminate\Support\Collection;
 
@@ -16,6 +17,7 @@ class PostAggregate
     private PrivacyEntity $privacy;
     private UserEntity $creator;
     private Collection $attachments;
+    private ReactionEntity $myReaction;
     private int $commentCount;
     private int $reactionCount;
     private int $viewCount;
@@ -29,6 +31,7 @@ class PostAggregate
         string $content,
         UserEntity $creator = null,
         PrivacyEntity $privacy = null,
+        ReactionEntity $myReaction = null,
         int $reactionCount = 0,
         int $viewCount = 0,
         int $shareCount = 0,
@@ -41,6 +44,7 @@ class PostAggregate
         $this->content = $content;
         $this->privacy = $privacy;
         $this->creator = $creator;
+        $this->myReaction = $myReaction;
         $this->attachments = collect();
         $this->commentCount = $commentCount;
         $this->reactionCount = $reactionCount;
@@ -98,6 +102,10 @@ class PostAggregate
     public function getStatus(): PostStatus
     {
         return $this->status;
+    }
+    public function getMyReaction(): ReactionEntity
+    {
+        return $this->myReaction;
     }
     public function getCreatedAt(): DateTimeImmutable
     {

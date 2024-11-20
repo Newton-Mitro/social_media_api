@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Content\Post\Infrastructure\Models;
+namespace App\Modules\Content\Attachment\Infrastructure\Models;
 
 use App\Modules\Content\Comment\Infrastructure\Models\Comment;
 use App\Modules\Content\Post\Infrastructure\Models\Post;

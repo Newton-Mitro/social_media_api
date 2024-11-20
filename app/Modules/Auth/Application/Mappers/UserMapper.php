@@ -5,9 +5,9 @@ namespace App\Modules\Auth\Application\Mappers;
 use App\Modules\Auth\Application\DTOs\UserDTO;
 use App\Modules\Auth\Domain\Entities\UserEntity;
 
-class UserDTOMapper
+class UserMapper
 {
-    public static function fromEntity(UserEntity $entity): UserDTO
+    public static function toDTO(UserEntity $entity): UserDTO
     {
         return new UserDTO(
             id: $entity->getId(),
