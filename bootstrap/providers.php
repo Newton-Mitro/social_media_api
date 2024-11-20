@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Auth\AuthServiceProvider;
+use App\Modules\Content\Attachment\AttachmentServiceProvider;
 use App\Modules\Follow\FollowServiceProvider;
 use App\Modules\Friend\FriendServiceProvider;
 use App\Modules\Profile\ProfileServiceProvider;
@@ -15,4 +16,5 @@ return [
     ProfileServiceProvider::class,
     FollowServiceProvider::class,
     FriendServiceProvider::class,
+    AttachmentServiceProvider::class,
 ];

@@ -8,13 +8,13 @@ use DateTimeImmutable;
 class AttachmentEntity extends BaseEntity
 {
     private string $postId;
-    private string $title;
-    private string $description;
-    private string $duration;
-    private string $fileName;
-    private string $filePath;
+    private ?string $title;
+    private ?string $description;
+    private float $duration;
+    private ?string $fileName;
+    private ?string $filePath;
     private string $fileURL;
-    private string $thumbnailUrl;
+    private ?string $thumbnailUrl;
     private string $mimeType;
     private int $commentCount;
     private int $reactionCount;
@@ -27,13 +27,13 @@ class AttachmentEntity extends BaseEntity
 
         string $postId,
         string $fileURL,
-        string $thumbnailUrl,
+        ?string $thumbnailUrl,
         string $mimeType,
-        string $fileName,
-        string $filePath,
+        ?string $fileName,
+        ?string $filePath,
         ?string $title = null,
         ?string $description = null,
-        ?string $duration = null,
+        float $duration = 0,
         int $reactionCount = 0,
         int $viewCount = 0,
         int $shareCount = 0,
@@ -67,27 +67,27 @@ class AttachmentEntity extends BaseEntity
         return $this->postId;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getDuration(): string
+    public function getDuration(): float
     {
         return $this->duration;
     }
 
-    public function getFileName(): string
+    public function getFileName(): ?string
     {
         return $this->fileName;
     }
 
-    public function getFilePath(): string
+    public function getFilePath(): ?string
     {
         return $this->filePath;
     }
@@ -97,7 +97,7 @@ class AttachmentEntity extends BaseEntity
         return $this->fileURL;
     }
 
-    public function getThumbnailURL(): string
+    public function getThumbnailURL(): ?string
     {
         return $this->thumbnailUrl;
     }

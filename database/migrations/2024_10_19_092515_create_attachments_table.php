@@ -18,7 +18,7 @@ class CreateAttachmentsTable extends Migration
             $table->string('thumbnail_url')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->integer('duration')->nullable();
+            $table->float('duration')->default(0);
             $table->unsignedInteger('comment_count')->default(0);
             $table->unsignedInteger('reaction_count')->default(0);
             $table->unsignedInteger('view_count')->default(0);

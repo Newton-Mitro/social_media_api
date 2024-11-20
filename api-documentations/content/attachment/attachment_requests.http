@@ -1,0 +1,44 @@
+### Get all attachments
+GET http://localhost:8000/api/attachments
+Accept: application/json
+
+###
+
+### Get a specific attachment by ID
+GET http://localhost:8000/api/attachments/0b8eec94-de72-45e4-b4fc-c2991f99fe81
+Accept: application/json
+
+###
+
+### Create a new attachment
+POST http://localhost:8000/api/attachments
+Authorization: Bearer <your-access-token>
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fileName": "example.jpg",
+  "filePath": "/uploads/example.jpg",
+  "mimeType": "image/jpeg"
+}
+
+###
+
+### Update an attachment by ID
+PUT http://localhost:8000/api/attachments/{id}
+Authorization: Bearer <your-access-token>
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fileName": "updated-example.jpg",
+  "filePath": "/uploads/updated-example.jpg",
+  "mimeType": "image/jpeg"
+}
+
+###
+
+### Delete an attachment by ID
+DELETE http://localhost:8000/api/attachments/{id}
+Authorization: Bearer <your-access-token>
+Accept: application/json

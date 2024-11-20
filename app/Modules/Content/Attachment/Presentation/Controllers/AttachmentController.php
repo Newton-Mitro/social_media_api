@@ -3,12 +3,14 @@
 namespace App\Modules\Content\Attachment\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
+use App\Modules\Content\Attachment\Application\Mappers\AttachmentMapper;
 use App\Modules\Content\Attachment\Application\UseCases\CreateAttachmentUseCase;
 use App\Modules\Content\Attachment\Application\UseCases\DeleteAttachmentUseCase;
 use App\Modules\Content\Attachment\Application\UseCases\GetAttachmentUseCase;
 use App\Modules\Content\Attachment\Application\UseCases\UpdateAttachmentUseCase;
 use App\Modules\Content\Attachment\Presentation\Requests\StoreAttachmentRequest;
 use App\Modules\Content\Attachment\Presentation\Requests\UpdateAttachmentRequest;
+use Illuminate\Http\Response;
 
 class AttachmentController extends Controller
 {
@@ -31,13 +33,28 @@ class AttachmentController extends Controller
 
     public function index()
     {
-        return response()->json($this->getUseCase->getAll());
+        return response()->json([
+            'data' => $this->getUseCase->getAll(),
+            'message' => 'Fetch attachments successfully.',
+            'error' => null,
+            'errors' => null,
+        ]);
     }
 
     public function show(string $id)
     {
         $attachment = $this->getUseCase->findById($id);
-        return $attachment ? response()->json($attachment) : response()->json(['message' => 'Not Found'], 404);
+        return $attachment ?  response()->json([
+            'data' => $attachment,
+            'message' => 'Fetch attachments successfully.',
+            'error' => null,
+            'errors' => null,
+        ]) : response()->json([
+            'data' => null,
+            'message' => 'Not Found',
+            'error' => null,
+            'errors' => null,
+        ], Response::HTTP_NOT_FOUND);
     }
 
     public function store(StoreAttachmentRequest $request)

@@ -4,6 +4,7 @@ namespace App\Modules\Content\Attachment\Infrastructure\Repositories;
 
 use App\Modules\Content\Attachment\Domain\Entities\AttachmentEntity;
 use App\Modules\Content\Attachment\Domain\Repositories\AttachmentRepositoryInterface;
+use App\Modules\Content\Attachment\Infrastructure\Mappers\AttachmentMapper;
 use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
 use Illuminate\Support\Collection;
 
@@ -11,13 +12,15 @@ class AttachmentRepository implements AttachmentRepositoryInterface
 {
     public function getAll(): Collection
     {
-        return Attachment::all();
+        $attachments = Attachment::all();
+
+        return AttachmentMapper::toEntityCollection($attachments);
     }
 
     public function findById(string $id): ?AttachmentEntity
     {
         $model = Attachment::find($id);
-        return $model ? $this->toDomain($model) : null;
+        return $model ? AttachmentMapper::toEntity($model) : null;
     }
 
     public function save(AttachmentEntity $attachment): AttachmentEntity

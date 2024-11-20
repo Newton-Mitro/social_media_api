@@ -7,3 +7,4 @@ require __DIR__ . '/../app/Modules/StorageFile/Presentation/Routes/StorageFileRo
 require __DIR__ . '/../app/Modules/Follow/Presentation/Routes/FollowRoutes.php';
 require __DIR__ . '/../app/Modules/Friend/Presentation/Routes/FriendRoutes.php';
 require __DIR__ . '/../app/Modules/Search/Presentation/Routes/SearchRoutes.php';
+require __DIR__ . '/../app/Modules/Content/Attachment/Presentation/Routes/AttachmentRoutes.php';

@@ -37,6 +37,7 @@
     33 => 'App\\Modules\\Profile\\ProfileServiceProvider',
     34 => 'App\\Modules\\Follow\\FollowServiceProvider',
     35 => 'App\\Modules\\Friend\\FriendServiceProvider',
+    36 => 'App\\Modules\\Content\\Attachment\\AttachmentServiceProvider',
   ),
   'eager' => 
   array (
@@ -61,6 +62,7 @@
     18 => 'App\\Modules\\Profile\\ProfileServiceProvider',
     19 => 'App\\Modules\\Follow\\FollowServiceProvider',
     20 => 'App\\Modules\\Friend\\FriendServiceProvider',
+    21 => 'App\\Modules\\Content\\Attachment\\AttachmentServiceProvider',
   ),
   'deferred' => 
   array (

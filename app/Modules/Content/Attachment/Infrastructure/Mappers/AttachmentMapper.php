@@ -4,6 +4,7 @@ namespace App\Modules\Content\Attachment\Infrastructure\Mappers;
 
 use App\Modules\Content\Attachment\Domain\Entities\AttachmentEntity;
 use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
+use Illuminate\Support\Collection;
 
 class AttachmentMapper
 {
@@ -20,19 +21,19 @@ class AttachmentMapper
             title: $model->title,
             description: $model->description,
             duration: $model->duration,
-            commentCount: $model->commentCount,
-            reactionCount: $model->reactionCount,
-            viewCount: $model->viewCount,
-            shareCount: $model->shareCount,
-            createdAt: new \DateTimeImmutable($model->updated_at),
+            commentCount: $model->comment_count,
+            reactionCount: $model->reaction_count,
+            viewCount: $model->view_count,
+            shareCount: $model->share_count,
+            createdAt: new \DateTimeImmutable($model->created_at),
             updatedAt: new \DateTimeImmutable($model->updated_at)
         );
         return $attachment;
     }
 
-    public static function toEntityCollection(array $models): array
+    public static function toEntityCollection(Collection $models): Collection
     {
-        return array_map([self::class, 'toEntity'], $models);
+        return $models->map(fn($model) => self::toEntity($model));
     }
 
     public static function toModel(AttachmentEntity $entity): Attachment

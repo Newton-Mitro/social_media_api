@@ -123,7 +123,7 @@ class DatabaseSeeder extends Seeder
                     FriendRequest::firstOrCreate([
                         'sender_id' => $sender->id,
                         'receiver_id' => $receiver->id,
-                        'status' => $faker->randomElement(['Pending', 'Accepted', 'Rejected'])
+                        'status' => $faker->randomElement(['Pending', 'Accepted'])
                     ]);
                 }
             }

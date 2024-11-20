@@ -26,8 +26,7 @@ class Profile extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $casts = [
-        'id' => 'string',
-        'dbo' => 'datetime',
+        'id' => 'string'
     ];
 
     public function user(): BelongsTo
