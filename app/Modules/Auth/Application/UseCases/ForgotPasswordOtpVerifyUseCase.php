@@ -2,18 +2,17 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
-use Exception;
+use App\Core\Enums\OtpTypes;
+use App\Core\Utilities\OTPGenerator;
+use App\Modules\Auth\Application\DTOs\UserOtpDTO;
+use App\Modules\Auth\Application\Mappers\UserOtpMapper;
+use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
+use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use DateTimeImmutable;
-use Illuminate\Support\Str;
-use App\Core\Enums\OtpTypes;
+use Exception;
 use Illuminate\Http\Response;
-use App\Core\Utilities\OTPGenerator;
-use Illuminate\Support\Facades\Mail;
-use App\Modules\Auth\Application\DTOs\UserOtpDTO;
-use App\Modules\Auth\Application\Mappers\UserOtpDTOMapper;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
-use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
+use Illuminate\Support\Str;
 
 class ForgotPasswordOtpVerifyUseCase
 {
@@ -48,7 +47,7 @@ class ForgotPasswordOtpVerifyUseCase
             $userOTP->setUpdatedAt(new DateTimeImmutable());
             $this->userOTPRepository->save($userOTP);
 
-            return UserOtpDTOMapper::toDTO($userOTP);
+            return UserOtpMapper::toDTO($userOTP);
         } else {
             throw new Exception('Invalid OTP', Response::HTTP_BAD_REQUEST);
         }

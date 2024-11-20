@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Application\Mappers;
 use App\Modules\Auth\Application\DTOs\UserOtpDTO;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 
-class UserOtpDTOMapper
+class UserOtpMapper
 {
     public static function toDTO(UserOtpEntity $entity): UserOtpDTO
     {

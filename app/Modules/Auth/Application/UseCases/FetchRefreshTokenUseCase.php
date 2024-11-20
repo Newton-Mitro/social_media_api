@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
-use App\Modules\Auth\Application\Mappers\UserDTOMapper;
+use App\Modules\Auth\Application\Mappers\UserMapper;
 use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
@@ -22,7 +22,7 @@ class FetchRefreshTokenUseCase
             $userId
         );
 
-        $userDTO = UserDTOMapper::fromEntity($user);
+        $userDTO = UserMapper::toDTO($user);
 
         $access_token = $this->accessTokenService->generateToken($userDTO);
         $refresh_token = $this->jwtRefreshTokenService->generateToken($userDTO, $deviceName, $deviceIP);

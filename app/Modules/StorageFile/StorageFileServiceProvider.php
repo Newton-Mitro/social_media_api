@@ -3,7 +3,7 @@
 namespace App\Modules\StorageFile;
 
 use App\Modules\StorageFile\Application\UseCases\FileUploadService;
-use App\Modules\StorageFile\Core\Interfaces\FileUploadServiceInterface;
+use App\Modules\StorageFile\Domain\Interfaces\FileUploadServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class StorageFileServiceProvider extends ServiceProvider

@@ -32,9 +32,11 @@
     28 => 'Termwind\\Laravel\\TermwindServiceProvider',
     29 => 'Pest\\Laravel\\PestServiceProvider',
     30 => 'App\\Modules\\Auth\\AuthServiceProvider',
-    31 => 'App\\Modules\\Profile\\ProfileServiceProvider',
-    32 => 'App\\Modules\\Follow\\FollowServiceProvider',
-    33 => 'App\\Modules\\Friend\\FriendServiceProvider',
+    31 => 'App\\Modules\\Content\\Post\\PostServiceProvider',
+    32 => 'App\\Modules\\StorageFile\\StorageFileServiceProvider',
+    33 => 'App\\Modules\\Profile\\ProfileServiceProvider',
+    34 => 'App\\Modules\\Follow\\FollowServiceProvider',
+    35 => 'App\\Modules\\Friend\\FriendServiceProvider',
   ),
   'eager' => 
   array (
@@ -54,9 +56,11 @@
     13 => 'Termwind\\Laravel\\TermwindServiceProvider',
     14 => 'Pest\\Laravel\\PestServiceProvider',
     15 => 'App\\Modules\\Auth\\AuthServiceProvider',
-    16 => 'App\\Modules\\Profile\\ProfileServiceProvider',
-    17 => 'App\\Modules\\Follow\\FollowServiceProvider',
-    18 => 'App\\Modules\\Friend\\FriendServiceProvider',
+    16 => 'App\\Modules\\Content\\Post\\PostServiceProvider',
+    17 => 'App\\Modules\\StorageFile\\StorageFileServiceProvider',
+    18 => 'App\\Modules\\Profile\\ProfileServiceProvider',
+    19 => 'App\\Modules\\Follow\\FollowServiceProvider',
+    20 => 'App\\Modules\\Friend\\FriendServiceProvider',
   ),
   'deferred' => 
   array (

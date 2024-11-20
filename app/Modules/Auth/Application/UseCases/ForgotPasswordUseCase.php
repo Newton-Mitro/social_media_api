@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Application\UseCases;
 use App\Core\Enums\OtpTypes;
 use App\Core\Utilities\OTPGenerator;
 use App\Modules\Auth\Application\DTOs\UserOtpDTO;
-use App\Modules\Auth\Application\Mappers\UserOtpDTOMapper;
+use App\Modules\Auth\Application\Mappers\UserOtpMapper;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
@@ -56,7 +56,7 @@ class ForgotPasswordUseCase
             // Persist user in database
             $this->otpRepository->save($userOtpModel);
             Mail::to($user->getEmail())->send(new ForgotPasswordOtpEmail($user->getName(), $otp, $otpValidTime));
-            return UserOtpDTOMapper::toDTO($userOtpModel);
+            return UserOtpMapper::toDTO($userOtpModel);
         }
         //generate otp and store otp to table and emil to user email
         else {
@@ -68,7 +68,7 @@ class ForgotPasswordUseCase
             $this->otpRepository->save($userOTP);
             Mail::to($email)->send(new ForgotPasswordOtpEmail($user->getName(), $otp, $otpValidTime));
 
-            return UserOtpDTOMapper::toDTO($userOTP);
+            return UserOtpMapper::toDTO($userOTP);
         }
     }
 }

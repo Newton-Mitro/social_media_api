@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Application\Mappers;
 use App\Modules\Auth\Application\DTOs\DeviceDTO;
 use App\Modules\Auth\Domain\Entities\DeviceEntity;
 
-class DeviceDTOMapper
+class DeviceMapper
 {
     public static function toDTO(DeviceEntity $entity): DeviceDTO
     {

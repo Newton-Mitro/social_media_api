@@ -2,7 +2,7 @@
 
 namespace App\Modules\Profile\Application\UseCases;
 
-use App\Modules\Auth\Application\Mappers\UserDTOMapper;
+use App\Modules\Auth\Application\Mappers\UserMapper;
 use App\Modules\Auth\Application\DTOs\UserDTO;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;

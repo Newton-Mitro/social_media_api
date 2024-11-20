@@ -12,12 +12,8 @@ use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
 {
-    protected FileUploadServiceInterface $fileUploadService;
 
-    public function __construct(FileUploadServiceInterface $fileUploadService)
-    {
-        $this->fileUploadService = $fileUploadService;
-    }
+    public function __construct(protected FileUploadServiceInterface $fileUploadService) {}
 
     public function upload(FileUploadRequest $request): JsonResponse
     {

@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Application\Mappers;
 use App\Modules\Auth\Application\DTOs\BlacklistedTokenDTO;
 use App\Modules\Auth\Domain\Entities\BlacklistedTokenEntity;
 
-class BlacklistedTokenDTOMapper
+class BlacklistedTokenMapper
 {
     public static function toDTO(BlacklistedTokenEntity $entity): BlacklistedTokenDTO
     {

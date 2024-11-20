@@ -5,8 +5,7 @@ namespace App\Modules\Auth\Infrastructure\Repositories;
 use App\Core\Enums\OtpTypes;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\UserOTPRepositoryInterface;
-use App\Modules\Auth\Infrastructure\Mappers\UserOtpEntityMapper;
-use App\Modules\Auth\Infrastructure\Mappers\UserOtpModelMapper;
+use App\Modules\Auth\Infrastructure\Mappers\UserOtpMapper;
 use App\Modules\Auth\Infrastructure\Models\UserOtp;
 
 class UserOtpRepository implements UserOTPRepositoryInterface
@@ -15,7 +14,7 @@ class UserOtpRepository implements UserOTPRepositoryInterface
     {
         $userOtp = UserOtp::find($userId);
         if ($userOtp) {
-            return UserOtpEntityMapper::toEntity($userOtp);
+            return UserOtpMapper::toEntity($userOtp);
         }
 
         return null;
@@ -23,7 +22,7 @@ class UserOtpRepository implements UserOTPRepositoryInterface
 
     public function save(UserOtpEntity $entity): void
     {
-        $user = UserOtpModelMapper::toModel($entity);
+        $user = UserOtpMapper::toModel($entity);
         $user->save();
     }
 
@@ -33,7 +32,7 @@ class UserOtpRepository implements UserOTPRepositoryInterface
             ->where('type', $type)
             ->first();
         if ($userOtp) {
-            return UserOtpEntityMapper::toEntity($userOtp);
+            return UserOtpMapper::toEntity($userOtp);
         }
         return null;
     }

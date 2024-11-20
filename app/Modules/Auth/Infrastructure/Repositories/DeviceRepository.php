@@ -5,6 +5,7 @@ namespace App\Modules\Auth\Infrastructure\Repositories;
 use App\Modules\Auth\Domain\Entities\DeviceEntity;
 use App\Modules\Auth\Domain\Interfaces\DeviceRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mappers\DeviceEntityMapper;
+use App\Modules\Auth\Infrastructure\Mappers\DeviceMapper;
 use App\Modules\Auth\Infrastructure\Mappers\DeviceModelMapper;
 use App\Modules\Auth\Infrastructure\Models\Device;
 use Illuminate\Support\Collection;
@@ -15,7 +16,7 @@ class DeviceRepository implements DeviceRepositoryInterface
     {
         $device = Device::where('user_id', $user_id)->where('device_name', $device_name)->first();
         if ($device) {
-            return DeviceEntityMapper::toEntity($device);
+            return DeviceMapper::toEntity($device);
         }
 
         return null;
@@ -25,7 +26,7 @@ class DeviceRepository implements DeviceRepositoryInterface
     {
         $device = Device::where('device_token', $device_token)->first();
         if ($device) {
-            return DeviceEntityMapper::toEntity($device);
+            return DeviceMapper::toEntity($device);
         }
 
         return null;
@@ -33,7 +34,7 @@ class DeviceRepository implements DeviceRepositoryInterface
 
     public function save(DeviceEntity $entity): void
     {
-        $user = DeviceModelMapper::toModel($entity);
+        $user = DeviceMapper::toModel($entity);
         $user->save();
     }
 

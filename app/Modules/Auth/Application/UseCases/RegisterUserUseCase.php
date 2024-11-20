@@ -6,7 +6,7 @@ use App\Core\Enums\OtpTypes;
 use App\Core\Utilities\OTPGenerator;
 use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Events\UserRegistered;
-use App\Modules\Auth\Application\Mappers\UserDTOMapper;
+use App\Modules\Auth\Application\Mappers\UserMapper;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
 use App\Modules\Auth\Domain\Entities\UserEntity;
@@ -14,7 +14,6 @@ use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\AuthRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Mail\VerificationEmail;
-use Carbon\Carbon;
 use DateTimeImmutable;
 use ErrorException;
 use Illuminate\Http\Response;
@@ -70,7 +69,7 @@ class RegisterUserUseCase
 
         Event::dispatch(new UserRegistered($userEntity));
 
-        $mappedUser = UserDTOMapper::fromEntity($userEntity);
+        $mappedUser = UserMapper::toDTO($userEntity);
 
         // Generate user token here
         $access_token = $this->accessTokenService->generateToken($mappedUser);
