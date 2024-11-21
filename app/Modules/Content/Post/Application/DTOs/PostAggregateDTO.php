@@ -24,7 +24,7 @@ class PostAggregateDTO
         public int $view_count,
         public int $share_count,
         public int $comment_count,
-        public string $status,
+        public ?string $status,
         public string $created_at,
         public string $updated_at
     ) {

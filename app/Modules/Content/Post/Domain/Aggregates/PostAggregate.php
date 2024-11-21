@@ -22,7 +22,7 @@ class PostAggregate
     private int $reactionCount;
     private int $viewCount;
     private int $shareCount;
-    private PostStatus $status;
+    private ?PostStatus $status;
     private DateTimeImmutable $createdAt;
     private DateTimeImmutable $updatedAt;
 
@@ -36,7 +36,7 @@ class PostAggregate
         int $viewCount = 0,
         int $shareCount = 0,
         int $commentCount = 0,
-        PostStatus $status,
+        ?PostStatus $status = null,
         DateTimeImmutable $createdAt = new DateTimeImmutable(),
         DateTimeImmutable $updatedAt = new DateTimeImmutable(),
     ) {
@@ -99,7 +99,7 @@ class PostAggregate
     {
         return $this->shareCount;
     }
-    public function getStatus(): PostStatus
+    public function getStatus(): ?PostStatus
     {
         return $this->status;
     }
@@ -135,7 +135,7 @@ class PostAggregate
         $this->addAttachment($newAttachment);
     }
 
-    public function setStatus(PostStatus $status): void
+    public function setStatus(?PostStatus $status): void
     {
         $this->status = $status;
     }

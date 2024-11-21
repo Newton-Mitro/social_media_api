@@ -16,7 +16,7 @@ class ReactionMapper
         $reactionDTO->reactable_id = $entity->getReactableId();
         $reactionDTO->reactable_type = $entity->getReactableType();
         $reactionDTO->user_id = $entity->getUserId();
-        $reactionDTO->type = $entity->getType();
+        $reactionDTO->type = $entity->getType()->value;
         $reactionDTO->created_at = $entity->getCreatedAt()->format(DateTimeImmutable::ATOM);
         $reactionDTO->updated_at = $entity->getUpdatedAt()->format(DateTimeImmutable::ATOM);
 

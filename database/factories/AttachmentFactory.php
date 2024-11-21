@@ -46,7 +46,8 @@ class AttachmentFactory extends Factory
             'file_path' => $this->faker->filePath(), // Random file path
             'file_name' => $this->faker->word . '.' . $this->faker->fileExtension, // Random file name
             'thumbnail_url' => $thumbnail_url,
-            'description' => $this->faker->optional()->sentence,
+            'title' => $this->faker->word,
+            'description' => $this->faker->sentence,
             'duration' => $type === 'video' ? $this->faker->numberBetween(1, 120) : 0,
             'comment_count' => $this->faker->numberBetween(0, 100),
             'share_count' => $this->faker->numberBetween(0, 100),

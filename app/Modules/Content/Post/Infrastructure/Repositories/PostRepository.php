@@ -30,17 +30,15 @@ class PostRepository implements PostRepositoryInterface
 
     public function findById(string $postId): ?PostAggregate
     {
-        $post = DB::table('posts')
-            ->leftJoin('attachments', 'posts.id', '=', 'attachments.post_id')
-            ->leftJoin('privacies', 'posts.privacy_id', '=', 'privacies.id')
-            ->leftJoin('users as creators', 'posts.creator_id', '=', 'creators.id')
-            ->leftJoin('reactions as myReaction', function ($join) {
-                $join->on('posts.id', '=', 'myReaction.reactable_id')
-                    ->where('myReaction.reactable_type', '=', 'post');
-            })
-            ->where('posts.id', '=', $postId)
-            ->select('posts.*', 'privacies.*', 'creators.*', 'myReaction.*', 'attachments.*')
-            ->first();
+        $post = Post::with([
+            'attachments',
+            'privacy:id,name', // Include only relevant columns from privacies
+            'creator:id,name,email', // Include relevant user columns
+            'reactions' => function ($query) {
+                $query->where('reactable_type', 'post');
+            }
+        ])
+            ->find($postId);
 
         if (!$post) {
             return null;
@@ -97,35 +95,43 @@ class PostRepository implements PostRepositoryInterface
 
     public function getPosts(int $limit = 10, int $offset = 0, ?string $auth_user_id = null): Collection
     {
-        $posts = DB::table('posts')
-            ->leftJoin('attachments', 'posts.id', '=', 'attachments.post_id')
-            ->leftJoin('privacies', 'posts.privacy_id', '=', 'privacies.id')
-            ->leftJoin('users as creators', 'posts.creator_id', '=', 'creators.id')
-            ->leftJoin('reactions as myReaction', function ($join) use ($auth_user_id) {
-                $join->on('posts.id', '=', 'myReaction.reactable_id')
-                    ->where('myReaction.reactable_type', '=', 'post')
-                    ->where('myReaction.user_id', '=', $auth_user_id);
-            })
-            ->select('posts.*', 'privacies.*', 'creators.*', 'myReaction.*', 'attachments.*') // Adjust based on actual columns
+        $postsQuery = Post::with([
+            'attachments',
+            'privacy',
+            'creator',
+        ]);
+
+        // Include the user's reaction if the authenticated user ID is provided
+        if ($auth_user_id) {
+            $postsQuery->with(['myReaction' => function ($query) use ($auth_user_id) {
+                // Pass the auth_user_id to the myReaction relationship
+                $query->where('user_id', $auth_user_id);
+            }]);
+        }
+
+        $posts = $postsQuery
             ->limit($limit)
             ->offset($offset)
             ->get();
-
         return PostAggregateMapper::toEntityCollection($posts);
     }
 
     public function getUserPosts(int $limit = 10, int $offset = 0, ?string $auth_user_id): Collection
     {
-        $posts = DB::table('posts')
-            ->leftJoin('attachments', 'posts.id', '=', 'attachments.post_id')
-            ->leftJoin('privacies', 'posts.privacy_id', '=', 'privacies.id')
-            ->leftJoin('users as creators', 'posts.creator_id', '=', 'creators.id')
-            ->leftJoin('reactions as myReaction', function ($join) use ($auth_user_id) {
-                $join->on('posts.id', '=', 'myReaction.reactable_id')
-                    ->where('myReaction.reactable_type', '=', 'post')
-                    ->where('myReaction.user_id', '=', $auth_user_id);
-            })
-            ->select('posts.*', 'privacies.*', 'creators.*', 'myReaction.*', 'attachments.*') // Adjust based on actual columns
+        $postsQuery = Post::with([
+            'attachments',
+            'privacy',
+            'creator',
+        ]);
+
+        // Include the user's reaction if the authenticated user ID is provided
+        if ($auth_user_id) {
+            $postsQuery->with(['myReaction' => function ($query) use ($auth_user_id) {
+                $query->where('user_id', $auth_user_id);
+            }]);
+        }
+
+        $posts = $postsQuery
             ->limit($limit)
             ->offset($offset)
             ->get();

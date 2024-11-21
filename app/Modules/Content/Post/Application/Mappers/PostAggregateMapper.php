@@ -9,6 +9,7 @@ use App\Modules\Content\Post\Domain\Aggregates\PostAggregate;
 use App\Modules\Content\Privacy\Application\Mappers\PrivacyMapper;
 use App\Modules\Content\Reaction\Application\Mappers\ReactionMapper;
 use DateTimeImmutable;
+use Illuminate\Support\Collection;
 
 class PostAggregateMapper
 {
@@ -24,7 +25,7 @@ class PostAggregateMapper
             view_count: $aggregate->getViewCount(),
             share_count: $aggregate->getShareCount(),
             comment_count: $aggregate->getCommentCount(),
-            status: $aggregate->getStatus()->value,
+            status: $aggregate->getStatus() ? $aggregate->getStatus()->value : null,
             created_at: $aggregate->getCreatedAt()->format(DateTimeImmutable::ATOM),
             updated_at: $aggregate->getUpdatedAt()->format(DateTimeImmutable::ATOM),
         );
@@ -34,5 +35,10 @@ class PostAggregateMapper
         $postAggregateDTO->attachments = $attachments;
 
         return $postAggregateDTO;
+    }
+
+    public static function toDTOCollection(Collection $aggregates): Collection
+    {
+        return $aggregates->map(fn(PostAggregate $aggregate) => self::toDTO($aggregate));
     }
 }

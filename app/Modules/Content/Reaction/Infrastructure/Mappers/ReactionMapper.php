@@ -3,6 +3,7 @@
 namespace App\Modules\Content\Reaction\Infrastructure\Mappers;
 
 use App\Modules\Content\Reaction\Domain\Entities\ReactionEntity;
+use App\Modules\Content\Reaction\Domain\ValueObjects\ReactionTypes;
 use App\Modules\Content\Reaction\Infrastructure\Models\Reaction;
 use Illuminate\Support\Collection;
 
@@ -15,7 +16,7 @@ class ReactionMapper
             reactableId: $model->reactable_id,
             reactableType: $model->reactable_type,
             userId: $model->user_id,
-            type: $model->type,
+            type: ReactionTypes::from($model->type),
             createdAt: new \DateTimeImmutable($model->created_at),
             updatedAt: new \DateTimeImmutable($model->updated_at)
         );

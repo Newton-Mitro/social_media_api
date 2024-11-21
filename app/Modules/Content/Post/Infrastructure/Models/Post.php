@@ -37,7 +37,7 @@ class Post extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function comments(): MorphMany
@@ -53,6 +53,13 @@ class Post extends Model
     public function reactions(): MorphMany
     {
         return $this->morphMany(Reaction::class, 'reactable');
+    }
+
+    public function myReaction()
+    {
+        return $this->hasOne(Reaction::class, 'reactable_id')
+            ->where('reactable_type', Post::class)
+            ->where('user_id', auth()->id());
     }
 
     public function shares()

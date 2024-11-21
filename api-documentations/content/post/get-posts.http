@@ -13,7 +13,7 @@ Accept: application/json
 @auth_token = {{login.response.body.data.access_token}}
 
 # @name getPosts
-GET http://127.0.0.1:8000/api/posts?page=1&per_page=5
+GET http://127.0.0.1:8000/api/posts?limit=5&offset=0
 Accept: application/json
 
 
@@ -22,6 +22,6 @@ Accept: application/json
 
 ###
 # @name getPosts
-GET http://127.0.0.1:8000/api/posts?page=1&per_page=50
+GET http://127.0.0.1:8000/api/posts?limit=50&offset=0
 Accept: application/json
 Authorization: Bearer {{auth_token}}

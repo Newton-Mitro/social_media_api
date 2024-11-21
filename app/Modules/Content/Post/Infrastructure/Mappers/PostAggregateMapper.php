@@ -23,7 +23,7 @@ class PostAggregateMapper
 
         $postAggregate = new PostAggregate(
             id: $post->id,
-            content: $post->content,
+            content: $post->post_text,
             privacy: $privacy,
             creator: $creator,
             myReaction: $myReaction,
@@ -31,7 +31,7 @@ class PostAggregateMapper
             reactionCount: $post->reaction_count,
             viewCount: $post->view_count,
             shareCount: $post->share_count,
-            status: new PostStatus($post->status),
+            status: PostStatus::tryFrom($post->status),
             createdAt: new \DateTimeImmutable($post->created_at),
             updatedAt: new \DateTimeImmutable($post->updated_at),
         );

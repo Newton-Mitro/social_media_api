@@ -1,15 +1,17 @@
 <?php
 
 
-use Illuminate\Support\Facades\Route;
-use App\Modules\Auth\Presentation\Middlewares\RequestUserMiddleware;
-use App\Modules\Content\Post\Presentation\Controllers\PostController;
 use App\Modules\Auth\Presentation\Middlewares\JwtAccessTokenMiddleware;
-use App\Modules\Content\Post\Presentation\Controllers\FetchPostsController;
+use App\Modules\Auth\Presentation\Middlewares\RequestUserMiddleware;
+use App\Modules\Content\Post\Presentation\Controllers\GetPostsController;
+use App\Modules\Content\Post\Presentation\Controllers\PostController;
+use Illuminate\Support\Facades\Route;
+
+
 
 
 Route::middleware(RequestUserMiddleware::class)->group(function (): void {
-    Route::get('/posts', FetchPostsController::class);
+    Route::get('/posts', GetPostsController::class);
 });
 
 Route::middleware(JwtAccessTokenMiddleware::class)->group(function (): void {
