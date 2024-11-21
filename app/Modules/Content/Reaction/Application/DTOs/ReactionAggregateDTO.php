@@ -2,12 +2,14 @@
 
 namespace App\Modules\Content\Reaction\Application\DTOs;
 
-class ReactionDTO
+use App\Modules\Auth\Application\DTOs\UserDTO;
+
+class ReactionAggregateDTO
 {
     public string $id;
     public string $reactable_id;
     public string $reactable_type;
-    public string $user_id;
+    public UserDTO $user;
     public string $type;
     public string $created_at;
     public string $updated_at;

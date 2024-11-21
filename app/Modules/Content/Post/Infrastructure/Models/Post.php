@@ -2,17 +2,17 @@
 
 namespace App\Modules\Content\Post\Infrastructure\Models;
 
-use Database\Factories\PostFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Modules\Auth\Infrastructure\Models\User;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Modules\Content\Share\Infrastructure\Models\Share;
+use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
 use App\Modules\Content\Comment\Infrastructure\Models\Comment;
-use App\Modules\Content\Post\Infrastructure\Models\Attachment;
 use App\Modules\Content\Privacy\Infrastructure\Models\Privacy;
 use App\Modules\Content\Reaction\Infrastructure\Models\Reaction;
+use App\Modules\Content\Share\Infrastructure\Models\Share;
+use Database\Factories\PostFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Post extends Model
 {
@@ -35,7 +35,7 @@ class Post extends Model
         return $this->belongsTo(Privacy::class);
     }
 
-    public function user()
+    public function creator()
     {
         return $this->belongsTo(User::class);
     }

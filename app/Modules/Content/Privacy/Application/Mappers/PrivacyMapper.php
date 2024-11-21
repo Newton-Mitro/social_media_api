@@ -4,6 +4,8 @@ namespace App\Modules\Content\Privacy\Application\Mappers;
 
 use App\Modules\Content\Privacy\Application\DTOs\PrivacyDTO;
 use App\Modules\Content\Privacy\Domain\Entities\PrivacyEntity;
+use DateTimeImmutable;
+use Illuminate\Support\Collection;
 
 class PrivacyMapper
 {
@@ -12,13 +14,13 @@ class PrivacyMapper
         $privacyDTO = new PrivacyDTO();
         $privacyDTO->id = $entity->getId();
         $privacyDTO->privacy_name = $entity->getPrivacyName();
-        $privacyDTO->created_at = $entity->getCreatedAt()->format('Y-m-d H:i:s');
-        $privacyDTO->updated_at = $entity->getUpdatedAt()->format('Y-m-d H:i:s');
+        $privacyDTO->created_at = $entity->getCreatedAt()->format(DateTimeImmutable::ATOM);
+        $privacyDTO->updated_at = $entity->getUpdatedAt()->format(DateTimeImmutable::ATOM);
         return $privacyDTO;
     }
 
-    public static function toDTOCollection(array $models): array
+    public static function toDTOCollection(Collection $entities): Collection
     {
-        return array_map([self::class, 'toDTO'], $models);
+        return $entities->map([self::class, 'toDTO']);
     }
 }

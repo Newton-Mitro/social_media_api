@@ -36,31 +36,4 @@ class AttachmentMapper
     {
         return $entities->map([self::class, 'toDTO']);
     }
-
-    public static function toEntity(array $payload): AttachmentEntity
-    {
-        $attachment = new AttachmentEntity(
-            id: $payload['id'] ?? null,
-            postId: $payload['post_id'] ?? null,
-            mimeType: $payload['mime_type'] ?? null,
-            fileURL: $payload['file_url'] ?? null,
-            filePath: $payload['file_path'] ?? null,
-            fileName: $payload['file_name'] ?? null,
-            thumbnailUrl: $payload['thumbnail_url'] ?? null,
-            title: $payload['title'] ?? null,
-            description: $payload['description'] ?? null,
-            duration: $payload['duration'] ?? null,
-            commentCount: $payload['comment_count'] ?? 0,
-            reactionCount: $payload['reaction_count'] ?? 0,
-            viewCount: $payload['view_count'] ?? 0,
-            shareCount: $payload['share_count'] ?? 0,
-            createdAt: isset($payload['created_at'])
-                ? new \DateTimeImmutable($payload['created_at'])
-                : new \DateTimeImmutable(),
-            updatedAt: isset($payload['updated_at'])
-                ? new \DateTimeImmutable($payload['updated_at'])
-                : new \DateTimeImmutable()
-        );
-        return $attachment;
-    }
 }

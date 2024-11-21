@@ -10,5 +10,16 @@ class RemoveCommentUseCase
         protected PostRepositoryInterface $postRepository
     ) {}
 
-    public function handle(): void {}
+    public function handle(): void
+    {
+        // User Exist
+
+        // Post Exist
+
+        // Update Comment Count
+
+        // Create Comment Entity
+
+        // Persist Post and Comment (DB transaction)
+    }
 }

@@ -11,5 +11,12 @@ class CreatePostUseCase
         protected PostRepositoryInterface $postRepository
     ) {}
 
-    public function handle(): void {}
+    public function handle(): void
+    {
+        // User Exist
+
+        // Create Post Aggregate
+
+        // Persist Post Aggregate (DB Transaction)
+    }
 }

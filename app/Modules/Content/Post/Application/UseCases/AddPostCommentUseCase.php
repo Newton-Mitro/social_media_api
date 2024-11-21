@@ -11,5 +11,14 @@ class AddCommentUseCase
         protected PostRepositoryInterface $postRepository
     ) {}
 
-    public function handle(): void {}
+    public function handle(): void
+    {
+        // Get Post Aggregate
+
+        // Update Comment Count
+
+        // Create Comment Entity
+
+        // Persist Post Aggregate and Comment (DB transaction)
+    }
 }

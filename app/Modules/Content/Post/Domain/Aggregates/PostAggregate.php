@@ -13,11 +13,11 @@ use Illuminate\Support\Collection;
 class PostAggregate
 {
     private string $id;
-    private string $content;
+    private ?string $content;
     private PrivacyEntity $privacy;
     private UserEntity $creator;
     private Collection $attachments;
-    private ReactionEntity $myReaction;
+    private ?ReactionEntity $myReaction;
     private int $commentCount;
     private int $reactionCount;
     private int $viewCount;
@@ -28,10 +28,10 @@ class PostAggregate
 
     public function __construct(
         string $id,
-        string $content,
+        ?string $content,
         UserEntity $creator = null,
         PrivacyEntity $privacy = null,
-        ReactionEntity $myReaction = null,
+        ?ReactionEntity $myReaction = null,
         int $reactionCount = 0,
         int $viewCount = 0,
         int $shareCount = 0,
@@ -60,16 +60,16 @@ class PostAggregate
     {
         return $this->id;
     }
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
-    public function getPrivacy(): ?PrivacyEntity
+    public function getPrivacy(): PrivacyEntity
     {
         return $this->privacy;
     }
 
-    public function getCreator(): ?UserEntity
+    public function getCreator(): UserEntity
     {
         return $this->creator;
     }
@@ -103,7 +103,7 @@ class PostAggregate
     {
         return $this->status;
     }
-    public function getMyReaction(): ReactionEntity
+    public function getMyReaction(): ?ReactionEntity
     {
         return $this->myReaction;
     }

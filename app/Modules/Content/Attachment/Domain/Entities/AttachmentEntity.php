@@ -24,7 +24,6 @@ class AttachmentEntity extends BaseEntity
     private DateTimeImmutable $updatedAt;
 
     public function __construct(
-
         string $postId,
         string $fileURL,
         ?string $thumbnailUrl,

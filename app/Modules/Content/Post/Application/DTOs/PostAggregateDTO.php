@@ -16,17 +16,17 @@ class PostAggregateDTO
 
     public function __construct(
         public string $id,
-        public string $content,
+        public ?string $content,
         public UserDTO $creator,
         public PrivacyDTO $privacy,
-        public ReactionDTO $my_reaction,
+        public ?ReactionDTO $my_reaction,
         public int $reaction_count,
         public int $view_count,
         public int $share_count,
         public int $comment_count,
         public string $status,
-        public DateTimeImmutable $created_at,
-        public DateTimeImmutable $updated_at
+        public string $created_at,
+        public string $updated_at
     ) {
         $this->attachments = collect();
     }
