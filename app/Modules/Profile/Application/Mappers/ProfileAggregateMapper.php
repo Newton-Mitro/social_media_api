@@ -2,17 +2,16 @@
 
 namespace App\Modules\Profile\Application\Mappers;
 
-use App\Modules\Auth\Application\Mappers\UserMapper;
+use App\Modules\Auth\Application\Mappers\UserAggregateMapper;
 use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;
 use App\Modules\Profile\Domain\Aggregates\ProfileAggregate;
 
-class ProfileAggregateDTOMapper
+class ProfileAggregateMapper
 {
-    public static function fromEntity(ProfileAggregate $entity): ProfileAggregateDTO
+    public static function toDTO(ProfileAggregate $entity): ProfileAggregateDTO
     {
         return new ProfileAggregateDTO(
-            user: UserMapper::fromEntity($entity->user),
-            profile: ProfileDTOMapper::fromEntity($entity->profile),
+            user: UserAggregateMapper::toDTO($entity->user),
             followers_count: $entity->followers_count,
             following_count: $entity->following_count,
             friends_count: $entity->friends_count,

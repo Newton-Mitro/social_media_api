@@ -5,9 +5,8 @@ namespace App\Modules\Profile\Infrastructure\Repositories;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Infrastructure\Models\User;
 use App\Modules\Profile\Domain\Aggregates\ProfileAggregate;
-use App\Modules\Profile\Domain\Interfaces\ProfileRepositoryInterface;
-use App\Modules\Profile\Infrastructure\Mappers\ProfileAggregateEntityMapper;
-use App\Modules\Profile\Infrastructure\Mappers\ProfileModelMapper;
+use App\Modules\Profile\Domain\Repositories\ProfileRepositoryInterface;
+use App\Modules\Profile\Infrastructure\Mappers\ProfileAggregateMapper;
 use App\Modules\Profile\Infrastructure\Models\Profile;
 use Exception;
 use Illuminate\Http\Response;
@@ -91,21 +90,9 @@ class ProfileRepository implements ProfileRepositoryInterface
             'friend_request_status' => $friend_request_status,
         ];
 
-        return ProfileAggregateEntityMapper::fromModel(
-            userModel: $user,
-            profileModel: $profile,
+        return ProfileAggregateMapper::toAggregate(
+            model: $user,
             counters: $counters
         );
-    }
-
-    public function save(ProfileAggregate $profileAggregate): void
-    {
-        $profile = $profileAggregate->profile;
-
-        $profileModel = ProfileModelMapper::fromEntity($profile);
-
-        DB::transaction(function () use ($profileModel) {
-            $profileModel->save();
-        });
     }
 }

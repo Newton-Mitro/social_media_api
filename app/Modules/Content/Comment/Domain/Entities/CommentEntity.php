@@ -3,13 +3,13 @@
 namespace App\Modules\Content\Comment\Domain\Entities;
 
 use App\Core\Entities\BaseEntity;
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserAggregate;
 use DateTimeImmutable;
 
 class CommentEntity extends BaseEntity
 {
     private string $postId;
-    private UserEntity $author;
+    private UserAggregate $author;
     private string $commentText;
     private string $commentableId;
     private string $commentableType;
@@ -19,7 +19,7 @@ class CommentEntity extends BaseEntity
 
     public function __construct(
         string $postId,
-        UserEntity $author,
+        UserAggregate $author,
         string $commentText,
         string $commentableId,
         string $commentableType,
@@ -45,7 +45,7 @@ class CommentEntity extends BaseEntity
         return $this->postId;
     }
 
-    public function getAuthor(): UserEntity
+    public function getAuthor(): UserAggregate
     {
         return $this->author;
     }

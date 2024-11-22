@@ -2,16 +2,16 @@
 
 namespace App\Modules\Auth\Infrastructure\Mappers;
 
-
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Aggregates\UserAggregate;
+use App\Modules\Auth\Infrastructure\Mappers\ProfileMapper;
 use App\Modules\Auth\Infrastructure\Models\User;
 use DateTimeImmutable;
 
-class UserMapper
+class UserAggregateMapper
 {
-    public static function toEntity(User $model): UserEntity
+    public static function toAggregate(User $model): UserAggregate
     {
-        return new UserEntity(
+        return new UserAggregate(
             id: $model->id,
             name: $model->name,
             email: $model->email,
@@ -19,11 +19,12 @@ class UserMapper
             emailVerifiedAt: $model->email_verified_at ? new DateTimeImmutable($model->email_verified_at) : null,
             lastLoggedIn: $model->last_logged_in ? new DateTimeImmutable($model->last_logged_in) : null,
             createdAt: new DateTimeImmutable($model->created_at),
-            updatedAt: new DateTimeImmutable($model->updated_at)
+            updatedAt: new DateTimeImmutable($model->updated_at),
+            profile: ProfileMapper::toEntity($model->profile),
         );
     }
 
-    public static function toModel(UserEntity $entity): User
+    public static function toModel(UserAggregate $entity): User
     {
         $model = User::find($entity->getId()) ?? new User();
         $model->id = $entity->getId();

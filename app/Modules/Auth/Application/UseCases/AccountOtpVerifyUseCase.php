@@ -6,7 +6,7 @@ use Exception;
 use Carbon\Carbon;
 use DateTimeImmutable;
 use Illuminate\Http\Response;
-use App\Modules\Auth\Application\Mappers\UserMapper;
+use App\Modules\Auth\Application\Mappers\UserAggregateMapper;
 use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
@@ -41,7 +41,7 @@ class AccountOtpVerifyUseCase
             $user->setOtpVerified(true);
             $this->userRepository->save($user);
 
-            $mappedUserDTO = UserMapper::toDTO($user);
+            $mappedUserDTO = UserAggregateMapper::toDTO($user);
 
             // Generate user token here
             $access_token = $this->accessTokenService->generateToken($mappedUserDTO);

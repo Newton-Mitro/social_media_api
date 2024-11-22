@@ -2,14 +2,10 @@
 
 namespace App\Modules\Profile\Application\UseCases;
 
-use App\Modules\Auth\Application\Mappers\UserMapper;
-use App\Modules\Auth\Application\DTOs\UserDTO;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;
-use App\Modules\Profile\Application\Mappers\ProfileAggregateDTOMapper;
-use App\Modules\Profile\Domain\Interfaces\ProfileRepositoryInterface;
-use App\Modules\Profile\Infrastructure\Repositories\ProfileRepository;
-use DateTimeImmutable;
+use App\Modules\Profile\Application\Mappers\ProfileAggregateMapper;
+use App\Modules\Profile\Domain\Repositories\ProfileRepositoryInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,6 +13,7 @@ class ChangeCoverPhotoUseCase
 {
     public function __construct(
         protected ProfileRepositoryInterface $profileRepository,
+        protected UserRepositoryInterface $userRepository
     ) {}
 
     public function handle(string $userId, UploadedFile $coverPhoto): ProfileAggregateDTO
@@ -26,9 +23,9 @@ class ChangeCoverPhotoUseCase
         );
 
         // Check if the user has an existing cover photo
-        if ($userAggregate->profile->getCoverPhoto()) {
+        if ($userAggregate->user->getProfile()->getCoverPhoto()) {
             // Get the existing photo path
-            $existingPhotoPath = parse_url($userAggregate->profile->getCoverPhoto(), PHP_URL_PATH);
+            $existingPhotoPath = parse_url($userAggregate->user->getProfile()->getCoverPhoto(), PHP_URL_PATH);
             // Delete the existing photo
             Storage::disk('public')->delete(ltrim($existingPhotoPath, '/'));
         }
@@ -36,15 +33,15 @@ class ChangeCoverPhotoUseCase
         // Store the new cover photo
         $path = $coverPhoto->store('users', 'public');
 
-        $userAggregate->profile->updateProfile(
-            $userAggregate->profile->getMobileNumber(),
-            $userAggregate->profile->getProfilePicture(),
+        $userAggregate->user->getProfile()->updateProfile(
+            $userAggregate->user->getProfile()->getMobileNumber(),
+            $userAggregate->user->getProfile()->getProfilePicture(),
             $path,
-            $userAggregate->profile->getBio()
+            $userAggregate->user->getProfile()->getBio()
         );
 
-        $this->profileRepository->save($userAggregate);
+        $this->userRepository->save($userAggregate);
 
-        return ProfileAggregateDTOMapper::fromEntity($userAggregate);
+        return ProfileAggregateMapper::toDTO($userAggregate);
     }
 }

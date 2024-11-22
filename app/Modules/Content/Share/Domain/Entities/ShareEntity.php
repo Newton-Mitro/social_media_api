@@ -3,19 +3,19 @@
 namespace App\Modules\Content\Share\Domain\Entities;
 
 use App\Core\Entities\BaseEntity;
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserAggregate;
 use App\Modules\Content\Share\Domain\ValueObjects\SharePlatforms;
 use DateTimeImmutable;
 
 class ShareEntity extends BaseEntity
 {
-    private UserEntity $sharer;
+    private UserAggregate $sharer;
     private SharePlatforms $platform;
     private DateTimeImmutable $sharedAt;
 
     public function __construct(
 
-        UserEntity $sharer,
+        UserAggregate $sharer,
         SharePlatforms $platform,
         DateTimeImmutable $sharedAt,
         ?string $id = null
@@ -28,7 +28,7 @@ class ShareEntity extends BaseEntity
 
     // Getters for the properties
 
-    public function getSharer(): UserEntity
+    public function getSharer(): UserAggregate
     {
         return $this->sharer;
     }

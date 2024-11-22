@@ -3,8 +3,8 @@
 namespace App\Modules\Profile\Application\UseCases;
 
 use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;
-use App\Modules\Profile\Application\Mappers\ProfileAggregateDTOMapper;
-use App\Modules\Profile\Domain\Interfaces\ProfileRepositoryInterface;
+use App\Modules\Profile\Application\Mappers\ProfileAggregateMapper;
+use App\Modules\Profile\Domain\Repositories\ProfileRepositoryInterface;
 
 class FetchUserProfileUseCase
 {
@@ -19,7 +19,7 @@ class FetchUserProfileUseCase
             $authUserId
         );
 
-        return ProfileAggregateDTOMapper::fromEntity(
+        return ProfileAggregateMapper::toDTO(
             $userProfileAggregate
         );
     }

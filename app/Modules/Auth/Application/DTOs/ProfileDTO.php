@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Profile\Application\DTOs;
+namespace App\Modules\Auth\Application\DTOs;
 
 use App\Modules\Profile\Domain\Entities\ProfileEntity;
 

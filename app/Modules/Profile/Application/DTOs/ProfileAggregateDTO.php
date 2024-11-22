@@ -2,16 +2,12 @@
 
 namespace App\Modules\Profile\Application\DTOs;
 
-use App\Modules\Auth\Application\DTOs\UserDTO;
-use App\Modules\Profile\Application\DTOs\ProfileDTO;
-
-
+use App\Modules\Auth\Application\DTOs\UserAggregateDTO;
 
 class ProfileAggregateDTO
 {
     public function __construct(
-        public UserDTO $user,
-        public ProfileDTO $profile,
+        public UserAggregateDTO $user,
         public int $followers_count,
         public int $following_count,
         public int $friends_count,

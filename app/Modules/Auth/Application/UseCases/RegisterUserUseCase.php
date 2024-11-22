@@ -6,10 +6,10 @@ use App\Core\Enums\OtpTypes;
 use App\Core\Utilities\OTPGenerator;
 use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Events\UserRegistered;
-use App\Modules\Auth\Application\Mappers\UserMapper;
+use App\Modules\Auth\Application\Mappers\UserAggregateMapper;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserAggregate;
 use App\Modules\Auth\Domain\Entities\UserOtpEntity;
 use App\Modules\Auth\Domain\Interfaces\AuthRepositoryInterface;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
@@ -43,7 +43,7 @@ class RegisterUserUseCase
         $otp = OTPGenerator::generateOTP();
         $expiresAt = OTPGenerator::generateExpireTime();
 
-        $userEntity = new UserEntity(
+        $userEntity = new UserAggregate(
             name: $name,
             email: $email,
             password: $password,
@@ -69,7 +69,7 @@ class RegisterUserUseCase
 
         Event::dispatch(new UserRegistered($userEntity));
 
-        $mappedUser = UserMapper::toDTO($userEntity);
+        $mappedUser = UserAggregateMapper::toDTO($userEntity);
 
         // Generate user token here
         $access_token = $this->accessTokenService->generateToken($mappedUser);

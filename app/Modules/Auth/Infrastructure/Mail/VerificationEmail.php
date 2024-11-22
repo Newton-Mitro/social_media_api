@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Infrastructure\Mail;
 
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserAggregate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -12,7 +12,7 @@ class VerificationEmail extends Mailable
     use Queueable;
     use SerializesModels;
 
-    public function __construct(public UserEntity $user, public string $otp, public string $otpValidityPeriod) {}
+    public function __construct(public UserAggregate $user, public string $otp, public string $otpValidityPeriod) {}
 
     public function build()
     {

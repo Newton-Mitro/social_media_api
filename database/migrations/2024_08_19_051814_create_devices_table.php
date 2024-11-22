@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('device_name');
             $table->string('device_ip')->nullable();
             $table->string('device_identifier')->nullable();
-            $table->string('device_token', 1024);
+            $table->text('device_token');
             $table->timestamps();
         });
     }

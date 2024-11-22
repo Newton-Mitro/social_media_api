@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
-use App\Modules\Auth\Application\Mappers\UserMapper;
+use App\Modules\Auth\Application\Mappers\UserAggregateMapper;
 use App\Modules\Auth\Application\DTOs\AuthUserDTO;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
@@ -30,7 +30,7 @@ class UserLoginUseCase
             $user->setLastLoggedIn(Carbon::now()->toDateTimeImmutable());
             $this->userRepository->save($user);
 
-            $mappedUser = UserMapper::toDTO($user);
+            $mappedUser = UserAggregateMapper::toDTO($user);
 
             // Generate user token here
             $access_token = $this->accessTokenService->generateToken($mappedUser);

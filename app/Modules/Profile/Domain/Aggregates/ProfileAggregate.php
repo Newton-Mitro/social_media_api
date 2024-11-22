@@ -2,15 +2,12 @@
 
 namespace App\Modules\Profile\Domain\Aggregates;
 
-use App\Modules\Auth\Domain\Entities\UserEntity;
-use App\Modules\Profile\Domain\Entities\ProfileEntity;
-
+use App\Modules\Auth\Domain\Aggregates\UserAggregate;
 
 class ProfileAggregate
 {
     public function __construct(
-        public UserEntity $user,
-        public ProfileEntity $profile,
+        public UserAggregate $user,
         public int $followers_count,
         public int $following_count,
         public int $friends_count,

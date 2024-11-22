@@ -2,12 +2,11 @@
 
 namespace App\Modules\Auth\Domain\Interfaces;
 
-use App\Modules\Auth\Domain\Entities\UserEntity;
-
+use App\Modules\Auth\Domain\Aggregates\UserAggregate;
 
 interface UserRepositoryInterface
 {
-    public function save(UserEntity $userUserModel): void;
-    public function findById(string $userId): ?UserEntity;
-    public function findByEmail(string $email): ?UserEntity;
+    public function save(UserAggregate $userUserModel): void;
+    public function findById(string $userId): ?UserAggregate;
+    public function findByEmail(string $email): ?UserAggregate;
 }

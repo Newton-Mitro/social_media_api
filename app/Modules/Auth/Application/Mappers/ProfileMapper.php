@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Modules\Profile\Application\Mappers;
+namespace App\Modules\Auth\Application\Mappers;
 
-use App\Modules\Profile\Application\DTOs\ProfileDTO;
-use App\Modules\Profile\Domain\Entities\ProfileEntity;
+use App\Modules\Auth\Application\DTOs\ProfileDTO;
+use App\Modules\Auth\Domain\Entities\ProfileEntity;
 use Illuminate\Support\Facades\Storage;
 
-class ProfileDTOMapper
+class ProfileMapper
 {
-    public static function fromEntity(?ProfileEntity $profileEntity): ProfileDTO
+    public static function toDTO(?ProfileEntity $profileEntity): ProfileDTO
     {
         return new ProfileDTO(
             id: $profileEntity->getId(),

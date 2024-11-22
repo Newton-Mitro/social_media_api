@@ -2,7 +2,7 @@
 
 namespace App\Modules\Content\Post\Application\Mappers;
 
-use App\Modules\Auth\Application\Mappers\UserMapper;
+use App\Modules\Auth\Application\Mappers\UserAggregateMapper;
 use App\Modules\Content\Attachment\Application\Mappers\AttachmentMapper;
 use App\Modules\Content\Post\Application\DTOs\PostAggregateDTO;
 use App\Modules\Content\Post\Domain\Aggregates\PostAggregate;
@@ -18,7 +18,7 @@ class PostAggregateMapper
         $postAggregateDTO = new PostAggregateDTO(
             id: $aggregate->getId(),
             content: $aggregate->getContent(),
-            creator: UserMapper::toDTO($aggregate->getCreator()),
+            creator: UserAggregateMapper::toDTO($aggregate->getCreator()),
             privacy: PrivacyMapper::toDTO($aggregate->getPrivacy()),
             my_reaction: $aggregate->getMyReaction() ? ReactionMapper::toDTO($aggregate->getMyReaction()) : null,
             reaction_count: $aggregate->getReactionCount(),

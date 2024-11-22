@@ -2,7 +2,7 @@
 
 namespace App\Modules\Content\Post\Domain\Aggregates;
 
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserAggregate;
 use App\Modules\Content\Attachment\Domain\Entities\AttachmentEntity;
 use App\Modules\Content\Post\Domain\ValueObjects\PostStatus;
 use App\Modules\Content\Privacy\Domain\Entities\PrivacyEntity;
@@ -15,7 +15,7 @@ class PostAggregate
     private string $id;
     private ?string $content;
     private PrivacyEntity $privacy;
-    private UserEntity $creator;
+    private UserAggregate $creator;
     private Collection $attachments;
     private ?ReactionEntity $myReaction;
     private int $commentCount;
@@ -29,7 +29,7 @@ class PostAggregate
     public function __construct(
         string $id,
         ?string $content,
-        UserEntity $creator = null,
+        UserAggregate $creator = null,
         PrivacyEntity $privacy = null,
         ?ReactionEntity $myReaction = null,
         int $reactionCount = 0,
@@ -69,7 +69,7 @@ class PostAggregate
         return $this->privacy;
     }
 
-    public function getCreator(): UserEntity
+    public function getCreator(): UserAggregate
     {
         return $this->creator;
     }

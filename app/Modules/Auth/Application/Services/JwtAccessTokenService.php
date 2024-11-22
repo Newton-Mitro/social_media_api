@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Application\Services;
 
-use App\Modules\Auth\Application\DTOs\UserDTO;
+use App\Modules\Auth\Application\DTOs\UserAggregateDTO;
 use DateTimeImmutable;
 use Exception;
 use Illuminate\Validation\UnauthorizedException;
@@ -24,7 +24,7 @@ class JwtAccessTokenService
         );
     }
 
-    public function generateToken(UserDTO $user)
+    public function generateToken(UserAggregateDTO $user)
     {
         $now = new DateTimeImmutable;
         $token = $this->config->builder()

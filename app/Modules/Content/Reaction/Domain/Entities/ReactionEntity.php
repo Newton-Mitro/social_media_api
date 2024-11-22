@@ -2,7 +2,7 @@
 
 namespace App\Modules\Content\Reaction\Domain\Entities;
 
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserAggregate;
 use App\Modules\Content\Reaction\Domain\ValueObjects\ReactionTypes;
 use DateTimeImmutable;
 

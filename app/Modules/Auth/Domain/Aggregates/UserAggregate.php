@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Modules\Auth\Domain\Entities;
+namespace App\Modules\Auth\Domain\Aggregates;
 
 use App\Core\Entities\BaseEntity;
+use App\Modules\Auth\Domain\Entities\ProfileEntity;
 use DateTimeImmutable;
 
-class UserEntity extends BaseEntity
+class UserAggregate extends BaseEntity
 {
     public function __construct(
+        protected ?string $id = null,
         private string $name,
         private string $email,
-        private ?string $password = null,
+        private string $password,
         private ?DateTimeImmutable $emailVerifiedAt = null,
         private ?DateTimeImmutable $lastLoggedIn = null,
-        private DateTimeImmutable $createdAt = new DateTimeImmutable,
-        private DateTimeImmutable $updatedAt = new DateTimeImmutable,
-        protected ?string $id = null,
+        private DateTimeImmutable $createdAt = new DateTimeImmutable(),
+        private DateTimeImmutable $updatedAt = new DateTimeImmutable(),
+        private ProfileEntity $profile
     ) {
         parent::__construct($id);
     }
@@ -40,12 +42,12 @@ class UserEntity extends BaseEntity
         $this->email = $email;
     }
 
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword(?string $password): void
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
@@ -88,5 +90,15 @@ class UserEntity extends BaseEntity
     public function setLastLoggedIn(?DateTimeImmutable $lastLoggedIn): void
     {
         $this->lastLoggedIn = $lastLoggedIn;
+    }
+
+    public function getProfile(): ProfileEntity
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(ProfileEntity $profile): void
+    {
+        $this->profile = $profile;
     }
 }

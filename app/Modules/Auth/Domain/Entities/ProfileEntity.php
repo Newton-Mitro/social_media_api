@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Profile\Domain\Entities;
+namespace App\Modules\Auth\Domain\Entities;
 
 use App\Core\Entities\BaseEntity;
 use DateTimeImmutable;

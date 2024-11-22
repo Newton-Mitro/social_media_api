@@ -2,7 +2,7 @@
 
 namespace App\Modules\Content\Post\Infrastructure\Mappers;
 
-use App\Modules\Auth\Infrastructure\Mappers\UserMapper;
+use App\Modules\Auth\Infrastructure\Mappers\UserAggregateMapper;
 use App\Modules\Content\Attachment\Infrastructure\Mappers\AttachmentMapper;
 use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
 use App\Modules\Content\Post\Domain\Aggregates\PostAggregate;
@@ -17,7 +17,7 @@ class PostAggregateMapper
     public static function toEntity(Post $post): PostAggregate
     {
         $privacy = PrivacyMapper::toEntity($post->privacy);
-        $creator = UserMapper::toEntity($post->creator);
+        $creator = UserAggregateMapper::toEntity($post->creator);
 
         $myReaction = $post->myReaction ? ReactionMapper::toEntity($post->myReaction) : null;
 

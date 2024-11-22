@@ -12,7 +12,7 @@ Accept: application/json
 @auth_token = {{login.response.body.data.access_token}}
 
 # @name fetchUserProfile
-GET http://127.0.0.1:8000/api/users/profile/2c6704ff-7c83-4b77-90b3-00a75fd71e10
+GET http://127.0.0.1:8000/api/users/profile/7c50dd10-1572-4ed2-8a73-9e33d3390bd5
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{auth_token}}

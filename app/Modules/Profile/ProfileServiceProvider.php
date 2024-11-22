@@ -6,7 +6,7 @@ namespace App\Modules\Profile;
 use App\Modules\Profile\Application\UseCases\ChangeCoverPhotoUseCase;
 use App\Modules\Profile\Application\UseCases\FetchUserProfileUseCase;
 use App\Modules\Profile\Application\UseCases\UpdateProfilePictureUseCase;
-use App\Modules\Profile\Domain\Interfaces\ProfileRepositoryInterface;
+use App\Modules\Profile\Domain\Repositories\ProfileRepositoryInterface;
 use App\Modules\Profile\Infrastructure\Repositories\ProfileRepository;
 use Illuminate\Support\ServiceProvider;
 

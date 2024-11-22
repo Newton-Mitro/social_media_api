@@ -3,17 +3,17 @@
 namespace App\Modules\Content\View\Domain\Entities;
 
 use App\Core\Entities\BaseEntity;
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserAggregate;
 use DateTimeImmutable;
 
 
 class ViewEntity extends BaseEntity
 {
-    private UserEntity $viewer;
+    private UserAggregate $viewer;
     private DateTimeImmutable $viewedAt;
 
     public function __construct(
-        UserEntity $viewer,
+        UserAggregate $viewer,
         DateTimeImmutable $viewedAt,
         ?string $id = null,
     ) {
@@ -23,7 +23,7 @@ class ViewEntity extends BaseEntity
     }
 
 
-    public function getViewer(): UserEntity
+    public function getViewer(): UserAggregate
     {
         return $this->viewer;
     }

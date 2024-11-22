@@ -2,7 +2,7 @@
 
 namespace App\Modules\Content\Reaction\Domain\Aggregates;
 
-use App\Modules\Auth\Domain\Entities\UserEntity;
+use App\Modules\Auth\Domain\Entities\UserAggregate;
 use App\Modules\Content\Reaction\Domain\ValueObjects\ReactionTypes;
 use DateTimeImmutable;
 
@@ -11,7 +11,7 @@ class ReactionAggregate
     private string $id;
     private string $reactableId;
     private string $reactableType;
-    private UserEntity $user;
+    private UserAggregate $user;
     private ReactionTypes $type;
     private DateTimeImmutable $createdAt;
     private DateTimeImmutable $updatedAt;
@@ -20,7 +20,7 @@ class ReactionAggregate
         string $id,
         string $reactableId,
         string $reactableType,
-        UserEntity $user,
+        UserAggregate $user,
         ReactionTypes $type,
         DateTimeImmutable $createdAt,
         DateTimeImmutable $updatedAt
@@ -50,7 +50,7 @@ class ReactionAggregate
         return $this->reactableType;
     }
 
-    public function getUser(): UserEntity
+    public function getUser(): UserAggregate
     {
         return $this->user;
     }
