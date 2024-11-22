@@ -3,7 +3,7 @@
 namespace App\Modules\Auth\Infrastructure\Mappers;
 
 use App\Modules\Auth\Domain\Entities\ProfileEntity;
-use App\Modules\Profile\Infrastructure\Models\Profile;
+use App\Modules\Auth\Infrastructure\Models\Profile;
 use DateTimeImmutable;
 
 class ProfileMapper

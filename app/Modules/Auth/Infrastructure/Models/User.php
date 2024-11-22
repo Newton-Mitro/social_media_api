@@ -2,21 +2,21 @@
 
 namespace App\Modules\Auth\Infrastructure\Models;
 
-use Laravel\Sanctum\HasApiTokens;
+use App\Modules\Auth\Infrastructure\Models\Profile;
+use App\Modules\Content\Comment\Infrastructure\Models\Comment;
+use App\Modules\Content\Post\Infrastructure\Models\Post;
+use App\Modules\Content\Reaction\Infrastructure\Models\Reaction;
+use App\Modules\Content\Share\Infrastructure\Models\Share;
+use App\Modules\Follow\Infrastructure\Models\Follow;
 use Database\Factories\UserFactory;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Modules\Follow\Infrastructure\Models\Follow;
-use App\Modules\Profile\Infrastructure\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Modules\Content\Post\Infrastructure\Models\Post;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Modules\Content\Share\Infrastructure\Models\Share;
-use App\Modules\Content\Comment\Infrastructure\Models\Comment;
-use App\Modules\Content\Reaction\Infrastructure\Models\Reaction;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {

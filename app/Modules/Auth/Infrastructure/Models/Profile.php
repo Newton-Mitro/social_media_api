@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Profile\Infrastructure\Models;
+namespace App\Modules\Auth\Infrastructure\Models;
 
 use App\Modules\Auth\Infrastructure\Models\User;
 use Database\Factories\ProfileFactory;

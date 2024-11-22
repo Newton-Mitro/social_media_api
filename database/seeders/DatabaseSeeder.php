@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Modules\Auth\Infrastructure\Models\Profile;
 use App\Modules\Auth\Infrastructure\Models\User;
 use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
 use App\Modules\Content\Comment\Infrastructure\Models\Comment;
@@ -11,7 +12,6 @@ use App\Modules\Content\Reaction\Infrastructure\Models\Reaction;
 use App\Modules\Content\Share\Infrastructure\Models\Share;
 use App\Modules\Follow\Infrastructure\Models\Follow;
 use App\Modules\Friend\Infrastructure\Models\FriendRequest;
-use App\Modules\Profile\Infrastructure\Models\Profile;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -37,18 +37,11 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Privacy values to insert
-        $privacyValues = [
-            'Public',
-            'Friends',
-            'Only Me',
-            'Friends of Friend',
-        ];
-
         // Insert privacy values if not already present
-        foreach ($privacyValues as $privacyName) {
-            Privacy::factory()->create(['privacy_name' => $privacyName]);
-        }
+        Privacy::factory()->create(['id' => '01', 'privacy_name' => 'Public']);
+        Privacy::factory()->create(['id' => '02', 'privacy_name' => 'Friends']);
+        Privacy::factory()->create(['id' => '03', 'privacy_name' => 'Only Me']);
+        Privacy::factory()->create(['id' => '04', 'privacy_name' => 'Friends of Friend']);
 
         // Retrieve all privacy records
         $privacies = Privacy::all();

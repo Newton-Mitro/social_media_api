@@ -2,7 +2,7 @@
 
 namespace App\Modules\Content\Post\Domain\Aggregates;
 
-use App\Modules\Auth\Domain\Entities\UserAggregate;
+use App\Modules\Auth\Domain\Aggregates\UserAggregate;
 use App\Modules\Content\Attachment\Domain\Entities\AttachmentEntity;
 use App\Modules\Content\Post\Domain\ValueObjects\PostStatus;
 use App\Modules\Content\Privacy\Domain\Entities\PrivacyEntity;
@@ -29,8 +29,8 @@ class PostAggregate
     public function __construct(
         string $id,
         ?string $content,
-        UserAggregate $creator = null,
-        PrivacyEntity $privacy = null,
+        UserAggregate $creator,
+        PrivacyEntity $privacy,
         ?ReactionEntity $myReaction = null,
         int $reactionCount = 0,
         int $viewCount = 0,

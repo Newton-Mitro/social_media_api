@@ -93,51 +93,72 @@ class PostRepository implements PostRepositoryInterface
         });
     }
 
-    public function getPosts(int $limit = 10, int $offset = 0, ?string $auth_user_id = null): Collection
+    public function getPosts(int $limit = 10, int $offset = 0, ?string $authUserId = null): Collection
     {
         $postsQuery = Post::with([
             'attachments',
             'privacy',
             'creator',
-        ]);
+        ])
+            ->whereHas('privacy', function ($query) {
+                // Fetch only posts with a 'Public' privacy level
+                $query->where('privacy_name', 'Public'); // Adjust column name if necessary
+            })
+            ->latest('created_at'); // Order by the latest posts
 
-        // Include the user's reaction if the authenticated user ID is provided
-        if ($auth_user_id) {
-            $postsQuery->with(['myReaction' => function ($query) use ($auth_user_id) {
-                // Pass the auth_user_id to the myReaction relationship
-                $query->where('user_id', $auth_user_id);
+        if ($authUserId) {
+            // Include the user's reaction if `authUserId` is provided
+            $postsQuery->with(['myReaction' => function ($query) use ($authUserId) {
+                $query->where('user_id', $authUserId);
             }]);
         }
 
+        // Fetch posts with pagination
         $posts = $postsQuery
-            ->limit($limit)
-            ->offset($offset)
+            ->skip($offset)
+            ->take($limit)
             ->get();
+
         return PostAggregateMapper::toEntityCollection($posts);
     }
 
-    public function getUserPosts(int $limit = 10, int $offset = 0, ?string $auth_user_id): Collection
+
+    public function getUserPosts(int $limit = 10, int $offset = 0, string $userId, ?string $authUserId = null): Collection
     {
         $postsQuery = Post::with([
             'attachments',
             'privacy',
             'creator',
-        ]);
+        ])
+            ->latest('created_at'); // Order by the latest posts
 
-        // Include the user's reaction if the authenticated user ID is provided
-        if ($auth_user_id) {
-            $postsQuery->with(['myReaction' => function ($query) use ($auth_user_id) {
-                $query->where('user_id', $auth_user_id);
+        if ($authUserId && $userId === $authUserId) {
+            // Fetch all posts for the authenticated user
+            $postsQuery->where('creator_id', $userId);
+        } else {
+            // Fetch only public posts for other users
+            $postsQuery->where('creator_id', $userId)
+                ->whereHas('privacy', function ($query) {
+                    $query->where('privacy_name', 'Public'); // Adjust column name if necessary
+                });
+        }
+
+        if ($authUserId) {
+            // Include the authenticated user's reaction
+            $postsQuery->with(['myReaction' => function ($query) use ($authUserId) {
+                $query->where('user_id', $authUserId);
             }]);
         }
 
+        // Fetch posts with pagination
         $posts = $postsQuery
-            ->limit($limit)
-            ->offset($offset)
+            ->skip($offset)
+            ->take($limit)
             ->get();
 
         return PostAggregateMapper::toEntityCollection($posts);
     }
+
 
     public function delete(string $postId): void {}
 

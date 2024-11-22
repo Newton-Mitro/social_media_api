@@ -2,22 +2,20 @@
 
 namespace App\Modules\Content\Post\Application\DTOs;
 
-use App\Modules\Auth\Application\DTOs\UserDTO;
+use App\Modules\Auth\Application\DTOs\UserAggregateDTO;
 use App\Modules\Content\Attachment\Application\DTOs\AttachmentDTO;
-use App\Modules\Content\Post\Domain\ValueObjects\PostStatus;
 use App\Modules\Content\Privacy\Application\DTOs\PrivacyDTO;
 use App\Modules\Content\Reaction\Application\DTOs\ReactionDTO;
-use DateTimeImmutable;
 use Illuminate\Support\Collection;
 
 class PostAggregateDTO
 {
-    public Collection $attachments;
+
 
     public function __construct(
         public string $id,
         public ?string $content,
-        public UserDTO $creator,
+        public UserAggregateDTO $creator,
         public PrivacyDTO $privacy,
         public ?ReactionDTO $my_reaction,
         public int $reaction_count,
@@ -30,6 +28,8 @@ class PostAggregateDTO
     ) {
         $this->attachments = collect();
     }
+
+    public Collection $attachments;
 
     // Add an Attachment
     public function addAttachment(AttachmentDTO $attachment): void

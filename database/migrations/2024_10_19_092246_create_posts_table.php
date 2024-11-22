@@ -16,7 +16,8 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('view_count')->default(0);
             $table->unsignedInteger('comment_count')->default(0);
             $table->string('location');
-            $table->foreignUuid('privacy_id')->references('id')->on('privacies')->onDelete('cascade');
+            $table->string('privacy_id'); // Ensure this matches the type of `id` in `privacies`
+            $table->foreign('privacy_id')->references('id')->on('privacies')->onDelete('cascade');
             $table->foreignUuid('user_id')->constrained('users');
             $table->timestamps();
         });

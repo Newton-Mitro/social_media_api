@@ -17,7 +17,7 @@ class PostAggregateMapper
     public static function toEntity(Post $post): PostAggregate
     {
         $privacy = PrivacyMapper::toEntity($post->privacy);
-        $creator = UserAggregateMapper::toEntity($post->creator);
+        $creator = UserAggregateMapper::toAggregate($post->creator);
 
         $myReaction = $post->myReaction ? ReactionMapper::toEntity($post->myReaction) : null;
 

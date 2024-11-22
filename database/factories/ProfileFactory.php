@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Modules\Auth\Infrastructure\Models\Profile;
 use App\Modules\Auth\Infrastructure\Models\User;
-use App\Modules\Profile\Infrastructure\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
