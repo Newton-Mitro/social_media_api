@@ -15,34 +15,42 @@ Accept: application/json
 ###
 # @name updatePostWithExistingAttachments
 PUT http://127.0.0.1:8000/api/posts/1
-Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{auth_token}}
+Content-Type: multipart/form-data; boundary=------------------------abcdefg
 
-{
-    "body": "Updated content of the post 1.",
-    "location": "Updated location details",
-    "privacy_id": 2,
-    "attachments": [
-        {
-            "id": 1,
-            "type": "image",
-            "url": "http://example.com/updated_image.jpg",
-            "path": "\/tmp\/faker7HyGxM",
-            "file_name": "id.pdf",
-            "thumbnail_url": "http://example.com/updated_image_thumb.jpg",
-            "description": "Updated image description",
-            "duration": null
-        },
-        {
-            "type": "video",
-            "url": "http://example.com/new_video.mp4",
-            "path": "\/tmp\/faker7HyGxM",
-            "file_name": "id.pdf",
-            "thumbnail_url": "http://example.com/new_video_thumb.jpg",
-            "description": "New video description",
-            "duration": 120
-        }
-    ],
-    "deleted_attachments": [2]  
-}
+--------------------------abcdefg
+Content-Disposition: form-data; name="uid"
+
+12345
+--------------------------abcdefg
+Content-Disposition: form-data; name="body"
+
+This is the body of the post.
+--------------------------abcdefg
+Content-Disposition: form-data; name="location"
+
+Location info
+--------------------------abcdefg
+Content-Disposition: form-data; name="privacy_id"
+
+01
+--------------------------abcdefg
+Content-Disposition: form-data; name="attachments[]"; filename="radish.jpg"
+Content-Type: image/jpeg
+
+< ./../../assets/radish.jpg
+--------------------------abcdefg
+Content-Disposition: form-data; name="attachments[]"; filename="old.png"
+Content-Type: image/png
+
+< ./../../assets/old.png
+--------------------------abcdefg
+Content-Disposition: form-data; name="delete_attachments[]"
+
+1
+--------------------------abcdefg
+Content-Disposition: form-data; name="delete_attachments[]"
+
+2
+--------------------------abcdefg--

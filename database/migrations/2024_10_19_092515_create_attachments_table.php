@@ -12,7 +12,7 @@ class CreateAttachmentsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('post_id')->constrained('posts');
             $table->string('mime_type'); // ['image', 'video', 'link', 'document']
-            $table->string('file_url');
+            $table->string('file_url')->nullable();
             $table->string('file_path')->nullable();
             $table->string('file_name')->nullable();
             $table->string('thumbnail_url')->nullable();

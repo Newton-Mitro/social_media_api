@@ -2,6 +2,7 @@
 
 namespace App\Modules\Content\Post\Domain\Aggregates;
 
+use App\Core\Entities\BaseEntity;
 use App\Modules\Auth\Domain\Aggregates\UserAggregate;
 use App\Modules\Content\Attachment\Domain\Entities\AttachmentEntity;
 use App\Modules\Content\Post\Domain\ValueObjects\PostStatus;
@@ -10,10 +11,9 @@ use App\Modules\Content\Reaction\Domain\Entities\ReactionEntity;
 use DateTimeImmutable;
 use Illuminate\Support\Collection;
 
-class PostAggregate
+class PostAggregate extends BaseEntity
 {
-    private string $id;
-    private ?string $content;
+    private ?string $postText;
     private PrivacyEntity $privacy;
     private UserAggregate $creator;
     private Collection $attachments;
@@ -27,10 +27,9 @@ class PostAggregate
     private DateTimeImmutable $updatedAt;
 
     public function __construct(
-        string $id,
-        ?string $content,
         UserAggregate $creator,
         PrivacyEntity $privacy,
+        ?string $postText = null,
         ?ReactionEntity $myReaction = null,
         int $reactionCount = 0,
         int $viewCount = 0,
@@ -39,9 +38,10 @@ class PostAggregate
         ?PostStatus $status = null,
         DateTimeImmutable $createdAt = new DateTimeImmutable(),
         DateTimeImmutable $updatedAt = new DateTimeImmutable(),
+        ?string $id = null,
     ) {
-        $this->id = $id;
-        $this->content = $content;
+        parent::__construct($id);
+        $this->postText = $postText;
         $this->privacy = $privacy;
         $this->creator = $creator;
         $this->myReaction = $myReaction;
@@ -56,14 +56,11 @@ class PostAggregate
     }
 
     // Getters for the properties
-    public function getId(): string
+    public function getPostText(): ?string
     {
-        return $this->id;
+        return $this->postText;
     }
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
+
     public function getPrivacy(): PrivacyEntity
     {
         return $this->privacy;
@@ -89,7 +86,6 @@ class PostAggregate
         return $this->reactionCount;
     }
 
-
     public function getViewCount(): int
     {
         return $this->viewCount;
@@ -99,33 +95,88 @@ class PostAggregate
     {
         return $this->shareCount;
     }
+
     public function getStatus(): ?PostStatus
     {
         return $this->status;
     }
+
     public function getMyReaction(): ?ReactionEntity
     {
         return $this->myReaction;
     }
+
     public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
+
     public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    // Methods to manage collections with type-hinting for each collection of entities
+    // Setters for properties
+    public function setPostText(?string $postText): void
+    {
+        $this->postText = $postText;
+    }
+
+    public function setPrivacy(PrivacyEntity $privacy): void
+    {
+        $this->privacy = $privacy;
+    }
+
+    public function setMyReaction(?ReactionEntity $reaction): void
+    {
+        $this->myReaction = $reaction;
+    }
+
+    public function setCommentCount(int $commentCount): void
+    {
+        $this->commentCount = $commentCount;
+    }
+
+    public function setReactionCount(int $reactionCount): void
+    {
+        $this->reactionCount = $reactionCount;
+    }
+
+    public function setViewCount(int $viewCount): void
+    {
+        $this->viewCount = $viewCount;
+    }
+
+    public function setShareCount(int $shareCount): void
+    {
+        $this->shareCount = $shareCount;
+    }
+
+    public function setStatus(?PostStatus $status): void
+    {
+        $this->status = $status;
+    }
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    // Methods to manage attachments
     public function addAttachment(AttachmentEntity $attachment): void
     {
-        $this->attachments->push($attachment); // Add AttachmentEntity to collection
+        $this->attachments->push($attachment);
     }
 
     public function removeAttachment(AttachmentEntity $attachment): void
     {
         if ($this->attachments->contains($attachment)) {
-            $this->attachments->forget($this->attachments->search($attachment)); // Remove AttachmentEntity
+            $this->attachments->forget($this->attachments->search($attachment));
         }
     }
 
@@ -133,10 +184,5 @@ class PostAggregate
     {
         $this->removeAttachment($oldAttachment);
         $this->addAttachment($newAttachment);
-    }
-
-    public function setStatus(?PostStatus $status): void
-    {
-        $this->status = $status;
     }
 }

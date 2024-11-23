@@ -13,7 +13,7 @@ class AttachmentEntity extends BaseEntity
     private float $duration;
     private ?string $fileName;
     private ?string $filePath;
-    private string $fileURL;
+    private ?string $fileURL;
     private ?string $thumbnailUrl;
     private string $mimeType;
     private int $commentCount;
@@ -25,11 +25,11 @@ class AttachmentEntity extends BaseEntity
 
     public function __construct(
         string $postId,
-        string $fileURL,
-        ?string $thumbnailUrl,
         string $mimeType,
-        ?string $fileName,
-        ?string $filePath,
+        ?string $fileName = null,
+        ?string $filePath = null,
+        ?string $fileURL = null,
+        ?string $thumbnailUrl = null,
         ?string $title = null,
         ?string $description = null,
         float $duration = 0,
@@ -60,7 +60,6 @@ class AttachmentEntity extends BaseEntity
     }
 
     // Getters for the properties
-
     public function getPostId(): string
     {
         return $this->postId;
@@ -91,7 +90,7 @@ class AttachmentEntity extends BaseEntity
         return $this->filePath;
     }
 
-    public function getFileURL(): string
+    public function getFileURL(): ?string
     {
         return $this->fileURL;
     }
@@ -134,5 +133,81 @@ class AttachmentEntity extends BaseEntity
     public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    // Setters for properties
+    public function setPostId(string $postId): void
+    {
+        $this->postId = $postId;
+    }
+
+    public function setTitle(?string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function setDuration(float $duration): void
+    {
+        $this->duration = $duration;
+    }
+
+    public function setFileName(?string $fileName): void
+    {
+        $this->fileName = $fileName;
+    }
+
+    public function setFilePath(?string $filePath): void
+    {
+        $this->filePath = $filePath;
+    }
+
+    public function setFileURL(?string $fileURL): void
+    {
+        $this->fileURL = $fileURL;
+    }
+
+    public function setThumbnailURL(?string $thumbnailUrl): void
+    {
+        $this->thumbnailUrl = $thumbnailUrl;
+    }
+
+    public function setMimeType(string $mimeType): void
+    {
+        $this->mimeType = $mimeType;
+    }
+
+    public function setCommentCount(int $commentCount): void
+    {
+        $this->commentCount = $commentCount;
+    }
+
+    public function setReactionCount(int $reactionCount): void
+    {
+        $this->reactionCount = $reactionCount;
+    }
+
+    public function setViewCount(int $viewCount): void
+    {
+        $this->viewCount = $viewCount;
+    }
+
+    public function setShareCount(int $shareCount): void
+    {
+        $this->shareCount = $shareCount;
+    }
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

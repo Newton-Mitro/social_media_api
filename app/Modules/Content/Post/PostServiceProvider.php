@@ -2,6 +2,7 @@
 
 namespace App\Modules\Content\Post;
 
+use App\Modules\Content\Post\Application\UseCases\ViewPostUseCase;
 use App\Modules\Content\Post\Domain\Repositories\PostRepositoryInterface;
 use App\Modules\Content\Post\Infrastructure\Repositories\PostRepository;
 use Illuminate\Support\ServiceProvider;

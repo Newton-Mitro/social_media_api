@@ -15,32 +15,34 @@ Accept: application/json
 
 # @name createPostWithNewAttachments
 POST http://127.0.0.1:8000/api/posts
-Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{auth_token}}
+Content-Type: multipart/form-data; boundary=------------------------abcdefg
 
-{
-    "body": "Content of the new post.",
-    "location": "Location details",
-    "privacy_id": 1,
-    "attachments": [
-        {
-            "type": "image",
-            "url": "http://example.com/image.jpg",
-            "path": "\/tmp\/faker7HyGxM",
-            "file_name": "id.pdf",
-            "thumbnail_url": "http://example.com/image_thumb.jpg",
-            "description": "Image description",
-            "duration": null
-        },
-        {
-            "type": "document",
-            "url": "http://example.com/document.pdf",
-            "path": "\/tmp\/faker7HyGxM",
-            "file_name": "id.pdf",
-            "thumbnail_url": null,
-            "description": "Document description",
-            "duration": null
-        }
-    ]
-}
+--------------------------abcdefg
+Content-Disposition: form-data; name="uid"
+
+12345
+--------------------------abcdefg
+Content-Disposition: form-data; name="body"
+
+This is the body of the post.
+--------------------------abcdefg
+Content-Disposition: form-data; name="location"
+
+Location info
+--------------------------abcdefg
+Content-Disposition: form-data; name="privacy_id"
+
+01
+--------------------------abcdefg
+Content-Disposition: form-data; name="attachments[]"; filename="radish.jpg"
+Content-Type: image/jpeg
+
+< ./../../assets/radish.jpg
+--------------------------abcdefg
+Content-Disposition: form-data; name="attachments[]"; filename="old.png"
+Content-Type: image/png
+
+< ./../../assets/old.png
+--------------------------abcdefg--

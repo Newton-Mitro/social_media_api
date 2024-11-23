@@ -1,0 +1,46 @@
+# @name login
+POST http://127.0.0.1:8000/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "john.doe@email.com",
+    "password": "password"
+}
+
+
+### SET TOKEN
+@auth_token = {{login.response.body.data.access_token}}
+
+
+# @name createPostWithNewAttachments
+POST http://127.0.0.1:8000/api/v2/posts
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "body": "Content of the new post.",
+    "location": "Location details",
+    "privacy_id": 1,
+    "attachments": [
+        {
+            "type": "image",
+            "url": "http://example.com/image.jpg",
+            "path": "\/tmp\/faker7HyGxM",
+            "file_name": "id.pdf",
+            "thumbnail_url": "http://example.com/image_thumb.jpg",
+            "description": "Image description",
+            "duration": null
+        },
+        {
+            "type": "document",
+            "url": "http://example.com/document.pdf",
+            "path": "\/tmp\/faker7HyGxM",
+            "file_name": "id.pdf",
+            "thumbnail_url": null,
+            "description": "Document description",
+            "duration": null
+        }
+    ]
+}

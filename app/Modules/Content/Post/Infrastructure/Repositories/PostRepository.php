@@ -2,6 +2,7 @@
 
 namespace App\Modules\Content\Post\Infrastructure\Repositories;
 
+use App\Modules\Content\Attachment\Infrastructure\Models\Attachment;
 use App\Modules\Content\Comment\Domain\Entities\CommentEntity;
 use App\Modules\Content\Comment\Infrastructure\Repositories\CommentRepository;
 use App\Modules\Content\Post\Domain\Aggregates\PostAggregate;
@@ -13,49 +14,82 @@ use App\Modules\Content\Share\Domain\Entities\ShareEntity;
 use App\Modules\Content\View\Domain\Entities\ViewEntity;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostRepository implements PostRepositoryInterface
 {
 
     public function __construct(protected CommentRepository $commentRepository) {}
 
-    public function save(PostAggregate $post): void
+    public function save(PostAggregate $postAggregate): void
     {
-        DB::transaction(function () use ($post) {
-            $eloquentPost = Post::find($post->getId()) ?? new Post();
-            $eloquentPost->content = $post->getContent();
-            $eloquentPost->save();
+        DB::transaction(function () use ($postAggregate) {
+            // Save Post
+            $post = Post::create([
+                'id' => $postAggregate->getId(),
+                'body' => $postAggregate->getContent(),
+                'privacy_id' => $postAggregate->getPrivacy()->getId(),
+                'user_id' => $postAggregate->getCreator()->getId(),
+                'created_at' => $postAggregate->getCreatedAt(),
+                'updated_at' => $postAggregate->getUpdatedAt(),
+            ]);
+
+            // Save Attachments
+            foreach ($postAggregate->getAttachments() as $attachment) {
+                Attachment::create([
+                    'id' => $attachment->getId(),
+                    'post_id' => $post->id,
+                    'file_name' => $attachment->getFileName(),
+                    'file_path' => $attachment->getFilePath(),
+                    'mime_type' => $attachment->getMimeType(),
+                ]);
+            }
         });
     }
 
-    public function findById(string $postId): ?PostAggregate
+    public function update(PostAggregate $postAggregate): void
     {
-        $post = Post::with([
-            'attachments',
-            'privacy:id,name', // Include only relevant columns from privacies
-            'creator:id,name,email', // Include relevant user columns
-            'reactions' => function ($query) {
-                $query->where('reactable_type', 'post');
+        DB::transaction(function () use ($postAggregate) {
+            $post = Post::findOrFail($postAggregate->getId());
+
+            // Update Post
+            $post->update([
+                'body' => $postAggregate->getContent(),
+                'privacy_id' => $postAggregate->getPrivacy()->getId(),
+                'updated_at' => $postAggregate->getUpdatedAt(),
+            ]);
+
+            // Update Attachments
+            foreach ($postAggregate->getAttachments() as $attachment) {
+                Attachment::updateOrCreate(
+                    ['id' => $attachment->getId()],
+                    [
+                        'post_id' => $post->id,
+                        'file_name' => $attachment->getFileName(),
+                        'file_path' => $attachment->getFilePath(),
+                        'mime_type' => $attachment->getMimeType(),
+                    ]
+                );
             }
-        ])
-            ->find($postId);
-
-        if (!$post) {
-            return null;
-        }
-
-        return PostAggregateMapper::toEntity($post);
+        });
     }
+
 
     public function deleteById(string $postId): void
     {
         DB::transaction(function () use ($postId) {
+            $post = Post::findOrFail($postId);
+
+            // Delete attachments
+            foreach ($post->attachments as $attachment) {
+                Storage::disk('public')->delete($attachment->file_path);
+                $attachment->delete();
+            }
             // delete post comments
             // delete post reactions
             // delete post shares
             // delete post views
-            // delete post attachments
-            Post::destroy($postId);
+            $post->delete();
         });
     }
 
@@ -92,6 +126,24 @@ class PostRepository implements PostRepositoryInterface
             }
         });
     }
+
+    public function findById(string $postId): ?PostAggregate
+    {
+        $post = Post::with([
+            'attachments',
+            'privacy',
+            'creator',
+            'myReaction'
+        ])
+            ->find($postId);
+
+        if (!$post) {
+            return null;
+        }
+
+        return PostAggregateMapper::toEntity($post);
+    }
+
 
     public function getPosts(int $limit = 10, int $offset = 0, ?string $authUserId = null): Collection
     {

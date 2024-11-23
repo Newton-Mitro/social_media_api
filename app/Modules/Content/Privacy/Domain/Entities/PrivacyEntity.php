@@ -3,6 +3,7 @@
 namespace App\Modules\Content\Privacy\Domain\Entities;
 
 use App\Core\Entities\BaseEntity;
+use DateTimeImmutable;
 
 class PrivacyEntity extends BaseEntity
 {
@@ -13,8 +14,8 @@ class PrivacyEntity extends BaseEntity
     public function __construct(
         string $id,
         string $privacyName,
-        \DateTimeImmutable $createdAt,
-        \DateTimeImmutable $updatedAt
+        DateTimeImmutable $createdAt = new DateTimeImmutable(),
+        DateTimeImmutable $updatedAt = new DateTimeImmutable()
     ) {
         parent::__construct($id);
         $this->privacyName = $privacyName;

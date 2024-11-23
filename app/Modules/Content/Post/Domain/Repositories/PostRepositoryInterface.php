@@ -14,6 +14,7 @@ interface PostRepositoryInterface
     public function getPosts(int $perPage = 10, int $offset = 0, ?string $auth_user_id = null): Collection;
     public function getUserPosts(int $limit = 10, int $offset = 0, string $userId, ?string $authUserId = null): Collection;
     public function save(PostAggregate $postAggregate): void;
+    public function update(PostAggregate $postAggregate): void;
     public function findById(string $postId): ?PostAggregate;
     public function delete(string $postId): void;
 

@@ -14,7 +14,7 @@ class PostAggregateDTO
 
     public function __construct(
         public string $id,
-        public ?string $content,
+        public ?string $postText,
         public UserAggregateDTO $creator,
         public PrivacyDTO $privacy,
         public ?ReactionDTO $my_reaction,
