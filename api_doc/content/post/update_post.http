@@ -14,7 +14,7 @@ Accept: application/json
 
 ###
 # @name updatePostWithExistingAttachments
-PUT http://127.0.0.1:8000/api/posts/1
+PUT http://127.0.0.1:8000/api/posts/4f60a5eb-e49b-4066-80ad-3395dec52f01
 Accept: application/json
 Authorization: Bearer {{auth_token}}
 Content-Type: multipart/form-data; boundary=------------------------abcdefg

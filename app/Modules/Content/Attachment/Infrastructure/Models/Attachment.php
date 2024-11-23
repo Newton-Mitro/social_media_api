@@ -17,9 +17,9 @@ class Attachment extends Model
     protected $fillable = [
         'id',
         'post_id',
-        'type',
-        'url',
-        'path',
+        'mime_type',
+        'file_url',
+        'file_path',
         'file_name',
         'thumbnail_url',
         'title',

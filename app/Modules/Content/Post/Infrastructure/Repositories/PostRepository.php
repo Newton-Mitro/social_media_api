@@ -27,7 +27,7 @@ class PostRepository implements PostRepositoryInterface
             // Save Post
             $post = Post::create([
                 'id' => $postAggregate->getId(),
-                'body' => $postAggregate->getContent(),
+                'post_text' => $postAggregate->getPostText(),
                 'privacy_id' => $postAggregate->getPrivacy()->getId(),
                 'user_id' => $postAggregate->getCreator()->getId(),
                 'created_at' => $postAggregate->getCreatedAt(),
@@ -54,7 +54,7 @@ class PostRepository implements PostRepositoryInterface
 
             // Update Post
             $post->update([
-                'body' => $postAggregate->getContent(),
+                'post_text' => $postAggregate->getPostText(),
                 'privacy_id' => $postAggregate->getPrivacy()->getId(),
                 'updated_at' => $postAggregate->getUpdatedAt(),
             ]);

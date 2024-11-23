@@ -23,7 +23,7 @@ class PostAggregateMapper
 
         $postAggregate = new PostAggregate(
             id: $post->id,
-            content: $post->post_text,
+            postText: $post->post_text,
             privacy: $privacy,
             creator: $creator,
             myReaction: $myReaction,
@@ -52,7 +52,7 @@ class PostAggregateMapper
     {
         $post = new Post([
             'id' => $postAggregate->getId(),
-            'content' => $postAggregate->getContent(),
+            'post_text' => $postAggregate->getPostText(),
             'privacy_id' => $postAggregate->getPrivacy()->getId(),
             'creator_id' => $postAggregate->getCreator()->getId(),
             'comment_count' => $postAggregate->getCommentCount(),

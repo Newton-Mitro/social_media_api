@@ -17,7 +17,7 @@ class PostAggregateMapper
     {
         $postAggregateDTO = new PostAggregateDTO(
             id: $aggregate->getId(),
-            content: $aggregate->getContent(),
+            postText: $aggregate->getPostText(),
             creator: UserAggregateMapper::toDTO($aggregate->getCreator()),
             privacy: PrivacyMapper::toDTO($aggregate->getPrivacy()),
             my_reaction: $aggregate->getMyReaction() ? ReactionMapper::toDTO($aggregate->getMyReaction()) : null,
