@@ -13,7 +13,8 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "lcobucci/jwt": "^5.3"
+        "lcobucci/jwt": "^5.3",
+        "php-ffmpeg/php-ffmpeg": "^1.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -65,9 +66,7 @@
         "rector-ci": "Executing Rector in a CI workflow"
     },
     "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
+        "laravel": {}
     },
     "config": {
         "optimize-autoloader": true,

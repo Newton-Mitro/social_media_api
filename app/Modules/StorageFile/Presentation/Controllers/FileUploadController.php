@@ -20,12 +20,9 @@ class FileUploadController extends Controller
         // Use the service to handle file upload
         $fileData = $this->fileUploadService->uploadFile($request->file('file'));
 
-        // Create DTO from the file data
-        $fileUploadDTO = new UploadedFileDTO($fileData['url'], $fileData['path'], $fileData['file_name'], $fileData['file_type']);
-
         // Return response with data from the DTO
         return response()->json([
-            'data' => $fileUploadDTO->toArray(),
+            'data' =>  $fileData,
             'message' => 'File uploaded successfully.',
             'errors' => null,
         ], 201);
