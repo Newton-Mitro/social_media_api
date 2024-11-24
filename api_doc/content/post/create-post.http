@@ -20,11 +20,7 @@ Authorization: Bearer {{auth_token}}
 Content-Type: multipart/form-data; boundary=------------------------abcdefg
 
 --------------------------abcdefg
-Content-Disposition: form-data; name="uid"
-
-12345
---------------------------abcdefg
-Content-Disposition: form-data; name="body"
+Content-Disposition: form-data; name="post_text"
 
 This is the body of the post.
 --------------------------abcdefg

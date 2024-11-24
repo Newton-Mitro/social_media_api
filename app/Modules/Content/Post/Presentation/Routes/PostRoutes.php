@@ -12,7 +12,7 @@ Route::middleware(RequestUserMiddleware::class)->group(function (): void {
 Route::middleware(JwtAccessTokenMiddleware::class)->group(function (): void {
     Route::get('/posts/{id}', [PostController::class, 'show']);
     Route::post('/posts', [PostController::class, 'store']);
-    Route::put('/posts/{id}', [PostController::class, 'update']);
+    Route::post('/posts/update/{id}', [PostController::class, 'update']);
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
     Route::post('/posts/{id}/like', [PostController::class, 'like']);
     Route::delete('/posts/{id}/like', [PostController::class, 'unlike']);

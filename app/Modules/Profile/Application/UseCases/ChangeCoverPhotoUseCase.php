@@ -5,9 +5,11 @@ namespace App\Modules\Profile\Application\UseCases;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;
 use App\Modules\Profile\Application\Mappers\ProfileAggregateMapper;
+use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ChangeCoverPhotoUseCase
 {
@@ -20,6 +22,10 @@ class ChangeCoverPhotoUseCase
         $userAggregate = $this->userRepository->findById(
             $userId
         );
+
+        if (!$userAggregate) {
+            throw new Exception("User profile not found.", Response::HTTP_NOT_FOUND);
+        }
 
         // Check if the user has an existing cover photo
         if ($userAggregate->getProfile()->getCoverPhoto()) {

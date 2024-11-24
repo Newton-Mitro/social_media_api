@@ -2,18 +2,15 @@
 
 namespace App\Modules\Content\Post\Application\UseCases;
 
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Content\Attachment\Domain\Entities\AttachmentEntity;
 use App\Modules\Content\Attachment\Domain\Repositories\AttachmentRepositoryInterface;
 use App\Modules\Content\Post\Application\DTOs\PostAggregateDTO;
 use App\Modules\Content\Post\Application\Mappers\PostAggregateMapper;
 use App\Modules\Content\Post\Application\Requests\UpdatePostRequest;
 use App\Modules\Content\Post\Domain\Repositories\PostRepositoryInterface;
-use App\Modules\Content\Privacy\Domain\Entities\PrivacyEntity;
 use App\Modules\Content\Privacy\Domain\Repositories\PrivacyRepositoryInterface;
 use DateTimeImmutable;
 use Illuminate\Support\Facades\Storage;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UpdatePostUseCase
@@ -48,13 +45,21 @@ class UpdatePostUseCase
         // Handle attachments to delete
         if ($request->has('delete_attachments')) {
             foreach ($request->get('delete_attachments') as $attachmentId) {
-                $attachmentEntity = $postAggregate
-                    ->getAttachments()
-                    ->first(fn($attachment) => $attachment->getId() === $attachmentId);
+                $attachmentEntity = null;
+
+                // Search for the attachment in the aggregate's attachments array
+                foreach ($postAggregate->getAttachments() as $index => $attachment) {
+                    if ($attachment->getId() === $attachmentId) {
+                        $attachmentEntity = $attachment;
+                        break;
+                    }
+                }
 
                 if ($attachmentEntity) {
                     // Delete the attachment file
                     Storage::disk('public')->delete($attachmentEntity->getFilePath());
+
+                    // Remove the attachment from the aggregate
                     $postAggregate->removeAttachment($attachmentEntity);
                 }
             }
@@ -63,11 +68,12 @@ class UpdatePostUseCase
         // Handle new attachments
         if ($request->has('attachments')) {
             foreach ($request->attachments as $attachment) {
+                $path = $attachment->store('uploads', 'public');
                 $attachmentEntity = new AttachmentEntity(
-                    id: Uuid::uuid4()->toString(),
                     postId: $postAggregate->getId(),
                     fileName: $attachment->getClientOriginalName(),
-                    filePath: $attachment->store('uploads', 'public'),
+                    fileURL: asset(Storage::url($path)),
+                    filePath: $path,
                     mimeType: $attachment->getMimeType()
                 );
                 $postAggregate->addAttachment($attachmentEntity);
@@ -76,7 +82,8 @@ class UpdatePostUseCase
 
         // Persist the changes
         $this->postRepository->update($postAggregate);
+        $post = $this->postRepository->findById($postAggregate->getId());
 
-        return PostAggregateMapper::toDTO($postAggregate);
+        return PostAggregateMapper::toDTO($post);
     }
 }

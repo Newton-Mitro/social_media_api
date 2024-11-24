@@ -59,6 +59,20 @@ class PostRepository implements PostRepositoryInterface
                 'updated_at' => $postAggregate->getUpdatedAt(),
             ]);
 
+            // Get current attachment IDs from the aggregate
+            $updatedAttachmentIds = $postAggregate->getAttachments()->pluck('id')->toArray();
+
+            // Get current attachments in the database
+            $existingAttachments = Attachment::where('post_id', $post->id)->get();
+
+            // Identify and delete attachments that are no longer in the aggregate
+            $existingAttachments->each(function ($existingAttachment) use ($updatedAttachmentIds) {
+                if (!in_array($existingAttachment->id, $updatedAttachmentIds)) {
+                    $existingAttachment->delete();
+                }
+            });
+
+
             // Update Attachments
             foreach ($postAggregate->getAttachments() as $attachment) {
                 Attachment::updateOrCreate(

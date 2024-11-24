@@ -14,10 +14,9 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'post_text' => 'sometimes|required|string',
-            'location' => 'sometimes|nullable|string',
-            'privacy_id' => 'sometimes|required|exists:privacies,id',
-            'attachments.*.id' => 'nullable|exists:attachments,id',
+            'post_text' => 'required|string',
+            'location' => 'sometimes|string',
+            'privacy_id' => 'sometimes|exists:privacies,id',
             'attachments.*' => [
                 'file',
                 'mimes:jpeg,png,gif,mp4,mp3,doc,pdf',

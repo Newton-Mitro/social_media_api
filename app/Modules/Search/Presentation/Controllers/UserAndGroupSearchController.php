@@ -26,7 +26,6 @@ class UserAndGroupSearchController extends Controller
 
         // Fetch users
         $users = User::where('name', 'like', '%' . $searchKeyword . '%')
-            ->orWhere('user_name', 'like', '%' . $searchKeyword . '%')
             ->orWhere('email', 'like', '%' . $searchKeyword . '%')
             ->get();
 

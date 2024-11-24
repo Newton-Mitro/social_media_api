@@ -5,6 +5,8 @@ namespace App\Modules\Profile\Application\UseCases;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;
 use App\Modules\Profile\Application\Mappers\ProfileAggregateMapper;
+use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -18,6 +20,10 @@ class UpdateProfilePictureUseCase
     public function handle(string $userId, UploadedFile $profilePhoto): ProfileAggregateDTO
     {
         $userAggregate = $this->userRepository->findById($userId);
+
+        if (!$userAggregate) {
+            throw new Exception("User profile not found.", Response::HTTP_NOT_FOUND);
+        }
 
         // Delete Old Photo
         if ($userAggregate->getProfile()->getProfilePicture()) {

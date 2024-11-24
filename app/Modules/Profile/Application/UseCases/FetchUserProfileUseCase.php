@@ -2,10 +2,12 @@
 
 namespace App\Modules\Profile\Application\UseCases;
 
-use Illuminate\Support\Facades\DB;
-use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Profile\Application\DTOs\ProfileAggregateDTO;
 use App\Modules\Profile\Application\Mappers\ProfileAggregateMapper;
+use Exception;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class FetchUserProfileUseCase
 {
@@ -18,6 +20,10 @@ class FetchUserProfileUseCase
         $userProfileAggregate = $this->userRepository->findById(
             $userId,
         );
+
+        if (!$userProfileAggregate) {
+            throw new Exception("User profile not found.", Response::HTTP_NOT_FOUND);
+        }
 
         // Fetch followers, following, friends, sent friend requests, and pending friend requests
         $followers_count = DB::table('follows')
