@@ -13,6 +13,6 @@ Accept: application/json
 @auth_token = {{login.response.body.data.access_token}}
 
 # @name getPost
-GET http://127.0.0.1:8000/api/posts/31ed1c4e-74b9-4696-9bea-43604f1efe4c
+GET http://127.0.0.1:8000/api/posts/f3ab7976-69f9-4ee4-9130-55045f825bb1
 Accept: application/json
 Authorization: Bearer {{auth_token}}

@@ -4,26 +4,12 @@ namespace App\Modules\StorageFile\Application\DTOs;
 
 class UploadedFileDTO
 {
-    public string $url;
-    public string $path;
-    public string $file_name;
-    public string $file_type;
-
-    public function __construct(string $url, string $path, string $file_name, string $file_type)
-    {
-        $this->url = $url;
-        $this->path = $path;
-        $this->file_name = $file_name;
-        $this->file_type = $file_type;
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'url' => $this->url,
-            'path' => $this->path,
-            'file_name' => $this->file_name,
-            'file_type' => $this->file_type,
-        ];
-    }
+    public string $file_url;
+    public ?string $file_path;
+    public ?string $file_name;
+    public ?string $thumbnail_url;
+    public string $mime_type;
+    public ?string $title;
+    public ?string $description;
+    public float $duration;
 }

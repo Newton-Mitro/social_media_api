@@ -2,8 +2,6 @@
 
 namespace App\Modules\Content\Attachment\Application\DTOs;
 
-use DateTime;
-
 class AttachmentDTO
 {
     public string $id;
