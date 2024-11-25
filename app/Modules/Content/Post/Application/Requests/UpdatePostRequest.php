@@ -17,6 +17,8 @@ class UpdatePostRequest extends FormRequest
             'post_text' => 'required|string',
             'location' => 'sometimes|string',
             'privacy_id' => 'sometimes|exists:privacies,id',
+            'deleted_attachments' => 'nullable|array',
+            'deleted_attachments.*' => 'string|exists:attachments,id', // Validate attachment IDs exist
             'attachments.*' => [
                 'file',
                 'mimes:jpeg,png,gif,mp4,mp3,doc,pdf',

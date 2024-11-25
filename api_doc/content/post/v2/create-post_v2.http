@@ -20,27 +20,27 @@ Accept: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-    "body": "Content of the new post.",
+    "post_text": "Content of the new post.",
     "location": "Location details",
-    "privacy_id": 1,
+    "privacy_id": "01",
     "attachments": [
         {
-            "type": "image",
-            "url": "http://example.com/image.jpg",
-            "path": "\/tmp\/faker7HyGxM",
+            "mime_type": "image",
+            "file_url": "http://example.com/image.jpg",
+            "file_path": "\/tmp\/faker7HyGxM",
             "file_name": "id.pdf",
             "thumbnail_url": "http://example.com/image_thumb.jpg",
             "description": "Image description",
-            "duration": null
+            "duration": 0
         },
         {
-            "type": "document",
-            "url": "http://example.com/document.pdf",
-            "path": "\/tmp\/faker7HyGxM",
+            "mime_type": "document",
+            "file_url": "http://example.com/document.pdf",
+            "file_path": "\/tmp\/faker7HyGxM",
             "file_name": "id.pdf",
             "thumbnail_url": null,
             "description": "Document description",
-            "duration": null
+            "duration": 0
         }
     ]
 }

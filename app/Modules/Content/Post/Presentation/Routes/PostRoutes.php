@@ -3,6 +3,7 @@
 use App\Modules\Auth\Presentation\Middlewares\JwtAccessTokenMiddleware;
 use App\Modules\Auth\Presentation\Middlewares\RequestUserMiddleware;
 use App\Modules\Content\Post\Presentation\Controllers\PostController;
+use App\Modules\Content\Post\Presentation\Controllers\PostControllerV2;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(RequestUserMiddleware::class)->group(function (): void {
@@ -20,7 +21,6 @@ Route::middleware(JwtAccessTokenMiddleware::class)->group(function (): void {
 });
 
 Route::middleware(JwtAccessTokenMiddleware::class)->prefix('v2')->group(function () {
-    Route::post('/posts', [PostController::class, 'store_v2']);
-    Route::put('/posts/{id}', [PostController::class, 'update_v2']);
-    Route::delete('/posts/{id}', [PostController::class, 'destroy_v2']);
+    Route::post('/posts', [PostControllerV2::class, 'store']);
+    Route::put('/posts/{id}', [PostControllerV2::class, 'update']);
 });
