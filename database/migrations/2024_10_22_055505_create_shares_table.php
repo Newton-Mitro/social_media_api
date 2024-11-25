@@ -10,9 +10,14 @@ return new class extends Migration
     {
         Schema::create('shares', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('post_id')->constrained('posts')->onDelete('cascade');
-            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('post_id')->nullable()->constrained('posts')->onDelete('cascade');
+            $table->foreignUuid('attachment_id')->nullable()->constrained('attachments')->onDelete('cascade');
+            $table->foreignUuid('shared_by')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('shared_to')->constrained('users')->onDelete('cascade');
+            $table->text('message')->nullable();
             $table->timestamps();
+
+            $table->unique(['post_id', 'attachment_id', 'shared_by', 'shared_to'], 'unique_shares');
         });
     }
 

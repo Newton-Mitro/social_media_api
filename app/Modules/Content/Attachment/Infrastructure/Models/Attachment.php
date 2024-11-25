@@ -5,6 +5,7 @@ namespace App\Modules\Content\Attachment\Infrastructure\Models;
 use App\Modules\Content\Comment\Infrastructure\Models\Comment;
 use App\Modules\Content\Post\Infrastructure\Models\Post;
 use App\Modules\Content\Reaction\Infrastructure\Models\Reaction;
+use App\Modules\Content\Share\Infrastructure\Models\Share;
 use Database\Factories\AttachmentFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,6 +35,11 @@ class Attachment extends Model
     public function post()
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function shares()
+    {
+        return $this->hasMany(Share::class);
     }
 
     public function reactions()
