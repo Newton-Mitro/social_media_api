@@ -6,6 +6,7 @@ use App\Core\Controllers\Controller;
 use App\Modules\Content\Post\Application\Requests\StorePostRequest;
 use App\Modules\Content\Post\Application\Requests\UpdatePostRequest;
 use App\Modules\Content\Post\Application\UseCases\CreatePostUseCase;
+use App\Modules\Content\Post\Application\UseCases\DeletePostUseCase;
 use App\Modules\Content\Post\Application\UseCases\GetPostsUseCase;
 use App\Modules\Content\Post\Application\UseCases\UpdatePostUseCase;
 use App\Modules\Content\Post\Application\UseCases\ViewPostUseCase;
@@ -21,6 +22,7 @@ class PostController extends Controller
         protected CreatePostUseCase $createPostUseCase,
         protected UpdatePostUseCase $updatePostUseCase,
         protected ViewPostUseCase $viewPostUseCase,
+        protected DeletePostUseCase $deletePostUseCase,
     ) {}
 
     public function index(Request $request)
@@ -116,18 +118,13 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        $post->attachments()->each(function ($attachment) {
-            Storage::disk('public')->delete($attachment->url); // Delete the file
-        });
-        $post->attachments()->delete(); // Delete attachment records
-        $post->delete();
+        $this->deletePostUseCase->handle($id);
 
         return response()->json([
             'data' => null,
             'message' => 'Post deleted successfully.',
             'errors' => null,
-        ], 204);
+        ], Response::HTTP_NO_CONTENT);
     }
 
     protected function handleAttachments(Request $request, Post $post)

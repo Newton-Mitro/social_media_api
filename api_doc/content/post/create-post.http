@@ -37,8 +37,8 @@ Content-Type: image/jpeg
 
 < ./../../assets/radish.jpg
 --------------------------abcdefg
-Content-Disposition: form-data; name="attachments[]"; filename="old.png"
-Content-Type: image/png
+Content-Disposition: form-data; name="attachments[]"; filename="php_video.mp4"
+Content-Type: video/mp4
 
-< ./../../assets/old.png
+< ./../../assets/php_video.mp4
 --------------------------abcdefg--

@@ -42,7 +42,7 @@ class ChangeCoverPhotoUseCase
         $userAggregate->getProfile()->updateProfile(
             $userAggregate->getProfile()->getMobileNumber(),
             $userAggregate->getProfile()->getProfilePicture(),
-            $path,
+            asset(Storage::url($path)),
             $userAggregate->getProfile()->getBio()
         );
 

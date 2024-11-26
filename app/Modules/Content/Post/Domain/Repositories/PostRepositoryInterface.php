@@ -16,7 +16,7 @@ interface PostRepositoryInterface
     public function save(PostAggregate $postAggregate): void;
     public function update(PostAggregate $postAggregate): void;
     public function findById(string $postId): ?PostAggregate;
-    public function delete(string $postId): void;
+    public function deleteById(string $postId): void;
 
     public function reactToPost(PostAggregate $postAggregate, ReactionEntity $reactionEntity);
     public function getPostReactions(string $post_id);

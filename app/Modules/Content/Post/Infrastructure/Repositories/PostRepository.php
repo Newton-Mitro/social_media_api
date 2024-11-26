@@ -12,6 +12,8 @@ use App\Modules\Content\Post\Infrastructure\Models\Post;
 use App\Modules\Content\Reaction\Domain\Entities\ReactionEntity;
 use App\Modules\Content\Share\Domain\Entities\ShareEntity;
 use App\Modules\Content\View\Domain\Entities\ViewEntity;
+use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -41,7 +43,10 @@ class PostRepository implements PostRepositoryInterface
                     'post_id' => $post->id,
                     'file_name' => $attachment->getFileName(),
                     'file_path' => $attachment->getFilePath(),
+                    'file_url'  => $attachment->getFileURL(),
                     'mime_type' => $attachment->getMimeType(),
+                    'thumbnail_url' => $attachment->getThumbnailURL(),
+                    'duration' => $attachment->getDuration(),
                 ]);
             }
         });
@@ -81,7 +86,10 @@ class PostRepository implements PostRepositoryInterface
                         'post_id' => $post->id,
                         'file_name' => $attachment->getFileName(),
                         'file_path' => $attachment->getFilePath(),
+                        'file_url'  => $attachment->getFileURL(),
                         'mime_type' => $attachment->getMimeType(),
+                        'thumbnail_url' => $attachment->getThumbnailURL(),
+                        'duration' => $attachment->getDuration(),
                     ]
                 );
             }
@@ -91,20 +99,37 @@ class PostRepository implements PostRepositoryInterface
 
     public function deleteById(string $postId): void
     {
-        DB::transaction(function () use ($postId) {
-            $post = Post::findOrFail($postId);
+        try {
+            DB::transaction(function () use ($postId) {
+                $post = Post::findOrFail($postId);
 
-            // Delete attachments
-            foreach ($post->attachments as $attachment) {
-                Storage::disk('public')->delete($attachment->file_path);
-                $attachment->delete();
-            }
-            // delete post comments
-            // delete post reactions
-            // delete post shares
-            // delete post views
-            $post->delete();
-        });
+                // Delete attachments
+                foreach ($post->attachments as $attachment) {
+                    Storage::disk('public')->delete($attachment->file_path);
+                    $attachment->delete();
+                }
+                // delete post comments
+                foreach ($post->comments as $comment) {
+                    $comment->delete();
+                }
+                // delete post reactions
+                foreach ($post->reactions as $reaction) {
+                    $reaction->delete();
+                }
+                // delete post shares
+                foreach ($post->shares as $share) {
+                    $share->delete();
+                }
+                // delete post views
+                // foreach ($post->views as $view) {
+                //     $view->delete();
+                // }
+                // delete post
+                $post->delete();
+            });
+        } catch (Exception $ex) {
+            throw new Exception("Database error.", Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
 

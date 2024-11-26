@@ -2,6 +2,7 @@
 
 namespace App\Modules\Content\Post\Application\UseCases;
 
+use App\Core\Utilities\FileUtil;
 use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use App\Modules\Content\Attachment\Domain\Entities\AttachmentEntity;
 use App\Modules\Content\Attachment\Domain\Repositories\AttachmentRepositoryInterface;
@@ -12,7 +13,12 @@ use App\Modules\Content\Post\Domain\Aggregates\PostAggregate;
 use App\Modules\Content\Post\Domain\Repositories\PostRepositoryInterface;
 use App\Modules\Content\Privacy\Domain\Repositories\PrivacyRepositoryInterface;
 use DateTimeImmutable;
+use FFMpeg\Coordinate\TimeCode;
+use FFMpeg\FFMpeg;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Symfony\Component\CssSelector\Exception\InternalErrorException;
 
 
 class CreatePostUseCase
@@ -43,16 +49,43 @@ class CreatePostUseCase
             updatedAt: new DateTimeImmutable()
         );
 
+
+
         // Handle attachments
         if ($request->has('attachments')) {
-            foreach ($request->attachments as $attachment) {
-                $path = $attachment->store('uploads', 'public');
+
+            foreach ($request->attachments as $file) {
+                $path = $file->store('uploads', 'public');
+
+                // Extract file details
+                $fileName = basename($path);
+                $fileExtension = $file->getClientOriginalExtension();
+                $thumbnail_url = null;
+                $duration = 0;
+                $thumbnailPath = null;
+
+
+                // Process based on file type
+                if (FileUtil::isImage($file)) {
+                    $thumbnailPath = FileUtil::createImageThumbnail($path, $fileName, $fileExtension);
+                    $thumbnail_url = asset(Storage::url($thumbnailPath));
+                } elseif (FileUtil::isVideo($file)) {
+                    $thumbnailPath = FileUtil::createVideoThumbnail($path, $fileName);
+                    $thumbnail_url = asset(Storage::url($thumbnailPath));
+
+                    // Optionally, calculate video duration
+                    $duration = FileUtil::getVideoDuration($path);
+                }
+
+                $path = $file->store('uploads', 'public');
                 $attachmentEntity = new AttachmentEntity(
                     postId: $postAggregate->getId(),
-                    fileName: $attachment->getClientOriginalName(),
+                    fileName: $fileName,
                     fileURL: asset(Storage::url($path)),
                     filePath: $path,
-                    mimeType: $attachment->getMimeType()
+                    mimeType: $file->getMimeType(),
+                    thumbnailUrl: $thumbnail_url,
+                    duration: $duration
                 );
                 $postAggregate->addAttachment($attachmentEntity);
             }

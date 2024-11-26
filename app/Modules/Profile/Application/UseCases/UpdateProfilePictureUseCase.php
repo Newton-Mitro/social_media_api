@@ -39,7 +39,7 @@ class UpdateProfilePictureUseCase
 
         $userAggregate->getProfile()->updateProfile(
             $userAggregate->getProfile()->getMobileNumber(),
-            $path,
+            asset(Storage::url($path)),
             $userAggregate->getProfile()->getCoverPhoto(),
             $userAggregate->getProfile()->getBio()
         );

@@ -14,6 +14,11 @@ Accept: application/json
 
 
 # @name deletePost
-DELETE http://127.0.0.1:8000/api/posts/10
+DELETE http://127.0.0.1:8000/api/posts/7bf2fec6-73bf-48e3-9e9f-520cdd3dd5c1
 Accept: application/json
 Authorization: Bearer {{auth_token}}
+
+### 
+# @name getPosts
+GET http://127.0.0.1:8000/api/posts?limit=50&offset=0
+Accept: application/json

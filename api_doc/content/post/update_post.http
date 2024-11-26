@@ -12,6 +12,12 @@ Accept: application/json
 ### SET TOKEN
 @auth_token = {{login.response.body.data.access_token}}
 
+
+### 
+# @name getPosts
+GET http://127.0.0.1:8000/api/posts?limit=50&offset=0
+Accept: application/json
+
 ###
 # @name updatePostWithExistingAttachments
 POST http://127.0.0.1:8000/api/posts/update/bdbab76a-eb06-4536-98d7-2ea447ecfc22
@@ -36,8 +42,8 @@ Content-Disposition: form-data; name="delete_attachments[]"
 
 d4922590-8fb5-4487-935d-37abf6c4a31c
 --------------------------abcdefg
-Content-Disposition: form-data; name="attachments[]"; filename="radish.jpg"
-Content-Type: image/jpeg
+Content-Disposition: form-data; name="attachments[]"; filename="php_video.mp4"
+Content-Type: video/mp4
 
-< ./../../assets/radish.jpg
+< ./../../assets/php_video.mp4
 --------------------------abcdefg--

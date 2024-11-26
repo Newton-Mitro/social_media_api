@@ -16,8 +16,8 @@ class ProfileMapper
             sex: $profileEntity->getSex(),
             dbo: $profileEntity->getDbo()?->format('Y-m-d'),
             mobile_number: $profileEntity->getMobileNumber(),
-            profile_picture: asset(Storage::url($profileEntity->getProfilePicture())),
-            cover_photo: asset(Storage::url($profileEntity->getCoverPhoto())),
+            profile_picture: $profileEntity->getProfilePicture(),
+            cover_photo: $profileEntity->getCoverPhoto(),
             bio: $profileEntity->getBio(),
             created_at: $profileEntity->getCreatedAt()->format('Y-m-d H:i:s'),
             updated_at: $profileEntity->getUpdatedAt()->format('Y-m-d H:i:s')

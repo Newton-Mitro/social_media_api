@@ -35,4 +35,5 @@ php artisan test --filter LoginTest
 
 sudo apt install ffmpeg
 sudo apt install php-gd
+sudo apt install php-imagick
 ```
