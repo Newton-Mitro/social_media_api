@@ -10,15 +10,13 @@ use App\Modules\Content\Post\Application\UseCases\DeletePostUseCase;
 use App\Modules\Content\Post\Application\UseCases\GetPostsUseCase;
 use App\Modules\Content\Post\Application\UseCases\UpdatePostUseCase;
 use App\Modules\Content\Post\Application\UseCases\ViewPostUseCase;
-use App\Modules\Content\Post\Infrastructure\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
     public function __construct(
-        protected GetPostsUseCase $fetchPostsUseCase,
+        protected GetPostsUseCase $getPostsUseCase,
         protected CreatePostUseCase $createPostUseCase,
         protected UpdatePostUseCase $updatePostUseCase,
         protected ViewPostUseCase $viewPostUseCase,
@@ -31,7 +29,7 @@ class PostController extends Controller
         $limit = request()->input('limit', 10);
         $offset = request()->input('offset', 0);
 
-        $posts =  $this->fetchPostsUseCase->handle(
+        $posts =  $this->getPostsUseCase->handle(
             limit: $limit,
             offset: $offset,
             auth_user_id: $authId
@@ -51,7 +49,7 @@ class PostController extends Controller
         $limit = request()->input('limit', 10);
         $offset = request()->input('offset', 0);
 
-        $posts =  $this->fetchPostsUseCase->handle(
+        $posts =  $this->getPostsUseCase->handle(
             limit: $limit,
             offset: $offset,
             auth_user_id: $authId
@@ -65,18 +63,7 @@ class PostController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function show($id)
-    {
-        $authId = request()->get('uid');
-        $post = $this->viewPostUseCase->handle($id);
 
-        return response()->json([
-            'data' => $post,
-            'message' => 'Post retrieved successfully.',
-            'error' => null,
-            'errors' => null,
-        ], Response::HTTP_OK);
-    }
 
     public function store(StorePostRequest $request)
     {
@@ -118,54 +105,20 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        $this->deletePostUseCase->handle($id);
+        try {
+            $this->deletePostUseCase->handle($id);
 
-        return response()->json([
-            'data' => null,
-            'message' => 'Post deleted successfully.',
-            'errors' => null,
-        ], Response::HTTP_NO_CONTENT);
-    }
-
-    protected function handleAttachments(Request $request, Post $post)
-    {
-        if (request()->hasFile('attachments')) {
-            foreach (request()->file('attachments') as $file) {
-                $this->handleNewAttachment($file, $post);
-            }
+            return response()->json([
+                'data' => null,
+                'message' => 'Post deleted successfully.',
+                'errors' => null,
+            ], Response::HTTP_NO_CONTENT);
+        } catch (\Exception $e) {
+            return response()->json([
+                'data' => null,
+                'message' => 'Failed to remove post.',
+                'errors' => $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    protected function handleNewAttachment($file, Post $post)
-    {
-        $path = $file->store('uploads', 'public');
-        $post->attachments()->create([
-            'file_name' => basename($path),
-            'file_url' => asset(Storage::url($path)),
-            'thumbnail_url' => asset(Storage::url($path)),
-            'mime_type' => $file->getMimeType(),
-            'file_path' => $path,
-        ]);
-    }
-
-    public function like($id)
-    {
-        $authId = request()->get('uid');
-        $post = 'like_usecase';
-        return response()->json(['data' => $post, 'message' => 'Post liked successfully.'], 201);
-    }
-
-    public function unlike($id)
-    {
-        $authId = request()->get('uid');
-        $post = 'unlike_usecase';
-        return response()->json(['data' => $post, 'message' => 'Post unliked successfully.'], 204);
-    }
-
-    public function share($id)
-    {
-        $authId = request()->get('uid');
-        $post = 'share_usecase';
-        return response()->json(['data' => $post, 'message' => 'Post shared successfully.'], 201);
     }
 }
