@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ResetPasswordUseCase
 {
@@ -22,8 +23,8 @@ class ResetPasswordUseCase
         $user = $this->userRepository->findByEmail(
             $email
         );
-        if ($user === null) {
-            throw new Exception('Email is not valid', Response::HTTP_NOT_FOUND);
+        if (!$user) {
+            throw new NotFoundHttpException("User is not registered with this email $email.", null, Response::HTTP_NOT_FOUND);
         }
         $userOTP = $this->userOTPRepository->findUserOTPByUserIdAndType(
             $user->getId(),
@@ -35,7 +36,7 @@ class ResetPasswordUseCase
             $user->setUpdatedAt(new DateTimeImmutable);
             $this->userRepository->save($user);
         } else {
-            throw new Exception('Invalid token', Response::HTTP_UNPROCESSABLE_ENTITY);
+            throw new Exception('Invalid token', Response::HTTP_PRECONDITION_FAILED);
         }
     }
 }

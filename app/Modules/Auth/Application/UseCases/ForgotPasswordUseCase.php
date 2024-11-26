@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class ForgotPasswordUseCase
@@ -31,7 +32,7 @@ class ForgotPasswordUseCase
         );
 
         if ($user === null) {
-            throw new Exception('Email is not valid', Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException("User is not registered with this email $email.", null, Response::HTTP_NOT_FOUND);
         }
 
         $userOTP = $this->otpRepository->findUserOTPByUserIdAndType(

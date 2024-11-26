@@ -8,6 +8,7 @@ use App\Modules\Profile\Application\Mappers\ProfileAggregateMapper;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FetchUserProfileUseCase
 {
@@ -22,7 +23,7 @@ class FetchUserProfileUseCase
         );
 
         if (!$userProfileAggregate) {
-            throw new Exception("User profile not found.", Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException("User profile not found.", null, Response::HTTP_NOT_FOUND);
         }
 
         // Fetch followers, following, friends, sent friend requests, and pending friend requests

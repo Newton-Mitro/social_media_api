@@ -6,23 +6,19 @@ use App\Modules\StorageFile\Application\DTOs\UploadedFileDTO;
 use App\Modules\StorageFile\Domain\Interfaces\FileUploadServiceInterface;
 use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\FFMpeg;
+use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Image;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic as Image;
+use Symfony\Component\CssSelector\Exception\InternalErrorException;
 
 class FileUploadService implements FileUploadServiceInterface
 {
-    /**
-     * Upload a file and process it based on its type (image/video).
-     *
-     * @param UploadedFile $file
-     * @return UploadedFileDTO
-     * @throws \Exception
-     */
     public function uploadFile(UploadedFile $file): UploadedFileDTO
     {
         try {
-            // Store the original file in the "uploads" directory under the "public" disk
             $path = $file->store('uploads', 'public');
 
             // Extract file details
@@ -54,66 +50,47 @@ class FileUploadService implements FileUploadServiceInterface
 
             return $uploadedFileResponse;
         } catch (\Exception $e) {
-            throw new \Exception("File upload failed: " . $e->getMessage());
+            throw new InternalErrorException("File upload failed: " . $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
-    /**
-     * Check if the uploaded file is an image.
-     *
-     * @param UploadedFile $file
-     * @return bool
-     */
     private function isImage(UploadedFile $file): bool
     {
         return str_starts_with($file->getMimeType(), 'image/');
     }
 
-    /**
-     * Check if the uploaded file is a video.
-     *
-     * @param UploadedFile $file
-     * @return bool
-     */
     private function isVideo(UploadedFile $file): bool
     {
         return str_starts_with($file->getMimeType(), 'video/');
     }
 
-    /**
-     * Create a thumbnail for the uploaded image.
-     *
-     * @param string $path
-     * @param string $fileName
-     * @param string $fileExtension
-     * @return string
-     * @throws \Exception
-     */
     private function createImageThumbnail(string $path, string $fileName, string $fileExtension): string
     {
-        $thumbnailPath = 'uploads/thumbnails/' . pathinfo($fileName, PATHINFO_FILENAME) . '_thumb.' . $fileExtension;
+        $thumbnailDir = 'uploads/thumbnails';
+        $thumbnailPath = $thumbnailDir . '/' . pathinfo($fileName, PATHINFO_FILENAME) . '_thumb.' . $fileExtension;
 
         try {
-            $image = Image::make(Storage::disk('public')->path($path));
+            if (!Storage::disk('public')->exists($thumbnailDir)) {
+                Storage::disk('public')->makeDirectory($thumbnailDir);
+            }
+
+            // $manager = new ImageManager(Driver::class);
+            // $image = $manager->read(Storage::disk('public')->path($path));
+            // $image->scaleDown(width: 200);
+
+            $image = $image = ImageManager::imagick()->read(Storage::disk('public')->path($path));
+
             $image->resize(200, 200, function ($constraint) {
                 $constraint->aspectRatio(); // Maintain aspect ratio
             });
             $image->save(Storage::disk('public')->path($thumbnailPath));
         } catch (\Exception $e) {
-            throw new \Exception("Image thumbnail creation failed: " . $e->getMessage());
+            throw new InternalErrorException("Image thumbnail creation failed: " . $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $thumbnailPath;
     }
 
-    /**
-     * Create a thumbnail for the uploaded video.
-     *
-     * @param string $path
-     * @param string $fileName
-     * @return string
-     * @throws \Exception
-     */
     private function createVideoThumbnail(string $path, string $fileName): string
     {
         $thumbnailPath = 'uploads/thumbnails/' . pathinfo($fileName, PATHINFO_FILENAME) . '_thumb.jpg';
@@ -121,22 +98,15 @@ class FileUploadService implements FileUploadServiceInterface
         try {
             $ffmpeg = FFMpeg::create();
             $video = $ffmpeg->open(Storage::disk('public')->path($path));
-            $video->frame(TimeCode::fromSeconds(1)) // Capture a frame at 1 second
+            $video->frame(TimeCode::fromSeconds(5)) // Capture a frame at 5 second
                 ->save(Storage::disk('public')->path($thumbnailPath));
         } catch (\Exception $e) {
-            throw new \Exception("Video thumbnail creation failed: " . $e->getMessage());
+            throw new InternalErrorException("Video thumbnail creation failed: " . $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $thumbnailPath;
     }
 
-    /**
-     * Get the duration of a video file in seconds.
-     *
-     * @param string $path
-     * @return float
-     * @throws \Exception
-     */
     private function getVideoDuration(string $path): float
     {
         try {
@@ -145,7 +115,7 @@ class FileUploadService implements FileUploadServiceInterface
             $duration = $video->getFormat()->get('duration'); // Get duration in seconds
             return $duration;
         } catch (\Exception $e) {
-            throw new \Exception("Failed to retrieve video duration: " . $e->getMessage());
+            throw new InternalErrorException("Failed to retrieve video duration: " . $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

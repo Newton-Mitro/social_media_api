@@ -10,6 +10,7 @@ use App\Modules\Content\Post\Application\Requests\UpdatePostRequest;
 use App\Modules\Content\Post\Domain\Repositories\PostRepositoryInterface;
 use App\Modules\Content\Privacy\Domain\Repositories\PrivacyRepositoryInterface;
 use DateTimeImmutable;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -27,7 +28,7 @@ class UpdatePostUseCase
         $postAggregate = $this->postRepository->findById($postId);
 
         if (!$postAggregate) {
-            throw new NotFoundHttpException("Post with ID $postId not found.");
+            throw new NotFoundHttpException("Post with ID $postId not found.", null, Response::HTTP_NOT_FOUND);
         }
 
         // Update content and privacy

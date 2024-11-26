@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ChangeCoverPhotoUseCase
 {
@@ -24,7 +25,7 @@ class ChangeCoverPhotoUseCase
         );
 
         if (!$userAggregate) {
-            throw new Exception("User profile not found.", Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException("User profile not found.", null, Response::HTTP_NOT_FOUND);
         }
 
         // Check if the user has an existing cover photo

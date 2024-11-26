@@ -35,7 +35,7 @@ class RegisterUserUseCase
         $existingUser = $this->userRepository->findByEmail($email);
 
         if ($existingUser) {
-            throw new ErrorException('User already exist', Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new ErrorException('User already exist', Response::HTTP_CONFLICT);
         }
 
         // Generate OTP

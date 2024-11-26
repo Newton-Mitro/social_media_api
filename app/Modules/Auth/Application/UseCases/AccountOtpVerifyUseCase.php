@@ -2,15 +2,16 @@
 
 namespace App\Modules\Auth\Application\UseCases;
 
-use Exception;
-use Carbon\Carbon;
-use DateTimeImmutable;
-use Illuminate\Http\Response;
-use App\Modules\Auth\Application\Mappers\UserAggregateMapper;
 use App\Modules\Auth\Application\DTOs\AuthUserDTO;
-use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use App\Modules\Auth\Application\Mappers\UserAggregateMapper;
 use App\Modules\Auth\Application\Services\JwtAccessTokenService;
 use App\Modules\Auth\Application\Services\JwtRefreshTokenService;
+use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
+use Carbon\Carbon;
+use DateTimeImmutable;
+use Exception;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AccountOtpVerifyUseCase
 {
@@ -27,11 +28,11 @@ class AccountOtpVerifyUseCase
         );
 
         if (! $user) {
-            throw new Exception('User not found', Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException("User is not registered with this email $email.", null, Response::HTTP_NOT_FOUND);
         }
 
         if ($user->getEmailVerifiedAt() !== null) {
-            throw new Exception('Account already verified', Response::HTTP_NOT_ACCEPTABLE);
+            throw new Exception('Account already verified', Response::HTTP_PRECONDITION_REQUIRED);
         }
 
         if ($user->getOtp() === $otp && $user->getOtpExpiresAt() > Carbon::now()) {
@@ -50,6 +51,6 @@ class AccountOtpVerifyUseCase
             $authUser = new AuthUserDTO(user: $mappedUserDTO, access_token: $access_token, refresh_token: $refresh_token);
             return $authUser;
         }
-        throw new Exception('OTP expired or invalid', Response::HTTP_FORBIDDEN);
+        throw new Exception('OTP expired or invalid', Response::HTTP_BAD_REQUEST);
     }
 }

@@ -8,6 +8,7 @@ use App\Modules\Auth\Domain\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ReSendEmailVerifyingOTPUseCase
 {
@@ -23,7 +24,7 @@ class ReSendEmailVerifyingOTPUseCase
         );
 
         if (! $user) {
-            throw new Exception('User not found', Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException("User is not registered with this email $email.", null, Response::HTTP_NOT_FOUND);
         }
 
         $userOtp = $this->userOTPRepository->findUserOTPByUserIdAndType(
@@ -32,7 +33,7 @@ class ReSendEmailVerifyingOTPUseCase
         );
 
         if ($userOtp->getExpiresAt() && $userOtp->getExpiresAt() > Carbon::now()) {
-            throw new Exception('OTP is still valid. Please check your email.', Response::HTTP_UNPROCESSABLE_ENTITY);
+            throw new Exception('OTP is still valid. Please check your email.', Response::HTTP_PRECONDITION_FAILED);
         }
 
         // Generate OTP

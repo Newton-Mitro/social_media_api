@@ -6,6 +6,7 @@ use App\Modules\Content\Attachment\Application\Mappers\AttachmentMapper;
 use App\Modules\Content\Attachment\Domain\Repositories\AttachmentRepositoryInterface;
 use Exception;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class GetAttachmentUseCase
@@ -22,7 +23,7 @@ class GetAttachmentUseCase
     {
         $attachment = $this->attachmentRepository->findById($id);
         if (!$attachment) {
-            throw new Exception("Attachment not found.", Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException("Attachment not found with this id $id.", null, Response::HTTP_NOT_FOUND);
         }
         return AttachmentMapper::toDTO($attachment);
     }

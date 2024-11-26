@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ForgotPasswordOtpVerifyUseCase
 {
@@ -26,8 +27,8 @@ class ForgotPasswordOtpVerifyUseCase
         $user = $this->userRepository->findByEmail(
             $email
         );
-        if ($user === null) {
-            throw new Exception('Email is not valid', Response::HTTP_NOT_FOUND);
+        if (!$user) {
+            throw new NotFoundHttpException("User is not registered with this email $email.", null, Response::HTTP_NOT_FOUND);
         }
         //Get user OTP
         $userOTP = $this->userOTPRepository->findUserOTPByUserIdAndType(

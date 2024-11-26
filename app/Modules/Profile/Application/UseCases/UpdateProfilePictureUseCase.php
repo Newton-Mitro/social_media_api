@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UpdateProfilePictureUseCase
 {
@@ -22,7 +23,7 @@ class UpdateProfilePictureUseCase
         $userAggregate = $this->userRepository->findById($userId);
 
         if (!$userAggregate) {
-            throw new Exception("User profile not found.", Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException("User profile not found.", null, Response::HTTP_NOT_FOUND);
         }
 
         // Delete Old Photo
