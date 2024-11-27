@@ -13,6 +13,6 @@ Accept: application/json
 
 
 # Get Following List
-GET http://127.0.0.1:8000/api/following/22aa7819-8fc8-486c-9cd8-1143f2c9e06c
+GET http://127.0.0.1:8000/api/following/f079d931-e881-4856-b3ac-b15ece52542e
 Authorization: Bearer {{auth_token}}
 Content-Type: application/json

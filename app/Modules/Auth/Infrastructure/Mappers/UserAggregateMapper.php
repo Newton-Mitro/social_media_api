@@ -6,6 +6,7 @@ use App\Modules\Auth\Domain\Aggregates\UserAggregate;
 use App\Modules\Auth\Infrastructure\Mappers\ProfileMapper;
 use App\Modules\Auth\Infrastructure\Models\User;
 use DateTimeImmutable;
+use Illuminate\Support\Collection;
 
 class UserAggregateMapper
 {
@@ -22,6 +23,11 @@ class UserAggregateMapper
             updatedAt: new DateTimeImmutable($model->updated_at),
             profile: ProfileMapper::toEntity($model->profile),
         );
+    }
+
+    public static function toAggregateCollection(Collection $models): Collection
+    {
+        return $models->map(fn(User $model) => self::toAggregate($model));
     }
 
     public static function toModel(UserAggregate $entity): User

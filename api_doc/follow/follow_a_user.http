@@ -12,11 +12,19 @@ Accept: application/json
 @auth_token = {{login.response.body.data.access_token}}
 
 
+### 
+# @name getPosts
+GET http://127.0.0.1:8000/api/posts?limit=50&offset=0
+Accept: application/json
+
+
+### 
 # Follow a User
 POST http://127.0.0.1:8000/api/follow
 Authorization: Bearer {{auth_token}}
 Content-Type: application/json
+Accept: application/json
 
 {
-    "following_id": "36916b27-4853-4596-8485-427356d0ecae"
+    "following_id": "f079d931-e881-4856-b3ac-b15ece52542e"
 }

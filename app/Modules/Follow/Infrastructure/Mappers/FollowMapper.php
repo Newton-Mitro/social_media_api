@@ -2,6 +2,7 @@
 
 namespace App\Modules\Follow\Infrastructure\Mappers;
 
+use App\Modules\Auth\Infrastructure\Mappers\UserAggregateMapper;
 use App\Modules\Follow\Domain\Entities\FollowEntity;
 use App\Modules\Follow\Infrastructure\Models\Follow;
 use Illuminate\Support\Collection;
@@ -10,16 +11,19 @@ class FollowMapper
 {
     public static function toEntity(Follow $followModel): FollowEntity
     {
-        $followerData = $followModel->follower ? $followModel->follower() : null;
-        $followingData = $followModel->following ? $followModel->following() : null;
+        $followerData = $followModel->follower ? $followModel->follower : null;
+        $followingData = $followModel->following ? $followModel->following : null;
+
+        $followerAggregate = $followerData ? UserAggregateMapper::toAggregate($followerData) : null;
+        $followingAggregate = $followingData ? UserAggregateMapper::toAggregate($followingData) : null;
 
         return new FollowEntity(
             followerId: $followModel->follower_id,
             followingId: $followModel->following_id,
             createdAt: $followModel->created_at ? new \DateTimeImmutable($followModel->created_at) : null,
             updatedAt: $followModel->updated_at ? new \DateTimeImmutable($followModel->updated_at) : null,
-            follower: $followerData,
-            following: $followingData,
+            follower: $followerAggregate,
+            following: $followingAggregate,
             id: $followModel->id,
         );
     }

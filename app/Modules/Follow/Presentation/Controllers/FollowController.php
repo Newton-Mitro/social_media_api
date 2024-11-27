@@ -7,7 +7,6 @@ use App\Modules\Follow\Application\UseCases\FollowAUserUseCase;
 use App\Modules\Follow\Application\UseCases\GetFollowersUseCase;
 use App\Modules\Follow\Application\UseCases\GetFollowingUseCase;
 use App\Modules\Follow\Application\UseCases\UnFollowAUserUseCase;
-use App\Modules\Follow\Infrastructure\Models\Follow;
 use Illuminate\Http\Request;
 
 class FollowController extends Controller
@@ -43,7 +42,7 @@ class FollowController extends Controller
         $followerId = $request->get('uid');
 
         // Find the follow record and delete it
-        $deleted =  $this->followAUserUseCase->handle($request->get('following_id'), $followerId);
+        $deleted =  $this->unFollowAUserUseCase->handle($followingId, $followerId);
 
         if ($deleted) {
             return response()->json([
@@ -65,10 +64,7 @@ class FollowController extends Controller
     public function getFollowing(Request $request, $userId)
     {
         // Get the list of users the authenticated user is following
-        $following = Follow::where('follower_id', $userId)
-            ->with('following') // Ensure this relationship exists on the Follow model
-            ->get()
-            ->pluck('following');
+        $following = $this->getFollowingUseCase->handle($userId);
 
         return response()->json([
             'data' => $following,
@@ -81,10 +77,7 @@ class FollowController extends Controller
     public function getFollowers(Request $request, $userId)
     {
         // Get the list of users that are following the authenticated user
-        $followers = Follow::where('following_id', $userId)
-            ->with('follower') // Ensure this relationship exists on the Follow model
-            ->get()
-            ->pluck('follower');
+        $followers = $this->getFollowersUseCase->handle($userId);
 
         return response()->json([
             'data' => $followers,

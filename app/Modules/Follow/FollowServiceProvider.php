@@ -2,32 +2,27 @@
 
 namespace App\Modules\Follow;
 
-use App\Modules\Auth\Application\Events\UserRegistered;
-use App\Modules\Auth\Application\Listeners\UserRegisteredEventHandler;
-use App\Modules\Auth\Application\UseCases\UserLoginUseCase;
-use App\Modules\Auth\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
-use App\Modules\Auth\Infrastructure\Repositories\BlacklistedTokenRepository;
-use Illuminate\Support\Facades\Event;
+use App\Modules\Follow\Application\UseCases\FollowAUserUseCase;
+use App\Modules\Follow\Application\UseCases\GetFollowersUseCase;
+use App\Modules\Follow\Application\UseCases\GetFollowingUseCase;
+use App\Modules\Follow\Application\UseCases\UnFollowAUserUseCase;
+use App\Modules\Follow\Domain\Repositories\FollowRepositoryInterface;
+use App\Modules\Follow\Infrastructure\Repositories\FollowRepository;
 use Illuminate\Support\ServiceProvider;
-
 
 class FollowServiceProvider extends ServiceProvider
 {
-    public function boot(): void
-    {
-        // Register event mappings
-        Event::listen(
-            UserRegistered::class,
-            [UserRegisteredEventHandler::class, 'handle']
-        );
-    }
+    public function boot(): void {}
 
     public function register(): void
     {
         $singletons = [
-            UserLoginUseCase::class => UserLoginUseCase::class,
+            FollowAUserUseCase::class => FollowAUserUseCase::class,
+            GetFollowersUseCase::class => GetFollowersUseCase::class,
+            GetFollowingUseCase::class => GetFollowingUseCase::class,
+            UnFollowAUserUseCase::class => UnFollowAUserUseCase::class,
 
-            BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepository::class,
+            FollowRepositoryInterface::class => FollowRepository::class,
 
         ];
 
