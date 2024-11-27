@@ -3,11 +3,22 @@
 namespace App\Modules\Follow\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
+use App\Modules\Follow\Application\UseCases\FollowAUserUseCase;
+use App\Modules\Follow\Application\UseCases\GetFollowersUseCase;
+use App\Modules\Follow\Application\UseCases\GetFollowingUseCase;
+use App\Modules\Follow\Application\UseCases\UnFollowAUserUseCase;
 use App\Modules\Follow\Infrastructure\Models\Follow;
 use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {
+    public function __construct(
+        protected FollowAUserUseCase $followAUserUseCase,
+        protected UnFollowAUserUseCase $unFollowAUserUseCase,
+        protected GetFollowersUseCase $getFollowersUseCase,
+        protected GetFollowingUseCase $getFollowingUseCase,
+    ) {}
+
     public function follow(Request $request)
     {
         $followerId = $request->get('uid');
@@ -17,28 +28,10 @@ class FollowController extends Controller
             'following_id' => 'required|exists:users,id',
         ]);
 
-        // Check if the follow record already exists to avoid duplication
-        $existingFollow = Follow::where('follower_id', $followerId)
-            ->where('following_id', $request->get('following_id'))
-            ->first();
-
-        if ($existingFollow) {
-            return response()->json([
-                'data' => null,
-                'message' => 'Already following this user.',
-                'error' => null,
-                'errors' => null,
-            ], 200);
-        }
-
-        // Create a new follow record
-        Follow::create([
-            'follower_id' => $followerId,
-            'following_id' => $request->get('following_id'),
-        ]);
+        $follow = $this->followAUserUseCase->handle($request->get('following_id'), $followerId);
 
         return response()->json([
-            'data' => null,
+            'data' => $follow,
             'message' => 'Followed successfully.',
             'error' => null,
             'errors' => null,
@@ -50,9 +43,7 @@ class FollowController extends Controller
         $followerId = $request->get('uid');
 
         // Find the follow record and delete it
-        $deleted = Follow::where('follower_id', $followerId)
-            ->where('following_id', $followingId)
-            ->delete();
+        $deleted =  $this->followAUserUseCase->handle($request->get('following_id'), $followerId);
 
         if ($deleted) {
             return response()->json([
