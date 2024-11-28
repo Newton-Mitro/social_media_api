@@ -4,12 +4,10 @@ namespace App\Modules\Friend\Infrastructure\Models;
 
 use App\Modules\Auth\Infrastructure\Models\User;
 use FriendRequestFactory;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
 
 class FriendRequest extends Model
 {
@@ -31,9 +29,6 @@ class FriendRequest extends Model
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-    /**
-     * Get the user who received the friend request.
-     */
     public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id');

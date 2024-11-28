@@ -2,33 +2,27 @@
 
 namespace App\Modules\Friend;
 
-use App\Modules\Auth\Application\Events\UserRegistered;
-use App\Modules\Auth\Application\Listeners\UserRegisteredEventHandler;
-use App\Modules\Auth\Application\UseCases\UserLoginUseCase;
-use App\Modules\Auth\Domain\Interfaces\BlacklistedTokenRepositoryInterface;
-use App\Modules\Auth\Infrastructure\Repositories\BlacklistedTokenRepository;
-use Illuminate\Support\Facades\Event;
+use App\Modules\Friend\Application\UseCases\AcceptFriendRequestUseCase;
+use App\Modules\Friend\Application\UseCases\GetFriendsListUseCase;
+use App\Modules\Friend\Application\UseCases\RejectFriendRequestUseCase;
+use App\Modules\Friend\Application\UseCases\SendFriendRequestUseCase;
+use App\Modules\Friend\Domain\Repositories\FriendRepositoryInterface;
+use App\Modules\Friend\Infrastructure\Repositories\FriendRepository;
 use Illuminate\Support\ServiceProvider;
-
 
 class FriendServiceProvider extends ServiceProvider
 {
-    public function boot(): void
-    {
-        // Register event mappings
-        Event::listen(
-            UserRegistered::class,
-            [UserRegisteredEventHandler::class, 'handle']
-        );
-    }
+    public function boot(): void {}
 
     public function register(): void
     {
         $singletons = [
-            UserLoginUseCase::class => UserLoginUseCase::class,
+            AcceptFriendRequestUseCase::class => AcceptFriendRequestUseCase::class,
+            GetFriendsListUseCase::class => GetFriendsListUseCase::class,
+            RejectFriendRequestUseCase::class => RejectFriendRequestUseCase::class,
+            SendFriendRequestUseCase::class => SendFriendRequestUseCase::class,
 
-            BlacklistedTokenRepositoryInterface::class => BlacklistedTokenRepository::class,
-
+            FriendRepositoryInterface::class => FriendRepository::class,
         ];
 
         foreach ($singletons as $abstract => $concrete) {

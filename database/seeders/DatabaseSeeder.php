@@ -84,10 +84,10 @@ class DatabaseSeeder extends Seeder
                 }
 
                 // Create shares if they don't already exist
-                Share::factory()->count(1)->create([
-                    'post_id' => $post->id,
-                    'user_id' => User::inRandomOrder()->first()->id
-                ]);
+                // Share::factory()->count(1)->create([
+                //     'post_id' => $post->id,
+                //     'user_id' => User::inRandomOrder()->first()->id
+                // ]);
             }
         });
 

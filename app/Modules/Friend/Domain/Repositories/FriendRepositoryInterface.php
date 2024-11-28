@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Modules\Profile\Domain\Interfaces;
+namespace App\Modules\Friend\Domain\Repositories;
 
 use App\Modules\Friend\Domain\Entities\FriendRequestEntity;
 use App\Modules\Friend\Domain\ValueObjects\FriendRequestStatus;
+use Illuminate\Support\Collection;
 
 interface FriendRepositoryInterface
 {
-    public function getAll(int $limit = 10, int $offset = 0): array;
+    public function findExistingRequest(string $senderId, string $receiverId): ?FriendRequestEntity;
+    public function findFriends(string $userId): Collection;
     public function save(FriendRequestEntity $friendRequest): void;
     public function findById(string $friendRequestId): ?FriendRequestEntity;
     public function delete(string $friendRequestId): void;
-    public function userFriendsCount(string $userId): int;
-    public function userFriendRequestsCount(string $userId): int;
-    public function userFriendRequestStatus(string $userId, string $authUserId = null): FriendRequestStatus;
+    public function friendRequestCountByStatus(string $userId, FriendRequestStatus $status): int;
 }
