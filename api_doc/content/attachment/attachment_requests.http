@@ -5,8 +5,7 @@ Accept: application/json
 ###
 
 ### Get a specific attachment by ID
-GET http://localhost:8000/api/attachments/0b8eec94-de72-45e4-b4fc-c2991f99fe81
-Accept: application/json
+GET http://localhost:8000/api/attachments/0326f478-4824-4078-8e77-a291f1e42d62
 
 ###
 

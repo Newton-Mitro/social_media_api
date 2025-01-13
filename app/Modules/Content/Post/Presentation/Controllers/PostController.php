@@ -52,7 +52,7 @@ class PostController extends Controller
         $posts =  $this->getPostsUseCase->handle(
             limit: $limit,
             offset: $offset,
-            auth_user_id: $authId
+            auth_user_id: $userId
         );
 
         return response()->json([

@@ -12,13 +12,9 @@ Accept: application/json
 ### SET TOKEN
 @auth_token = {{login.response.body.data.access_token}}
 
-# @name getPosts
-GET http://127.0.0.1:8000/api/users/posts?limit=50&offset=0
-Accept: application/json
-
 
 ###
 # @name getPosts
-GET http://127.0.0.1:8000/api/users/posts?limit=50&offset=0
+GET http://127.0.0.1:8000/api/users/posts/5eadef29-3798-4510-8f12-5828dcb14ecd/?limit=50&offset=0
 Accept: application/json
 Authorization: Bearer {{auth_token}}
