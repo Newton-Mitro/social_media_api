@@ -41,4 +41,16 @@ Content-Disposition: form-data; name="attachments[]"; filename="php_video.mp4"
 Content-Type: video/mp4
 
 < ./../../assets/php_video.mp4
+--------------------------abcdefg
+Content-Disposition: form-data; name="link"
+
+{
+    "mime_type": "image",
+    "file_url": "http://example.com/image.jpg",
+    "file_path": "/tmp/faker7HyGxM",
+    "file_name": "id.pdf",
+    "thumbnail_url": "http://example.com/image_thumb.jpg",
+    "description": "Image description",
+    "duration": 0
+}
 --------------------------abcdefg--

@@ -20,8 +20,8 @@ Authorization: Bearer {{auth_token}}
 Content-Type: multipart/form-data; boundary=------------------------abcdefg
 
 --------------------------abcdefg
-Content-Disposition: form-data; name="attachments[]"; filename="php_video.mp4"
+Content-Disposition: form-data; name="attachment"; filename="php_video.mp4"
 Content-Type: video/mp4
 
-< ./../../assets/php_video.mp4
+< ./../assets/php_video.mp4
 --------------------------abcdefg--

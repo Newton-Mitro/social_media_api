@@ -3,7 +3,6 @@
 namespace App\Modules\StorageFile\Presentation\Controllers;
 
 use App\Core\Controllers\Controller;
-use App\Modules\StorageFile\Application\DTOs\UploadedFileDTO;
 use App\Modules\StorageFile\Domain\Interfaces\FileUploadServiceInterface;
 use App\Modules\StorageFile\Presentation\Request\FileUploadRequest;
 use DOMDocument;
@@ -18,7 +17,7 @@ class FileUploadController extends Controller
     public function upload(FileUploadRequest $request): JsonResponse
     {
         // Use the service to handle file upload
-        $fileData = $this->fileUploadService->uploadFile($request->file('file'));
+        $fileData = $this->fileUploadService->uploadFile($request->file('attachment'));
 
         // Return response with data from the DTO
         return response()->json([

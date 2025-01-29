@@ -12,7 +12,7 @@ use Symfony\Component\CssSelector\Exception\InternalErrorException;
 
 class FileUploadService implements FileUploadServiceInterface
 {
-    public function uploadFile(UploadedFile $file): UploadedFileDTO
+    public function uploadFile($file): UploadedFileDTO
     {
         try {
             $path = $file->store('uploads', 'public');
