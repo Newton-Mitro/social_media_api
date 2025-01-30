@@ -48,6 +48,7 @@ class StorePostRequest extends FormRequest
                     }
                 },
             ],
+            'link' => 'nullable|json',
         ];
     }
 }

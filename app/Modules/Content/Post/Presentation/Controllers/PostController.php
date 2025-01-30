@@ -63,8 +63,6 @@ class PostController extends Controller
         ], Response::HTTP_OK);
     }
 
-
-
     public function store(StorePostRequest $request)
     {
         try {

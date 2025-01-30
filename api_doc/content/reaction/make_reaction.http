@@ -1,0 +1,9 @@
+POST http://localhost:8000/api/reactions
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "reactable_id": "123e4567-e89b-12d3-a456-426614174000",
+  "reactable_type": "App\\Models\\Post",
+  "type": "Like"
+}
