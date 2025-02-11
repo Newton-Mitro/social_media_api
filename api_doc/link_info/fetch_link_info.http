@@ -20,5 +20,11 @@ Authorization: Bearer {{auth_token}}
 Content-Type: application/json
 
 {
-    "permalink": "https://www.youtube.com/watch?v=antwNiNjV7k"
+    "permalink": "http://new.dcnewsbd.com/articles/view/1857"
 }
+
+###
+# @name getLinkMeata
+GET http://127.0.0.1:8000/api/link-meta?url=https://www.youtube.com/watch?v=3kaGC_DrUnw&t=6154s
+Accept: application/json
+Authorization: Bearer {{auth_token}}
